@@ -1,0 +1,41 @@
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
+	<id>package</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<files>
+		<file>
+			<source>${project.basedir}/target/${build.finalName}.jar</source>
+			<outputDirectory>/${build.finalName}/lib</outputDirectory>
+		</file>
+	</files>
+	
+	<fileSets>
+		<fileSet>
+			<directory>${project.basedir}/bin</directory>
+			<outputDirectory>/${build.finalName}/</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}/resources</directory>
+			<outputDirectory>/${build.finalName}/resources</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}/src/main/mustConfig</directory>
+			<outputDirectory>/${build.finalName}/conf</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.customer.config}</directory>
+			<outputDirectory>/${build.finalName}/conf</outputDirectory>
+		</fileSet>
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/${build.finalName}/lib</outputDirectory>
+			<scope>runtime</scope>
+			<!-- 当前项目构件是否包含在这个依赖集合里。 -->
+			<useProjectArtifact>false</useProjectArtifact>
+		</dependencySet>
+	</dependencySets>
+</assembly>

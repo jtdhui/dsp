@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean class="com.jtd.commons.BeanFactory"/>
+	<context:annotation-config />
+	<context:component-scan base-package="com.jtd.statistic"/>
+	<bean id="propertyConfig" class="com.jtd.commons.PropertyConfig">
+		<property name="locations">
+			<list>
+				<value>config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="serviceAddresses" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value type="java.net.InetSocketAddress">${serviceAddresses}</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean class="org.jboss.netty.bootstrap.ServerBootstrap">
+		<property name="factory">
+			<bean class="org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory">
+				<constructor-arg index="0" type="java.util.concurrent.Executor">
+					<bean class="java.util.concurrent.Executors" factory-method="newCachedThreadPool" />
+				</constructor-arg>
+				<constructor-arg index="1" type="java.util.concurrent.Executor">
+					<bean class="java.util.concurrent.Executors" factory-method="newCachedThreadPool" />
+				</constructor-arg>
+				<constructor-arg index="2" type="int" value="${processorCount}" />
+			</bean>
+		</property>
+		<property name="pipelineFactory" ref="serverPipelineFactory" />
+		<property name="options">
+			<map>
+				<entry key="reuseAddress">
+					<value type="java.lang.Boolean">true</value>
+				</entry>
+				<entry key="child.reuseAddress">
+					<value type="java.lang.Boolean">true</value>
+				</entry>
+				<entry key="child.tcpNoDelay">
+					<value type="java.lang.Boolean">true</value>
+				</entry>
+				<entry key="receiveBufferSize">
+                     <value type="java.lang.Integer">32768</value>
+                </entry>
+                <entry key="connectTimeoutMillis">
+                     <value type="java.lang.Integer">20000</value>
+                </entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<ref bean="inetSocketAddressConverter"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="redisGroup" class="com.jtd.support.redis.RedisGroupFactory">
+		<constructor-arg value="redisGroup.node"/>
+	</bean>
+	<bean id="countRedisGroup" class="com.jtd.support.redis.RedisGroupFactory">
+		<constructor-arg value="countRedisGroup.node"/>
+	</bean>
+	<bean id="trackRedisGroup" class="com.jtd.support.redis.RedisGroupFactory">
+		<constructor-arg value="trackRedisGroup.node"/>
+	</bean>
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+
+		<property name="maxActive" value="9" />
+		<property name="maxIdle" value="9" />
+		<property name="maxWait" value="30000" />
+		<property name="minIdle" value="0" />
+		<property name="testWhileIdle" value="true" />
+	</bean>
+	<bean id="redisGroupPool" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+	</bean>
+	<bean id="countPool4Count" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="countRedisGroup" />
+	</bean>
+	<bean id="countPool" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="countRedisGroup" />
+	</bean>
+	<bean id="click90Pool" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="trackRedisGroup" />
+	</bean>
+	<bean id="campaignPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg value="${businessRedis.host}" />
+		<constructor-arg value="${businessRedis.port}" />
+		<constructor-arg value="50000" />
+		<constructor-arg value="${businessRedis.password}" />
+		<constructor-arg value="0" />
+	</bean>
+	<bean id="freqDataDAO" class="com.jtd.statistic.dao.FreqDataDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="index" value="10" />
+	</bean>
+	<bean id="countDAO" class="com.jtd.statistic.dao.CountDAOImpl" init-method="init">
+		<property name="pool" ref="countPool4Count" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+		<property name="index" value="0" />
+	</bean>
+	<bean id="countDAO4Click" class="com.jtd.statistic.dao.CountDAOImpl" init-method="init">
+		<property name="pool" ref="countPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+		<property name="index" value="0" />
+	</bean>
+	<bean id="clickDAO" class="com.jtd.statistic.dao.ClickDAOImpl" init-method="init">
+		<property name="pool" ref="countPool" />
+		<property name="index" value="1" />
+	</bean>
+	<bean id="click90DAO" class="com.jtd.statistic.dao.ClickDAOImpl" init-method="init">
+		<property name="pool" ref="click90Pool" />
+		<property name="clickExpire" value="2592000"/>
+		<property name="index" value="0" />
+	</bean>
+	
+	<bean id="distinctDAO" class="com.jtd.statistic.dao.DistinctDAOImpl" init-method="init">
+		<property name="pool" ref="countPool" />
+		<property name="index" value="2" />
+	</bean>
+	<bean id="campaignDAO" class="com.jtd.statistic.dao.CampaignDAOImpl" init-method="init">
+		<property name="pool" ref="campaignPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+	</bean>
+	
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${amq.url}" />
+		<property name="userName" value="${amq.username}" />
+		<property name="password" value="${amq.password}" />
+	</bean>
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="amqConnectionFactory" />
+		<property name="clientId" value="${amq.clientId}" />
+		<property name="reconnectOnException" value="true" />
+	</bean>
+	<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg>
+			<value>dsptopic</value>
+		</constructor-arg>
+	</bean>
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="topic" />
+		<property name="deliveryPersistent" value="true" />
+	</bean>
+	<bean id="msglistener" class="com.jtd.statistic.jms.JMSMessageListener">
+		<property name="campaignDAO" ref="campaignDAO" />
+	</bean>
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topic" />
+		<property name="messageListener" ref="msglistener" />
+		<property name="subscriptionDurable" value="true" />
+	</bean>
+</beans>

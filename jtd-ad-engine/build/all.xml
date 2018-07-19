@@ -1,0 +1,49 @@
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
+	<id>package</id>
+	<formats>
+		<!-- 打包后输出的格式 -->
+		<format>tar.gz</format>
+	</formats>
+	<!-- 装配打包时，不包含原有工程名称这一层目录 -->
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<!-- 指定要打包的压缩包中，都包含了那些文件和目录，这里面每一个文件的表述使用一个<file>标签表示 -->
+	<files>
+		<file>
+			<!-- 设置文件的相对或绝对路径，在打包时将该文件添加的压缩包中。 -->
+			<!-- 
+				${project.basedir}:项目工程的绝对路径
+				${build.finalName}:输出的是，${project.artifactId}-${project.version}
+			 -->
+			<source>${project.basedir}/target/${build.finalName}.jar</source>
+			<!-- 设置相对于组建（就是压缩包）根目录的，输出目录。例如：这里是设置lib目录，你也可以设置日志目录，在运行时所有的日志会输出到这个目录下 -->
+			<outputDirectory>/${build.finalName}/lib</outputDirectory>
+		</file>
+	</files>
+	<fileSets>
+		<fileSet>
+			<directory>${project.basedir}/bin</directory>
+			<outputDirectory>/${build.finalName}/</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}/resources</directory>
+			<outputDirectory>/${build.finalName}/resources</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}/src/main/mustConfig</directory>
+			<outputDirectory>/${build.finalName}/conf</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.customer.config}</directory>
+			<outputDirectory>/${build.finalName}/conf</outputDirectory>
+		</fileSet>
+	</fileSets>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/${build.finalName}/lib</outputDirectory>
+			<scope>runtime</scope>
+			<!-- 当前项目构件是否包含在这个依赖集合里。 -->
+			<!-- <useProjectArtifact>false</useProjectArtifact> -->
+		</dependencySet>
+	</dependencySets>
+</assembly>

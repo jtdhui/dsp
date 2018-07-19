@@ -1,0 +1,156 @@
+﻿@import "common";
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url("../../img/login/bg-loign.jpg") no-repeat center center;
+  background-size: cover;
+}
+
+.login-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -450px;
+  margin-top: -250px;
+  width: 900px;
+  height: 500px;
+  background: url("../../img/login/window-login.png") no-repeat center center;
+  background-size: 100%;
+  padding-top: 88px;
+  text-align: center;
+
+  .login-title {
+    text-align: center;
+    font-size: 32px;
+    color: #ea5b1a;
+    font-weight: normal;
+    margin-bottom: 6px;
+  }
+
+  .logon-des {
+    text-align: center;
+    font-size: 14px;
+    color: #ea5b1a;
+    opacity: .6;
+    margin-bottom: 6px;
+  }
+}
+
+.user {
+  position: relative;
+  display: flex;
+  align-items: center;
+  //justify-content: center;
+  min-height: 90px;
+  width: 482px;
+  height: 50px;
+  line-height: 86px;
+  background: url("../../img/login/btn-bg.png") no-repeat center center;
+  background-size: 100%;
+  color: #333;
+  font-size: 18px;
+  margin: 0 auto;
+
+  .icon-user {
+    position: absolute;
+    left: 80px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    z-index: 1;
+  }
+  .icon-user.icon-user {
+    background: url("../../img/icons.png") no-repeat -53px -6px;
+  }
+  .icon-user.icon-pwd {
+    background: url("../../img/icons.png") no-repeat -8px -87px;
+  }
+
+  .input {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #333;
+    font-size: 18px;
+    padding-left: 160px;
+    background-color: transparent;
+  }
+}
+
+.user:hover {
+  width: 662px;
+  height: 86px;
+  line-height: 86px;
+  background: url("../../img/login/btn-bg-a.png") no-repeat center center;
+  background-size: 100%;
+  padding-left: 210px;
+  .icon-user {
+    position: absolute;
+    left: 164px;
+    width: 32px;
+    height: 32px;
+  }
+  .icon-user.icon-user {
+    background: url("../../img/icons.png") no-repeat -8px -6px;
+  }
+  .icon-user.icon-pwd {
+    background: url("../../img/icons.png") no-repeat -8px -46px;
+  }
+  .input {
+    padding-left: 240px;
+  }
+}
+
+//-- 忘记密码
+.other-wrap {
+  width: 450px;
+  display: flex;
+  margin: 0 auto;
+  .remember-pwd, .forget-pwd {
+    color: #999;
+    font-size: 16px;
+  }
+  .remember-pwd {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    .icon-radio {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 16px;
+      background-color: #9d9d9d;
+      box-shadow: 0 0 0 1px #9d9d9d;
+      border: 3px solid #fff;
+      margin-right: 10px;
+    }
+  }
+  .remember-pwd.active {
+    .icon-radio {
+      background-color: #9393ff;
+      border: 2px solid #fff;
+    }
+  }
+  .forget-pwd {
+    flex: 1;
+    text-align: right;
+  }
+}
+
+.btn {
+  position: absolute;
+  right: 130px;
+  bottom: 50px;
+  width: 240px;
+  height: 64px;
+  line-height: 64px;
+  border-radius: 32px;
+  font-size: 24px;
+  background: linear-gradient(to right, #9393ff, #f7591c);
+  color: #fff;
+  //letter-spacing: 10px;
+}

@@ -1,0 +1,32 @@
+﻿.second-links-wrap {
+  text-align: center;
+  margin-bottom: 68px;
+}
+
+@s-link-color: #333;
+.s-links {
+  display: inline-block;
+  width: 194px;
+  height: 64px;
+  line-height: 64px;
+  border-radius: 30px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(133, 142, 255, 0.6);
+  color: @s-link-color;
+  text-align: center;
+  margin: 0 45px;
+}
+
+.s-links.active {
+  color: #fff;
+  background-color: @main-color;
+  box-shadow: 0 0 8px 2px rgba(133, 142, 255, 0);
+}
+
+.s-links:hover {
+  color: @s-link-color;
+}
+
+.s-links.active:hover {
+  color: #fff;
+}

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.UserPartnerDao" >
+
+	<!-- 对应数据表名-->
+  <sql id="table"> user_partner </sql>
+  
+  <!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, user_id,partner_id,create_time,remark
+	</sql>
+	
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.UserPartner" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <!-- 分页查询 -->
+	<select id="getMapPageBy" resultType="java.util.Map" parameterType="map">
+		SELECT
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			user_partner AS up
+		JOIN partner AS p1 ON up.partner_id = p1.id
+		LEFT JOIN 
+			partner AS p2 ON p1.pid = p2.id
+		<where>
+			<trim prefix="">
+				<if test="condition.userId != null">
+					AND up.user_id = #{condition.userId}
+				</if>
+				<if test="condition.partnerId != null">
+					AND up.partner_id = #{condition.partnerId}
+				</if>
+				<if test="condition.partnerName != null">
+					AND p1.partner_name LIKE CONCAT('%',#{condition.partnerName},'%')
+				</if>
+				<if test="condition.partnerType != null">
+					AND p1.partner_type = #{condition.partnerType}
+				</if>
+				<if test="condition.partnerPName != null">
+					AND p2.partner_name LIKE CONCAT('%',#{condition.partnerPName},'%')
+				</if>
+				<if test="condition.status != null">
+					AND p1.status = #{condition.status}
+				</if>
+			</trim>
+		</where>
+		ORDER BY p1.create_time DESC
+	</select>
+	 
+  
+  <!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.UserPartner" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from
+			<include refid="table" />
+		where 1=1
+		<if test="userId != null">
+			and user_id = #{userId,jdbcType=BIGINT}
+		</if>
+		<if test="partnerId != null">
+			and partner_id = #{partnerId,jdbcType=BIGINT}
+		</if>
+	</select>
+
+	<select id="listByPartnerIds" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where 1=1
+		<if test="partnerIds != null">
+			and FIND_IN_SET(partner_id, #{partnerIds,jdbcType=VARCHAR})
+		</if>
+
+	</select>
+	<!-- -->
+	<select id="queryPartnerRoles" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT up.id id,up.user_id user_id,up.partner_id partner_id,ur.sys_role_id sys_role_id
+		FROM user_partner up,sys_user_role ur
+		where sys_user_id = up.user_id
+		and up.partner_id=#{partnerId,jdbcType=BIGINT}
+		and up.user_id &lt;&gt; #{userId,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 首页中 显示登录用户下的广告主 -->
+	<select id="getUserPartnerBy" parameterType="java.util.Map"  resultType="java.util.HashMap">
+		SELECT 
+			up.id AS id, up.user_id AS user_id, up.partner_id AS partner_id, 
+		    p.partner_name AS partner_name, p.status AS status
+		FROM user_partner up , partner p 
+		WHERE 
+			up.partner_id = p.id
+		<if test="userId != null">
+			AND up.user_id = #{userId,jdbcType=BIGINT}
+		</if>
+        <if test="partnerName != null">
+            AND p.partner_name LIKE CONCAT('%',#{partnerName,jdbcType=VARCHAR},'%')
+        </if>
+		
+	</select>
+	
+	<!-- 查询一个partner的对应的中企角色人员（如：财务，运营） -->
+	<select id="findByPartnerAndRole" parameterType="map" resultType="java.util.HashMap">
+		SELECT 
+			up.user_id AS user_id , u.user_name AS user_name
+		FROM user_partner AS up
+		JOIN sys_user AS u ON up.user_id = u.id
+		JOIN sys_user_role AS ur ON u.id = ur.sys_user_id AND ur.sys_role_id = #{roleId,jdbcType=BIGINT}
+		WHERE 
+		up.partner_id = #{partnerId,jdbcType=BIGINT}
+	</select>
+	<!-- 修改一个partner的对应的中企角色人员（如：财务，运营） -->
+	<update id="updatePartnerUserByRole" parameterType="map">
+		UPDATE
+			user_partner AS up
+			JOIN sys_user as u ON up.user_id = u.id 
+			JOIN sys_user_role as ur ON u.id = ur.sys_user_id
+		SET 
+			up.user_id = #{userId,jdbcType=BIGINT}
+		WHERE 
+			up.partner_id = #{partnerId,jdbcType=BIGINT}
+			AND 
+			ur.sys_role_id = #{roleId,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where user_id = #{userId,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 批量添加数据 -->
+	<insert id="batchInsert" parameterType="com.jtd.web.po.UserPartner">
+		insert into
+		<include refid="table" />
+		(  user_id,partner_id,create_time,remark )
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.userId,jdbcType=BIGINT},
+			#{item.partnerId,jdbcType=BIGINT},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.remark,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.UserPartner">
+		insert into
+		<include refid="table" />
+		(  user_id,partner_id,create_time,remark )
+		values
+			(#{userId,jdbcType=BIGINT},
+			#{partnerId,jdbcType=BIGINT},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{remark,jdbcType=VARCHAR}
+			)
+	</insert>
+</mapper>

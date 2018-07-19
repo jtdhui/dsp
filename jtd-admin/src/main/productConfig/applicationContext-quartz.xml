@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<bean id="schedulerFactoryBean"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="partnerAccBalanceCheckTrigger" />
+				<ref bean="partnerAuditStatusCheckTrigger" />
+				<ref bean="adAuditStatusCheckTrigger" />
+				<ref bean="besSettingRefreshTrigger" />
+				<!-- 				<ref bean="generateReportDemoDataTrigger" /> -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 	 * 系统启动后10分钟一次 -->
+	<!-- 	 * 1.查询昨日消费 + 更新账户流水表 + 并从partner的acc_balance字段扣去金额 -->
+	<!-- 	 * 2.查询今天当前消费 + 计算账户真实余额 + 如果真实余额小于0，通知引擎暂停该用户投放 -->
+	<bean id="partnerAccBalanceCheckTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	<property name="jobDetail">
+	<bean
+	class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<property name="targetObject">
+	<bean class="com.jtd.web.service.task.Task" />
+	</property>
+	<property name="targetMethod" value="taskOfCheckPartnerAccBalance" /><!--被执行的方法 -->
+	<property name="concurrent" value="false" /><!--是否支持并发 -->
+	</bean>
+	</property>
+	<property name="startDelay">
+	<value>10000</value>
+	<!--延迟10秒启动 -->
+	</property>
+	<property name="repeatInterval">
+	<value>600000</value>
+	</property>
+	</bean>
+
+	<!-- 每10分钟，刷新广告主在渠道的审核状态。修改partner_status中的状态值 -->
+	<bean id="partnerAuditStatusCheckTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<bean
+					class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+				<property name="targetObject">
+					<bean class="com.jtd.web.service.task.Task" />
+				</property>
+				<property name="targetMethod" value="taskOfCheckAdvertiserAuditStatus" /><!--被执行的方法 -->
+				<property name="concurrent" value="false" /><!--是否支持并发 -->
+			</bean>
+		</property>
+		<property name="startDelay">
+			<value>10000</value>
+			<!--延迟10秒启动 -->
+		</property>
+		<property name="repeatInterval">
+			<value>600000</value>
+		</property>
+	</bean>
+
+	<!--1、每隔10分钟，将ad_audit_status表中status=1并且渠道是百度的数据进行提交查询。
+		2、系统将status=1的广告id发送到百度的api，api立刻返回状态值。 3、系统修改数据库中的状态值。 -->
+	<bean id="adAuditStatusCheckTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	<property name="jobDetail">
+	<bean
+	class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<property name="targetObject">
+	<bean class="com.jtd.web.service.task.Task" />
+	</property>
+	<property name="targetMethod" value="taskOfCheckCreativeAuditStatus" /><!--被执行的方法 -->
+	<property name="concurrent" value="false" /><!--是否支持并发 -->
+	</bean>
+	</property>
+	<property name="startDelay">
+	<value>10000</value>
+	<!--延迟10秒启动 -->
+	</property>
+	<property name="repeatInterval">
+	<value>600000</value>
+	</property>
+	</bean>
+
+	<!-- 每天早上6点20下载一次百度媒体拒绝名单（这个名单中可能包括媒体等数据）， 将内容写入文件中由引擎自动获取并做处理-->
+	<bean id="besSettingRefreshTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<property name="jobDetail">
+	<bean
+	class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<property name="targetObject">
+	<bean class="com.jtd.web.service.task.Task" />
+	</property>
+	<property name="targetMethod" value="taskOfBesSettingRefresh" /><!--被执行的方法 -->
+	<property name="concurrent" value="false" /><!--是否支持并发 -->
+	</bean>
+	</property>
+	<property name="cronExpression">
+	<value>0 20 6 * * ?</value>
+	</property>
+	</bean>
+
+	<!-- 每天9-18点整点执行，生成客户报表模拟数据 -->
+	<!--<bean id="generateReportDemoDataTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+	<!--<property name="jobDetail">-->
+	<!--<bean-->
+	<!--class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+	<!--<property name="targetObject">-->
+	<!--<bean class="com.jtd.web.service.task.Task" />-->
+	<!--</property>-->
+	<!--<property name="targetMethod" value="taskOfGenerateReportDemoData" />&lt;!&ndash;被执行的方法 &ndash;&gt;-->
+	<!--<property name="concurrent" value="false" />&lt;!&ndash;是否支持并发 &ndash;&gt;-->
+	<!--</bean>-->
+	<!--</property>-->
+	<!--<property name="cronExpression">-->
+	<!--<value>0 0 9-18 * * ?</value>-->
+	<!--</property>-->
+	<!--</bean>-->
+
+</beans>

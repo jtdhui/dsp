@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.1.xsd"> -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<bean id="cookieDataService" class="com.jtd.engine.cookie.CookieDataServiceImpl">
+		<property name="tanxCookieMappingDAO" ref="tanxCookieMappingDAO" />
+		<property name="besCookieMappingDAO" ref="besCookieMappingDAO" />
+		<property name="cookieMappingDAO" ref="cookieMappingDAO" />
+		<property name="cookieDataDAO" ref="cookieDataDAO" />
+		<property name="besCookieDataDAO" ref="besCookieDataDAO" />
+		<!-- <property name="xtraderCookieDataDAO" ref="xtraderCookieDataDAO" /> -->
+		<property name="xtraderCookieMappingDAO" ref="xtraderCookieMappingDAO" />
+		<property name="customCookieDAO" ref="customCookiePoolDAO" />
+	</bean>
+
+	<bean id="adDisplayer" class="com.jtd.engine.ad.displayer.AdDisplayerImpl" init-method="init">
+		<property name="counturl" value="${counturl}"  />
+		<property name="counturlhttps" value="${counturlhttps}"  />
+		<property name="tanxCookieMappingUrl" value="${tanxCookieMappingUrl}" />
+		<property name="xtraderCookieMappingUrl" value="${xtraderCookieMappingUrl}" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="campaignDAO" ref="campaignDAO" />
+	</bean>
+
+	<bean id="adService" class="com.jtd.engine.ad.AdServiceImpl" init-method="init">
+		<property name="jmsTemplate" ref="jmsTemplate" />
+		<property name="campMatcher" ref="campMatcher" />
+		<property name="adMatcher" ref="adMatcher" />
+		<property name="bidder" ref="bidder" />
+		<property name="adDisplayer" ref="adDisplayer" />
+		<property name="campaignDAO" ref="campaignDAO" />
+		<property name="heartBeatDAO" ref="heartBeatDAO" />
+		<property name="otherDao" ref="otherDAO" />
+		<property name="cookieDataService" ref="cookieDataService" />
+		<property name="timer" ref="timer" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${amq.url}" />
+		<property name="userName" value="${amq.username}" />
+		<property name="password" value="${amq.password}" />
+	</bean>
+
+	<bean id="connectionFactory"
+		  class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="amqConnectionFactory" />
+		<property name="clientId" value="${amq.clientId}" />
+		<property name="reconnectOnException" value="true" />
+	</bean>
+
+	<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg>
+			<value>dsptopic</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>dspbidq</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="queue" />
+		<property name="deliveryPersistent" value="true" />
+	</bean>
+
+	<bean id="msglistener" class="com.jtd.engine.adserver.jms.JMSMessageListener">
+		<property name="adService" ref="adService" />
+		<property name="auditInfoDAO" ref="auditInfoDAO" />
+		<property name="blackListDAO" ref="blackListDAO" />
+		<property name="campaignDAO" ref="campaignDAO" />
+		<property name="heartBeatDAO" ref="heartBeatDAO" />
+	</bean>
+
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topic" />
+		<property name="messageListener" ref="msglistener" />
+		<property name="subscriptionDurable" value="true" />
+	</bean>
+</beans>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CampGroupDao">
+
+	<sql id="table">camp_group</sql>
+
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.CampGroup">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+		<result column="group_name" property="groupName" jdbcType="VARCHAR" />
+		<result column="dailybudget" property="dailybudget" jdbcType="BIGINT" />
+		<result column="totalbudget" property="totalbudget" jdbcType="BIGINT" />
+		<result column="dailypv" property="dailypv" jdbcType="BIGINT" />
+		<result column="dailyclick" property="dailyclick" jdbcType="BIGINT" />
+		<result column="totalpv" property="totalpv" jdbcType="BIGINT" />
+		<result column="totalclick" property="totalclick" jdbcType="BIGINT" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="modifytime" property="modifytime" jdbcType="TIMESTAMP" />
+		<result column="deletestatus" property="deletestatus" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, partner_id, group_name, dailybudget, totalbudget, dailypv,
+		dailyclick, totalpv,
+		totalclick, description, modifytime, deletestatus, create_time, remark
+	</sql>
+	
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from <include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.CampGroup">
+		select
+		<include refid="Base_Column_List" />
+		from <include refid="table" />
+		where 1=1
+			<if test="partnerId != null">
+				and partner_id=#{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="groupName != null">
+				and group_name= #{groupName,jdbcType=VARCHAR}
+			</if>
+			order by id desc
+	</select>
+	
+	<select id="getByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		<include refid="table" />
+		where 1=1
+			<if test="partnerId != null">
+				and partner_id=#{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="groupName != null">
+				and group_name= #{groupName,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from camp_group
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.CampGroup"  useGeneratedKeys="true" keyProperty="id">
+		insert into camp_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="partnerId != null">
+				partner_id,
+			</if>
+			<if test="groupName != null">
+				group_name,
+			</if>
+			<if test="dailybudget != null">
+				dailybudget,
+			</if>
+			<if test="totalbudget != null">
+				totalbudget,
+			</if>
+			<if test="dailypv != null">
+				dailypv,
+			</if>
+			<if test="dailyclick != null">
+				dailyclick,
+			</if>
+			<if test="totalpv != null">
+				totalpv,
+			</if>
+			<if test="totalclick != null">
+				totalclick,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="modifytime != null">
+				modifytime,
+			</if>
+			<if test="deletestatus != null">
+				deletestatus,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="partnerId != null">
+				#{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="dailybudget != null">
+				#{dailybudget,jdbcType=BIGINT},
+			</if>
+			<if test="totalbudget != null">
+				#{totalbudget,jdbcType=BIGINT},
+			</if>
+			<if test="dailypv != null">
+				#{dailypv,jdbcType=BIGINT},
+			</if>
+			<if test="dailyclick != null">
+				#{dailyclick,jdbcType=BIGINT},
+			</if>
+			<if test="totalpv != null">
+				#{totalpv,jdbcType=BIGINT},
+			</if>
+			<if test="totalclick != null">
+				#{totalclick,jdbcType=BIGINT},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="modifytime != null">
+				#{modifytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deletestatus != null">
+				#{deletestatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.jtd.web.po.CampGroup">
+		update camp_group
+		<set>
+			<if test="partnerId != null">
+				partner_id = #{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupName != null">
+				group_name = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="dailybudget != null">
+				dailybudget = #{dailybudget,jdbcType=BIGINT},
+			</if>
+			<if test="totalbudget != null">
+				totalbudget = #{totalbudget,jdbcType=BIGINT},
+			</if>
+			<if test="dailypv != null">
+				dailypv = #{dailypv,jdbcType=BIGINT},
+			</if>
+			<if test="dailyclick != null">
+				dailyclick = #{dailyclick,jdbcType=BIGINT},
+			</if>
+			<if test="totalpv != null">
+				totalpv = #{totalpv,jdbcType=BIGINT},
+			</if>
+			<if test="totalclick != null">
+				totalclick = #{totalclick,jdbcType=BIGINT},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="modifytime != null">
+				modifytime = #{modifytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deletestatus != null">
+				deletestatus = #{deletestatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+</mapper>

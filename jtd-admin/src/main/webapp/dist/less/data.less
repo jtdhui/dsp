@@ -1,0 +1,35 @@
+﻿@import "common";
+@import "module/handle-view";
+@import "module/select";
+@import "module/input";
+@import "module/btn";
+@import "module/ibox";
+@import "module/second-links";
+@import "module/modal";
+@import "module/data-com";
+@import "module/table";
+@import "module/paging";
+
+@media-main-color: #9393ff;
+
+input {
+  font-size: 12px;
+}
+
+.header {
+  .nav-hover {
+    left: @startSize+@moveLeft*2px;
+  }
+}
+
+.data_table_div {
+  .f-show {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #666;
+  }
+
+  .f-show.active {
+    color: @main-color;
+  }
+}

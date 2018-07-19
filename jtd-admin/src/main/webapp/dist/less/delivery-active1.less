@@ -1,0 +1,301 @@
+﻿@import "common";
+@import "module/handle-view";
+@import "module/select";
+@import "module/input";
+@import "module/radio";
+@import "module/btn";
+@import "module/search-term";
+@import "module/modal";
+
+i {
+  font-style: normal;
+}
+
+input {
+  font-size: 12px;
+}
+
+.header {
+  .nav-hover {
+    left: @startSize+@moveLeft*1px;
+  }
+}
+
+.throw_default {
+  height: 32px;
+  line-height: 32px;
+  cursor: pointer;
+}
+
+.throw_default input[type="radio"],
+.throw_custom input[type="radio"],
+.acitve_radio input[type='radio'] {
+  padding: 0;
+  margin: 0;
+  float: left;
+  width: 13px;
+  height: 13px;
+  margin-top: 8px;
+  margin-right: 5px;
+}
+
+.throw_custom {
+  height: 32px;
+  line-height: 32px;
+  cursor: pointer;
+  margin-left: 20px
+}
+
+.custom_text {
+  margin-left: 5px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #efefef;
+  text-indent: 5px;
+  color: #3e3a39;
+  width: 110px;
+  padding: 0 5px;
+  text-align: center;
+}
+
+.new_activity_bt {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding-bottom: 50px;
+}
+
+.new_activity_bt span {
+  display: inline-block;
+  width: 100px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  color: #000;
+  background: #e4e4e4;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.new_activity_bt span.bg_blue {
+  color: #fff;
+  background: #209ce6;
+}
+
+.new_activity_bt span i {
+  color: #9fa0a0
+}
+
+/* 1. 创建活动流程 step-wrap*/
+.step-wrap {
+  width: 999px;
+  height: 100px;
+  margin: 0 auto 20px;
+  .steps {
+    float: left;
+    position: relative;
+    z-index: 1;
+    width: 33.33%;
+    height: 100%;
+    // - 线
+    .line {
+      position: absolute;
+      top: 22px;
+      left: 125px;
+      display: block;
+      width: 450px;
+      height: 1px;
+      background-color: @border-color;
+    }
+    // - 序号
+    .step-num {
+      position: absolute;
+      top: 0;
+      //left: 0;
+      display: block;
+      width: 126px;
+      height: 42px;
+      line-height: 42px;
+      border-radius: 20px;
+      background-color: #fff;
+      border: 1px solid @border-color;
+      box-shadow: 0 2px 10px rgba(120, 101, 253, .4);
+      color: #666;
+      font-size: 18px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    // - 描述
+    .step-des {
+      position: absolute;
+      display: block;
+      width: 100%;
+      padding-top: 65px;
+      .font-content
+    }
+  }
+  .steps.active {
+    .line {
+      background-color: @main-color;
+    }
+    .step-num {
+      color: #fff;
+      border: none;
+      background-color: @main-color;
+    }
+  }
+  .steps.step_one {
+    //width: 230px;
+    .step-num {
+      left: 0
+    }
+    .step-des {
+      text-align: left;
+      //left: -10px
+    }
+  }
+  .steps.step_two {
+    .step-num {
+      left: 50%;
+      margin-left: -63px;
+    }
+    .step-des {
+      text-align: center;
+      //left: 160px
+    }
+  }
+  .steps.step_three {
+    .step-num {
+      right: 0
+    }
+    .step-des {
+      text-align: right;
+      //right: -25px
+    }
+  }
+}
+
+/* 2. 填写信息*/
+.handle-view {
+  padding: 40px 20px;
+
+  /*新建活动*/
+  .new_activity {
+    background: #fff;
+    padding: 0 15px 20px;
+    border-radius: 3px;
+  }
+  //  todo： 左边
+  .new_activity_lt {
+    float: left;
+    width: 590px;
+    //background-color: rgba(59, 162, 252, 0.19);
+    .new_active {
+      padding-top: 15px;
+      margin-bottom: 20px;
+      clear: both;
+      overflow: hidden;
+      .tit {
+        float: left;
+        width: 135px;
+        margin-right: 10px;
+        text-align: right;
+        height: 32px;
+        line-height: 32px;
+        font-size: 18px;
+        color: #666;
+      }
+    }
+
+    .kong {
+      color: #9fa0a0
+    }
+
+    .mt_zero {
+      margin-top: 0
+    }
+
+    // - 错误提示
+    .warning-tip {
+      height: 32px;
+      line-height: 32px;
+      color: @main-color;
+      font-size: 16px;
+      margin-left: 5px;
+    }
+    // - 单选按钮
+    .radio-wrap {
+      .radio-list {
+        float: left;
+        margin-right: 10px;
+      }
+      .radio-list:last-child {
+        margin-right: 0;
+      }
+      label {
+        margin: 0;
+      }
+    }
+    // - 时间选择
+    .yen_date {
+      background: url(../../img/icons.png) no-repeat;
+      background-position: 120px -118px;
+      width: 173px;
+      height: 36px;
+      line-height: 36px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      padding: 5px 0 5px 16px;
+      font-size: 16px;
+      color: #666;
+    }
+    .new_acitve_tip { // 为空表示不显示结束时间
+      color: #b1b1b1;
+      font-size: 16px;
+      margin-top: 6px;
+      display: inline-block;
+      margin-left: 3px;
+    }
+
+    // - 预算控制 和 每日预算
+    .daily-budget, .budget-control {
+      .radio-wrap .radio-list {
+        float: none;
+        text-align: left;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  // todo： 右边
+  .new_activity_rt {
+    float: right;
+    width: 632px;
+    margin-left: 10px;
+    .news-title {
+      width: 167px;
+      height: 40px;
+      line-height: 40px;
+      background-color: @main-color;
+      border-radius: 0 20px 20px 20px;
+      font-size: 18px;
+      color: #fff;
+      text-align: center;
+      margin: 20px auto;
+    }
+    .explain {
+      width: 632px;
+      height: 446px;
+      overflow: auto;
+      border: 1px solid @border-color;
+      border-radius: 5px;
+    }
+  }
+}
+
+.btn-save {
+  width: 188px !important;
+  margin-right: 50px;
+}

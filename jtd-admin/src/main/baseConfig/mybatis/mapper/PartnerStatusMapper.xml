@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.PartnerStatusDao" >
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.PartnerStatusPO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+    <result column="channel_id" property="channelId" jdbcType="BIGINT" />
+    <result column="submit_user_id" property="submitUserId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="audit_info" property="auditInfo" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="audit_mq_success" property="auditMqSuccess" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, partner_id, channel_id, submit_user_id , status, audit_info , update_time , create_time , audit_mq_success
+  </sql>
+  
+  <select id="listByAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from partner_status
+  </select>
+  
+  <select id="listByPartnerId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from partner_status
+    where partner_id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="listAllChannelAuditStatusByPartnerId" resultType="java.util.HashMap" parameterType="java.lang.Long" >
+    SELECT 
+    ch.id AS left_channel_id , ch.channel_name , ch.remark , ch.catgserial , ch.logo , ps.*
+    FROM channel AS ch
+    LEFT JOIN partner_status AS ps ON ps.channel_id = ch.id AND partner_id = #{id,jdbcType=BIGINT} 
+    ORDER BY left_channel_id
+  </select>
+  
+  <select id="listByMap" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from partner_status
+    where 1=1
+    <if test="partnerId != null">
+	    AND partner_id = #{partnerId,jdbcType=BIGINT}
+    </if>
+    <if test="channelId != null">
+	    AND channel_id = #{channelId,jdbcType=BIGINT}
+    </if> 
+    <if test="status != null">
+	    AND status = #{status,jdbcType=INTEGER}
+    </if> 
+  </select>
+  
+  <insert id="insert" parameterType="com.jtd.web.po.PartnerStatusPO" >
+    insert into partner_status (id, partner_id, channel_id, submit_user_id ,
+      status, audit_info, update_time, create_time , audit_mq_success)
+    values (#{id,jdbcType=BIGINT}, #{partnerId,jdbcType=BIGINT}, #{channelId,jdbcType=BIGINT}, #{submitUserId,jdbcType=BIGINT},
+      #{status,jdbcType=INTEGER}, #{auditInfo,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR} , #{createTime,jdbcType=VARCHAR}, 
+      #{auditMqSuccess,jdbcType=INTEGER})
+  </insert>
+  
+  <update id="updateStatusByMap" parameterType="java.util.HashMap" >
+    update 
+    	partner_status
+    <set>
+    	<if test="status != null">
+    		status = #{status,jdbcType=INTEGER},
+    	</if>
+    	<if test="auditInfo != null">
+    		audit_info = #{auditInfo,jdbcType=VARCHAR},
+    	</if>
+    	<if test="updateTime != null">
+    		update_time = #{updateTime,jdbcType=TIMESTAMP},
+    	</if>
+    	<if test="submitUserId != null">
+    		submit_user_id = #{submitUserId,jdbcType=BIGINT},
+    	</if>
+    	<if test="auditMqSuccess != null">
+    		audit_mq_success = #{auditMqSuccess,jdbcType=INTEGER},
+    	</if>
+    </set> 
+    where 
+    	partner_id = #{partnerId,jdbcType=BIGINT}
+    	AND channel_id = #{channelId,jdbcType=BIGINT}
+  </update>
+</mapper>

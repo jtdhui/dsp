@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jtd.web.dao.impl.CampaignDao">
+
+	<!-- 对应数据表名-->
+	<sql id="table"> campaign </sql>
+	
+	<!-- 字段列表 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.Campaign">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+		<result column="group_id" property="groupId" jdbcType="BIGINT" />
+		<result column="campaign_name" property="campaignName" jdbcType="VARCHAR" />
+		<result column="campaign_type" property="campaignType" jdbcType="INTEGER" />
+		<result column="ad_type" property="adType" jdbcType="INTEGER" />
+		<result column="trans_type" property="transType" jdbcType="INTEGER" />
+		<result column="budgetctrltype" property="budgetctrltype" jdbcType="INTEGER" />
+		<result column="start_time" property="startTime" jdbcType="DATE" />
+		<result column="end_time" property="endTime" jdbcType="DATE" />
+		<result column="week_hour" property="weekHour" jdbcType="VARCHAR" />
+		<result column="expend_type" property="expendType" jdbcType="INTEGER" />
+		<result column="price" property="price" jdbcType="INTEGER" />
+		<result column="daily_budget" property="dailyBudget" jdbcType="BIGINT" />
+		<result column="total_budget" property="totalBudget" jdbcType="BIGINT" />
+		<result column="daily_pv" property="dailyPv" jdbcType="BIGINT" />
+		<result column="daily_click" property="dailyClick" jdbcType="BIGINT" />
+		<result column="total_pv" property="totalPv" jdbcType="BIGINT" />
+		<result column="total_click" property="totalClick" jdbcType="BIGINT" />
+		<result column="gross_profit" property="grossProfit" jdbcType="INTEGER" />
+		<result column="max_negross_profit" property="maxNegrossProfit" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="creator_id" property="creatorId" jdbcType="BIGINT" />
+		<result column="last_modify_time" property="lastModifyTime" jdbcType="TIMESTAMP" />
+		<result column="modifier_id" property="modifierId" jdbcType="BIGINT" />
+		<result column="edit_step_status" property="editStepStatus" jdbcType="INTEGER" />
+		<result column="auto_status" property="autoStatus" jdbcType="INTEGER" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="manul_status" property="manulStatus" jdbcType="INTEGER" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+		<result column="click_url" property="clickUrl" jdbcType="VARCHAR" />
+		<result column="landing_page" property="landingPage" jdbcType="VARCHAR" />
+		<result column="landingtype" property="landingtype" jdbcType="INTEGER" />
+		<result column="af_value" property="afValue" jdbcType="INTEGER" />
+		<result column="puttarget" property="puttarget" jdbcType="INTEGER" />
+		<result column="phone_title" property="phoneTitle" jdbcType="VARCHAR" />
+		<result column="phone_propaganda" property="phonePropaganda" jdbcType="VARCHAR" />
+		<result column="phone_describe" property="phoneDescribe" jdbcType="VARCHAR" />
+		<result column="original_price" property="originalPrice" jdbcType="VARCHAR" />
+		<result column="discount_price" property="discountPrice" jdbcType="VARCHAR" />
+		<result column="sales_volume" property="salesVolume" jdbcType="VARCHAR" />
+		<result column="optional" property="optional" jdbcType="CHAR" />
+		<result column="deep_link" property="deepLink" jdbcType="CHAR" />
+		<result column="monitor" property="monitor" jdbcType="CHAR" />
+		<result column="phone_deep_link_url" property="phoneDeepLinkUrl" jdbcType="VARCHAR" />
+		<result column="campaign_status" property="campaignStatus" jdbcType="INTEGER" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="order_by" property="orderBy" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<resultMap id="ResultMapWithBLOBs" type="com.jtd.web.po.Campaign"
+		extends="BaseResultMap">
+		<result column="pv_urls" property="pvUrls" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, partner_id, group_id, campaign_name, campaign_type, ad_type,
+		trans_type, budgetctrltype,
+		start_time, end_time, week_hour, expend_type, price, daily_budget, total_budget,
+		daily_pv, daily_click, total_pv, total_click, gross_profit,
+		max_negross_profit, create_time,
+		creator_id, last_modify_time, modifier_id, edit_step_status, auto_status,
+		manul_status,
+		delete_status, click_url, landing_page, landingtype, af_value, puttarget,
+		phone_title,
+		phone_propaganda, phone_describe, original_price, discount_price, sales_volume,
+		optional,
+		deep_link, monitor, phone_deep_link_url, campaign_status,remark,order_by
+	</sql>
+	<sql id="Blob_Column_List">
+		pv_urls
+	</sql>
+	
+	<!-- 定义where条件 -->
+	<sql id="where_condition">
+		<trim prefix="">
+			<if test="partnerId != null">
+				and partner_id = #{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="groupId != null">
+				and group_id = #{groupId,jdbcType=BIGINT}
+			</if>
+			<if test="campaignName != null">
+				and campaign_name LIKE CONCAT('%',#{campaignName},'%')
+			</if>
+			<if test="campaignType != null">
+				and campaign_type = #{campaignType,jdbcType=INTEGER}
+			</if>
+			<if test="adType != null">
+				and ad_type = #{adType,jdbcType=INTEGER}
+			</if>
+			<if test="transType != null">
+				and trans_type = #{transType,jdbcType=INTEGER}
+			</if>
+			<if test="budgetctrltype != null">
+				and budgetctrltype = #{budgetctrltype,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null">
+				and start_time = #{startTime,jdbcType=DATE}
+			</if>
+			<if test="endTime != null">
+				and end_time = #{endTime,jdbcType=DATE}
+			</if>
+			<if test="weekHour != null">
+				and week_hour = #{weekHour,jdbcType=VARCHAR}
+			</if>
+			<if test="expendType != null">
+				and expend_type = #{expendType,jdbcType=INTEGER}
+			</if>
+			<if test="price != null">
+				and price = #{price,jdbcType=INTEGER}
+			</if>
+			<if test="dailyBudget != null">
+				and daily_budget = #{dailyBudget,jdbcType=BIGINT}
+			</if>
+			<if test="totalBudget != null">
+				and total_budget = #{totalBudget,jdbcType=BIGINT}
+			</if>
+			<if test="dailyPv != null">
+				and daily_pv = #{dailyPv,jdbcType=BIGINT}
+			</if>
+			<if test="dailyClick != null">
+				and daily_click = #{dailyClick,jdbcType=BIGINT}
+			</if>
+			<if test="totalPv != null">
+				and total_pv = #{totalPv,jdbcType=BIGINT}
+			</if>
+			<if test="totalClick != null">
+				and total_click = #{totalClick,jdbcType=BIGINT}
+			</if>
+			<if test="grossProfit != null">
+				and gross_profit = #{grossProfit,jdbcType=INTEGER}
+			</if>
+			<if test="maxNegrossProfit != null">
+				and max_negross_profit = #{maxNegrossProfit,jdbcType=INTEGER}
+			</if>
+			<if test="creatorId != null">
+				and creator_id = #{creatorId,jdbcType=BIGINT}
+			</if>
+			<if test="lastModifyTime != null">
+				and last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="modifierId != null">
+				and modifier_id = #{modifierId,jdbcType=BIGINT}
+			</if>
+			<if test="editStepStatus != null">
+				and edit_step_status = #{editStepStatus,jdbcType=INTEGER}
+			</if>
+			<if test="autoStatus != null">
+				and auto_status = #{autoStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
+			</if>
+			<if test="manulStatus != null">
+				and manul_status = #{manulStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
+			</if>
+			<if test="deleteStatus != null">
+				and delete_status = #{deleteStatus,jdbcType=INTEGER}
+			</if>
+			<if test="clickUrl != null">
+				and click_url = #{clickUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="landingPage != null">
+				and landing_page = #{landingPage,jdbcType=VARCHAR}
+			</if>
+			<if test="landingtype != null">
+				and landingtype = #{landingtype,jdbcType=INTEGER}
+			</if>
+			<if test="afValue != null">
+				and af_value = #{afValue,jdbcType=INTEGER}
+			</if>
+			<if test="puttarget != null">
+				and puttarget = #{puttarget,jdbcType=INTEGER}
+			</if>
+			<if test="phoneTitle != null">
+				and phone_title = #{phoneTitle,jdbcType=VARCHAR}
+			</if>
+			<if test="phonePropaganda != null">
+				and phone_propaganda = #{phonePropaganda,jdbcType=VARCHAR}
+			</if>
+			<if test="phoneDescribe != null">
+				and phone_describe = #{phoneDescribe,jdbcType=VARCHAR}
+			</if>
+			<if test="originalPrice != null">
+				and original_price = #{originalPrice,jdbcType=VARCHAR}
+			</if>
+			<if test="discountPrice != null">
+				and discount_price = #{discountPrice,jdbcType=VARCHAR}
+			</if>
+			<if test="salesVolume != null">
+				and sales_volume = #{salesVolume,jdbcType=VARCHAR}
+			</if>
+			<if test="optional != null">
+				and optional = #{optional,jdbcType=CHAR}
+			</if>
+			<if test="deepLink != null">
+				and deep_link = #{deepLink,jdbcType=CHAR}
+			</if>
+			<if test="monitor != null">
+				and monitor = #{monitor,jdbcType=CHAR}
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				and phone_deep_link_url = #{phoneDeepLinkUrl,jdbcType=VARCHAR}
+			</if>
+			<if test="campaignStatus != null">
+				and campaign_status = #{campaignStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler}
+			</if>
+			<if test="pvUrls != null">
+				and pv_urls = #{pvUrls,jdbcType=LONGVARCHAR}
+			</if>
+		</trim>
+	</sql>
+	
+	<sql id="where_condition_page">
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="condition.partnerId != null">
+				and partner_id = #{condition.partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="condition.groupId != null">
+				and group_id = #{condition.groupId,jdbcType=BIGINT}
+			</if>
+			<if test="condition.campaignName != null">
+				and campaign_name = #{condition.campaignName,jdbcType=VARCHAR}
+			</if>
+			<if test="condition.campaignType != null">
+				and campaign_type = #{condition.campaignType,jdbcType=INTEGER}
+			</if>
+			<if test="condition.startTime != null">
+				and start_time = #{condition.startTime,jdbcType=DATE}
+			</if>
+			<if test="condition.endTime != null">
+				and end_time = #{condition.endTime,jdbcType=DATE}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="ResultMapWithBLOBs">
+		select 
+			<include refid="Base_Column_List" /> 
+			,
+			<include refid="Blob_Column_List" />
+		from
+		<include refid="table" />
+		order by id desc
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.Campaign" resultMap="ResultMapWithBLOBs">
+		select 
+			<include refid="Base_Column_List" />
+			,
+			<include refid="Blob_Column_List" />
+		from
+			<include refid="table" />
+		where 1=1
+			<include refid="where_condition" />
+		order by id desc
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="getCampaignsBy" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		select 
+			<include refid="Base_Column_List" />
+			,
+			<include refid="Blob_Column_List" />
+		from
+			<include refid="table" />
+		where 1=1
+		<trim prefix="">
+			<if test="partnerId != null">
+				and partner_id = #{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="campaignName != null and campaignName != '' ">
+				and ( campaign_name LIKE '%${campaignName}%' or id=#{campaignName})
+			</if>
+			<if test="campaignStatus != null">
+				and campaign_status = #{campaignStatus,jdbcType=INTEGER}
+			</if>
+			<if test="campaignType != null">
+				and campaign_type = #{campaignType,jdbcType=INTEGER}
+			</if>
+			<if test="startDate != null">
+				and create_time &gt;= #{startDate,jdbcType=DATE}
+			</if>
+			<if test="endDate != null">
+				and create_time  &lt;= #{endDate,jdbcType=DATE}
+			</if>
+		</trim>
+		order by id asc
+	</select>
+	
+	<select id="getById" parameterType="com.jtd.web.po.Campaign" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from 
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	
+	<select id="getByMap" parameterType="com.jtd.web.po.Campaign" resultMap="ResultMapWithBLOBs">
+		select 
+			<include refid="Base_Column_List" />
+			,
+			<include refid="Blob_Column_List" />
+		from
+			<include refid="table" />
+		where 1=1
+			<if test="partnerId != null">
+				and partner_id = #{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="groupId != null">
+				and group_id = #{groupId,jdbcType=BIGINT}
+			</if>
+			<if test="campaignName != null">
+				and campaign_name LIKE CONCAT('%',#{campaignName,jdbcType=VARCHAR},'%')
+			</if>
+	</select>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.Campaign" useGeneratedKeys="true" keyProperty="id">
+		insert into <include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="partnerId != null">
+				partner_id,
+			</if>
+			<if test="groupId != null">
+				group_id,
+			</if>
+			<if test="campaignName != null">
+				campaign_name,
+			</if>
+			<if test="campaignType != null">
+				campaign_type,
+			</if>
+			<if test="adType != null">
+				ad_type,
+			</if>
+			<if test="transType != null">
+				trans_type,
+			</if>
+			<if test="budgetctrltype != null">
+				budgetctrltype,
+			</if>
+			<if test="startTime != null">
+				start_time,
+			</if>
+			<if test="endTime != null">
+				end_time,
+			</if>
+			<if test="weekHour != null">
+				week_hour,
+			</if>
+			<if test="expendType != null">
+				expend_type,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="dailyBudget != null">
+				daily_budget,
+			</if>
+			<if test="totalBudget != null">
+				total_budget,
+			</if>
+			<if test="dailyPv != null">
+				daily_pv,
+			</if>
+			<if test="dailyClick != null">
+				daily_click,
+			</if>
+			<if test="totalPv != null">
+				total_pv,
+			</if>
+			<if test="totalClick != null">
+				total_click,
+			</if>
+			<if test="grossProfit != null">
+				gross_profit,
+			</if>
+			<if test="maxNegrossProfit != null">
+				max_negross_profit,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="creatorId != null">
+				creator_id,
+			</if>
+			<if test="lastModifyTime != null">
+				last_modify_time,
+			</if>
+			<if test="modifierId != null">
+				modifier_id,
+			</if>
+			<if test="editStepStatus != null">
+				edit_step_status,
+			</if>
+			<if test="autoStatus != null">
+				auto_status,
+			</if>
+			<if test="manulStatus != null">
+				manul_status,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="clickUrl != null">
+				click_url,
+			</if>
+			<if test="landingPage != null">
+				landing_page,
+			</if>
+			<if test="landingtype != null">
+				landingtype,
+			</if>
+			<if test="afValue != null">
+				af_value,
+			</if>
+			<if test="puttarget != null">
+				puttarget,
+			</if>
+			<if test="phoneTitle != null">
+				phone_title,
+			</if>
+			<if test="phonePropaganda != null">
+				phone_propaganda,
+			</if>
+			<if test="phoneDescribe != null">
+				phone_describe,
+			</if>
+			<if test="originalPrice != null">
+				original_price,
+			</if>
+			<if test="discountPrice != null">
+				discount_price,
+			</if>
+			<if test="salesVolume != null">
+				sales_volume,
+			</if>
+			<if test="optional != null">
+				optional,
+			</if>
+			<if test="deepLink != null">
+				deep_link,
+			</if>
+			<if test="monitor != null">
+				monitor,
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				phone_deep_link_url,
+			</if>
+			<if test="campaignStatus != null">
+				campaign_status,
+			</if>
+			<if test="pvUrls != null">
+				pv_urls,
+			</if>
+            <if test="orderBy != null">
+                order_by,
+            </if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="partnerId != null">
+				#{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=BIGINT},
+			</if>
+			<if test="campaignName != null">
+				#{campaignName,jdbcType=VARCHAR},
+			</if>
+			<if test="campaignType != null">
+				#{campaignType,jdbcType=INTEGER},
+			</if>
+			<if test="adType != null">
+				#{adType,jdbcType=INTEGER},
+			</if>
+			<if test="transType != null">
+				#{transType,jdbcType=INTEGER},
+			</if>
+			<if test="budgetctrltype != null">
+				#{budgetctrltype,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				#{startTime,jdbcType=DATE},
+			</if>
+			<if test="endTime != null">
+				#{endTime,jdbcType=DATE},
+			</if>
+			<if test="weekHour != null">
+				#{weekHour,jdbcType=VARCHAR},
+			</if>
+			<if test="expendType != null">
+				#{expendType,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=INTEGER},
+			</if>
+			<if test="dailyBudget != null">
+				#{dailyBudget,jdbcType=BIGINT},
+			</if>
+			<if test="totalBudget != null">
+				#{totalBudget,jdbcType=BIGINT},
+			</if>
+			<if test="dailyPv != null">
+				#{dailyPv,jdbcType=BIGINT},
+			</if>
+			<if test="dailyClick != null">
+				#{dailyClick,jdbcType=BIGINT},
+			</if>
+			<if test="totalPv != null">
+				#{totalPv,jdbcType=BIGINT},
+			</if>
+			<if test="totalClick != null">
+				#{totalClick,jdbcType=BIGINT},
+			</if>
+			<if test="grossProfit != null">
+				#{grossProfit,jdbcType=INTEGER},
+			</if>
+			<if test="maxNegrossProfit != null">
+				#{maxNegrossProfit,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creatorId != null">
+				#{creatorId,jdbcType=BIGINT},
+			</if>
+			<if test="lastModifyTime != null">
+				#{lastModifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifierId != null">
+				#{modifierId,jdbcType=BIGINT},
+			</if>
+			<if test="editStepStatus != null">
+				#{editStepStatus,jdbcType=INTEGER},
+			</if>
+			<if test="autoStatus != null">
+				#{autoStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="manulStatus != null">
+				#{manulStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="clickUrl != null">
+				#{clickUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="landingPage != null">
+				#{landingPage,jdbcType=VARCHAR},
+			</if>
+			<if test="landingtype != null">
+				#{landingtype,jdbcType=INTEGER},
+			</if>
+			<if test="afValue != null">
+				#{afValue,jdbcType=INTEGER},
+			</if>
+			<if test="puttarget != null">
+				#{puttarget,jdbcType=INTEGER},
+			</if>
+			<if test="phoneTitle != null">
+				#{phoneTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="phonePropaganda != null">
+				#{phonePropaganda,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneDescribe != null">
+				#{phoneDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="originalPrice != null">
+				#{originalPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="discountPrice != null">
+				#{discountPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="salesVolume != null">
+				#{salesVolume,jdbcType=VARCHAR},
+			</if>
+			<if test="optional != null">
+				#{optional,jdbcType=CHAR},
+			</if>
+			<if test="deepLink != null">
+				#{deepLink,jdbcType=CHAR},
+			</if>
+			<if test="monitor != null">
+				#{monitor,jdbcType=CHAR},
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				#{phoneDeepLinkUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="campaignStatus != null">
+				#{campaignStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="pvUrls != null">
+				#{pvUrls,jdbcType=LONGVARCHAR},
+			</if>
+            <if test="orderBy != null">
+                #{orderBy,jdbcType=INTEGER},
+            </if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.Campaign">
+		update 
+		<include refid="table" />
+		<set>
+			<if test="partnerId != null">
+				partner_id = #{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupId != null">
+				group_id = #{groupId,jdbcType=BIGINT},
+			</if>
+			<if test="campaignName != null">
+				campaign_name = #{campaignName,jdbcType=VARCHAR},
+			</if>
+			<if test="campaignType != null">
+				campaign_type = #{campaignType,jdbcType=INTEGER},
+			</if>
+			<if test="adType != null">
+				ad_type = #{adType,jdbcType=INTEGER},
+			</if>
+			<if test="transType != null">
+				trans_type = #{transType,jdbcType=INTEGER},
+			</if>
+			<if test="budgetctrltype != null">
+				budgetctrltype = #{budgetctrltype,jdbcType=INTEGER},
+			</if>
+			<if test="startTime != null">
+				start_time = #{startTime,jdbcType=DATE},
+			</if>
+			<if test="endTime != null">
+				end_time = #{endTime,jdbcType=DATE},
+			</if>
+			<if test="weekHour != null">
+				week_hour = #{weekHour,jdbcType=VARCHAR},
+			</if>
+			<if test="expendType != null">
+				expend_type = #{expendType,jdbcType=INTEGER},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=INTEGER},
+			</if>
+			<if test="totalBudget != null">
+				total_budget = #{totalBudget,jdbcType=BIGINT},
+			</if>
+			<if test="dailyPv != null">
+				daily_pv = #{dailyPv,jdbcType=BIGINT},
+			</if>
+			<if test="dailyClick != null">
+				daily_click = #{dailyClick,jdbcType=BIGINT},
+			</if>
+			<if test="totalPv != null">
+				total_pv = #{totalPv,jdbcType=BIGINT},
+			</if>
+			<if test="totalClick != null">
+				total_click = #{totalClick,jdbcType=BIGINT},
+			</if>
+			<if test="grossProfit != null">
+				gross_profit = #{grossProfit,jdbcType=INTEGER},
+			</if>
+			<if test="maxNegrossProfit != null">
+				max_negross_profit = #{maxNegrossProfit,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="creatorId != null">
+				creator_id = #{creatorId,jdbcType=BIGINT},
+			</if>
+			<if test="lastModifyTime != null">
+				last_modify_time = #{lastModifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifierId != null">
+				modifier_id = #{modifierId,jdbcType=BIGINT},
+			</if>
+			<if test="editStepStatus != null">
+				edit_step_status = #{editStepStatus,jdbcType=INTEGER},
+			</if>
+			<if test="autoStatus != null">
+				auto_status = #{autoStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="manulStatus != null">
+				manul_status = #{manulStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="clickUrl != null">
+				click_url = #{clickUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="landingPage != null">
+				landing_page = #{landingPage,jdbcType=VARCHAR},
+			</if>
+			<if test="landingtype != null">
+				landingtype = #{landingtype,jdbcType=INTEGER},
+			</if>
+			<if test="afValue != null">
+				af_value = #{afValue,jdbcType=INTEGER},
+			</if>
+			<if test="puttarget != null">
+				puttarget = #{puttarget,jdbcType=INTEGER},
+			</if>
+			<if test="phoneTitle != null">
+				phone_title = #{phoneTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="phonePropaganda != null">
+				phone_propaganda = #{phonePropaganda,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneDescribe != null">
+				phone_describe = #{phoneDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="originalPrice != null">
+				original_price = #{originalPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="discountPrice != null">
+				discount_price = #{discountPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="salesVolume != null">
+				sales_volume = #{salesVolume,jdbcType=VARCHAR},
+			</if>
+			<if test="optional != null">
+				optional = #{optional,jdbcType=CHAR},
+			</if>
+			<if test="deepLink != null">
+				deep_link = #{deepLink,jdbcType=CHAR},
+			</if>
+			<if test="monitor != null">
+				monitor = #{monitor,jdbcType=CHAR},
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				phone_deep_link_url = #{phoneDeepLinkUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="campaignStatus != null">
+				campaign_status = #{campaignStatus,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+            <if test="orderBy!= null">
+                order_by = #{orderBy,jdbcType=BIGINT},
+            </if>
+            daily_budget = #{dailyBudget,jdbcType=BIGINT},
+            pv_urls = #{pvUrls,jdbcType=LONGVARCHAR}
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 前台报表查询活动 -->
+	<select id="listReportCampBy" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT camp.id id,camp.partner_id partnerId,p.partner_name partnerName,camp.campaign_name campaignName,camp.campaign_status campaignStatus,camp.campaign_type campaignType
+		FROM campaign camp
+		JOIN partner p ON camp.partner_id = p.id
+		where 1=1
+		<trim prefix="">
+			<if test="campaignId != null">
+				and camp.id = #{campaignId,jdbcType=BIGINT}
+			</if>
+			<if test="campaignName != null">
+				and campaign_name LIKE CONCAT('%',#{campaignName},'%')
+			</if>
+			<if test="campaignIdOrName != null">
+				and (camp.id = #{campaignIdOrName,jdbcType=BIGINT} OR campaign_name LIKE CONCAT('%',#{campaignIdOrName},'%'))
+			</if>
+			<if test="partnerId != null">
+				and p.id = #{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="partnerIdOrName != null">
+				and (p.id = #{partnerIdOrName} OR p.partner_name LIKE CONCAT('%',#{partnerIdOrName},'%'))
+			</if>
+			<if test="userId != null">
+				and p.id in(SELECT partner_id FROM user_partner WHERE user_id = #{userId})
+			</if>
+			<if test="campaignType != null">
+				and campaign_type = #{campaignType,jdbcType=INTEGER}
+			</if>
+			<if test="campaignStatus != null">
+				and campaign_status = #{campaignStatus,jdbcType=INTEGER}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 后台活动列表分页 -->
+	<select id="getMapPageBy" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT camp.id id,camp.partner_id partnerId,p.partner_name partnerName,camp.campaign_name campaignName,camp.campaign_status campaignStatus,camp.campaign_type campaignType
+		FROM campaign camp, partner p
+		where camp.partner_id = p.id
+		<trim prefix="" >
+			<if test="condition.partner_id != -1 and condition.partner_id != null">
+				and FIND_IN_SET(camp.partner_id, queryPartnerChildren(#{condition.partner_id,jdbcType=BIGINT}))
+			</if>
+			<if test="condition.partnerIds != null">
+				AND camp.partner_id in(${condition.partnerIds})
+			</if>
+			<if test="condition.partnerName!= null and  condition.partnerName!= '' ">
+				and p.partner_name LIKE CONCAT('%',#{condition.partnerName},'%')
+			</if>
+			<if test="condition.campaignId != null ">
+				and camp.id = #{condition.campaignId}
+			</if>
+			<if test="condition.campaignName != null and condition.campaignName != '' ">
+				and camp.campaign_name LIKE CONCAT('%',#{condition.campaignName},'%')
+			</if>
+			<if test="condition.campaignAutoStatus != null">
+				and camp.auto_status  = #{condition.campaignAutoStatus,jdbcType=INTEGER}
+			</if>
+			<if test="condition.deleteStatus != null">
+				and camp.delete_status  = #{condition.deleteStatus,jdbcType=INTEGER}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 前台活动列表查询 -->
+	<select id="getFrontPageBy" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from 
+		<include refid="table" />
+		where 1=1
+		<trim prefix="">
+			<if test="condition.partnerId != null">
+				and partner_id = #{condition.partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="condition.campaignName != null and condition.campaignName != '' ">
+				and ( campaign_name LIKE '%${condition.campaignName}%' or id=#{condition.campaignName})
+			</if>
+			<if test="condition.campaignStatus != null">
+				and campaign_status = #{condition.campaignStatus,jdbcType=INTEGER}
+			</if>
+			<if test="condition.campaignType != null">
+				and campaign_type = #{condition.campaignType,jdbcType=INTEGER}
+			</if>
+			<if test="condition.startDate != null">
+				and create_time &gt;= #{condition.startDate,jdbcType=DATE}
+			</if>
+			<if test="condition.endDate != null">
+				and create_time  &lt;= #{condition.endDate,jdbcType=DATE}
+			</if>
+			<if test="condition.deleteStatus != null">
+				and delete_status  = #{condition.deleteStatus,jdbcType=INTEGER}
+			</if>
+		</trim>
+		order by order_by ASC, id desc
+	</select>
+	
+	<select id="getCampByID" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT camp.id id,camp.partner_id partnerId,p.partner_name partnerName,camp.campaign_name campaignName,camp.auto_status autoStatus,camp.campaign_type campaignType,
+					camp.gross_profit grossProfit,d.dim_name dimName,d.dim_value dimValue
+		FROM campaign camp, partner p,campaign_dim d
+		where camp.partner_id = p.id
+		and camp.id = d.campaign_id
+		and camp.id=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getCampByMap" parameterType="java.util.Map" resultType="java.util.HashMap">
+	SELECT 
+		camp.id id,camp.partner_id partnerId,p.partner_name
+		partnerName,camp.campaign_name campaignName,camp.auto_status
+		autoStatus,camp.campaign_type campaignType,
+		camp.gross_profit grossProfit,d.dim_name dimName,d.dim_value dimValue
+	FROM campaign camp
+		JOIN partner p on camp.partner_id = p.id and camp.id = #{id,jdbcType=BIGINT}
+		Left JOIN campaign_dim d on camp.id = d.campaign_id AND d.dim_name = #{dimName,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getCampPartnerBy" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT camp.id id,camp.partner_id partnerId,p.partner_name partnerName,camp.campaign_name campaignName,camp.auto_status autoStatus,camp.campaign_type campaignType,
+					camp.gross_profit grossProfit,camp.af_value afValue,p.gross_profit partnerGrossProfit
+		FROM campaign camp, partner p
+		where camp.partner_id = p.id
+		and camp.id=#{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询活动下面的创意列表 -->
+	<select id="getCreativesByCampId" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select ca.id campaign_id,ca.campaign_name,
+		ad.id ad_id,
+		c.*
+		from creative c,
+			ad ad,
+		    campaign ca
+		where ca.id = ad.campaign_id
+		and ad.creative_id= c.id
+		and ad.delete_status = 0
+		and ca.id =#{campaign_id,jdbcType=BIGINT}
+	</select>
+	
+	<update id="updateAutoStatus" parameterType="java.util.Map">
+		update 
+			<include refid="table" />
+		set 
+			auto_status = #{autoStatus},
+			campaign_status = #{campaignStatus},
+            order_by = #{orderBy}
+		where
+			id = #{id}
+	</update>
+
+	<update id="updateProfit" parameterType="com.jtd.web.po.Campaign">
+		update
+		<include refid="table" />
+		set
+		gross_profit = #{grossProfit,jdbcType=INTEGER}
+		where
+		id = #{id}
+	</update>
+
+	<select id="selectCampsByMap" parameterType="java.util.Map" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from
+		<include refid="table" />
+		where 1=1
+		<trim prefix="">
+			<if test="partner_ids != null">
+				and	partner_id in
+				<foreach item="item" index="index" collection="partner_ids"
+						 open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="manulStatus != null">
+				and manul_status = #{manulStatus,jdbcType=INTEGER}
+			</if>
+		</trim>
+		order by id desc
+	</select>
+	
+</mapper>

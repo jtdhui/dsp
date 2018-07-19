@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jtd-ad-parent</artifactId>
+        <groupId>com.jtd</groupId>
+        <version>1.0</version>
+        <relativePath>../jtd-ad-parent/pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jtd-ad-log-collector</artifactId>
+    <version>${jtd-ad-logcollector.version}</version>
+    <packaging>jar</packaging>
+
+    <name>jtd-ad-log-collector</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!--<project.customer.config>${project.basedir}/src/main/rdConfig</project.customer.config>-->
+        <assembly.fileName>all.xml</assembly.fileName>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>online</id>
+            <properties>
+                <project.customer.config>${project.basedir}/src/main/onlineConfig</project.customer.config>
+            </properties>
+        </profile>
+        <profile>
+            <id>rd</id>
+            <properties>
+                <project.customer.config>${project.basedir}/src/main/rdConfig</project.customer.config>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <project.customer.config>${project.basedir}/src/main/testConfig</project.customer.config>
+            </properties>
+        </profile>
+
+        <!-- 装配时的配置属性 -->
+        <profile>
+            <id>assembly-all</id>
+            <properties>
+                <assembly.fileName>all.xml</assembly.fileName>
+            </properties>
+        </profile>
+        <profile>
+            <id>assembly-quick</id>
+            <properties>
+                <assembly.fileName>quick.xml</assembly.fileName>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 此配置要和 assembly-all和assembly-quick两个配置一起使用才有效 -->
+            <id>assembly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.4</version>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>/build/${assembly.fileName}</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-zip</id><!--名字任意 -->
+                                <phase>package</phase><!-- 绑定到package生命周期阶段上 -->
+                                <goals>
+                                    <goal>single</goal><!-- 只运行一次 -->
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>jtd-ad-log-collector</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/mustConfig</directory>
+            </resource>
+            <resource>
+                <!--<directory>${package.environment}</directory>-->
+                <directory>${project.customer.config}</directory>
+
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <!--<source>1.7</source>-->
+                        <!--<target>1.7</target>-->
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>com.jtd.logcollector.LogCollector</mainClass>
+                            </manifest>
+                        </archive>
+                        <classesDirectory>
+                        </classesDirectory>
+                    </configuration>
+                </plugin>
+                <!-- 拷贝依赖的jar包到lib目录 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>copy</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>copy-dependencies</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>
+                                    ${project.build.directory}/lib
+                                </outputDirectory>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+            <version>5.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.13</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.18</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-pool</groupId>
+            <artifactId>commons-pool</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-1.2-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <!-- 用于代理commons-logging的日志（spring） -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-jcl</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.2.21.Final</version>
+        </dependency>
+        <!-- **************平台自建的依赖库************** -->
+        <dependency>
+            <groupId>com.jtd</groupId>
+            <artifactId>jtd-entity</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${jtd-ad.groupId}</groupId>
+            <artifactId>${jtd-ad-commons.name}</artifactId>
+            <version>${jtd-ad-commons.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${jtd-ad.groupId}</groupId>
+            <artifactId>jtd-ad-redis</artifactId>
+            <version>${jtd-ad-redis.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

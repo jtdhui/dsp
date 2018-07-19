@@ -1,0 +1,117 @@
+input.yen_date {
+    border: 1px solid #d1d1d1;
+    padding: 5px 0 5px 10px;
+    color: #898989;
+    float: left;
+    width: 180px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 40px;
+}
+
+.layer_date_range {
+    width: 250px;
+    background: #fff;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .3);
+    border-radius: 2px;
+    position: absolute;
+    /*top: 30px!important;*/
+    /*left: 515px!important;*/
+    border: 1px solid #d1d1d1;
+}
+
+.date_range_con {
+    padding: 20px 15px 0 15px;
+    overflow: hidden;
+}
+
+.layer_two_bt {
+    text-align: center;
+    overflow: hidden;
+    margin: 30px 0;
+}
+
+.layer_two_bt input {
+    width: 94px;
+    height: 32px;
+    line-height: 32px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    border: medium none;
+    border-radius: 5px;
+}
+
+.layer_two_bt input.two_blue_button {
+    background: #1da7d8;
+    color: #fff;
+}
+
+.layer_two_bt input.two_blue_reset {
+    background: #f1f1f1;
+    color: #9fa0a0;
+}
+
+.date_range_change input {
+    float: left;
+    width: 98px;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #8ed3eb;
+    text-align: center;
+    color: #000;
+}
+
+.date_range_change i {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    color: #000;
+    padding: 0 10px;
+    display: block;
+    width: 4px;
+    font-family: arial;
+}
+
+.date_range_other {
+    padding-top: 20px;
+}
+
+.date_range_other ul {
+    padding: 0;
+    margin: 0;
+}
+
+.date_range_other li {
+    float: left;
+    width: 50%;
+    padding-top: 5px;
+    list-style: none outside none;
+}
+
+.date_range_other li.clearfix {
+    width: 100%;
+}
+
+.date_range_other li i {
+    display: block;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    color: #3e3a39;
+    cursor: pointer;
+    font-style: normal;
+}
+
+.date_range_other li.active i,
+.date_range_other li i:hover {
+    background: #53ab21;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.report_date {
+    position: relative;
+    z-index: 2
+}

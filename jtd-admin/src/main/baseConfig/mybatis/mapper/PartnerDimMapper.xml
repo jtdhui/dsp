@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.PartnerDimDao" >
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.PartnerDim" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+    <result column="dim_name" property="dimName" jdbcType="VARCHAR" />
+    <!-- <result column="delete_status" property="deleteStatus" jdbcType="INTEGER" /> -->
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.jtd.web.po.PartnerDim" extends="BaseResultMap" >
+    <result column="dim_value" property="dimValue" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, partner_id, dim_name, create_time
+  </sql>
+  
+  <sql id="Blob_Column_List" >
+    dim_value
+  </sql>
+
+  <select id="selectByPartnerId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from partner_dim
+    where partner_id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectBlacklistByPartnerId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from partner_dim
+    where partner_id = #{id,jdbcType=BIGINT} and dim_name = 'blacklist'
+  </select>
+  
+  <insert id="insertByMap" parameterType="map" >
+    insert into partner_dim (id, partner_id, dim_name, dim_value, create_time)
+    values (#{id,jdbcType=BIGINT}, #{partnerId,jdbcType=BIGINT}, #{dimName,jdbcType=VARCHAR}, #{dimValue,jdbcType=LONGVARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByMap" parameterType="map" >
+    update partner_dim
+    set 
+      dim_value = #{dimValue,jdbcType=LONGVARCHAR}
+    where partner_id = #{partnerId,jdbcType=BIGINT} and dim_name = #{dimName,jdbcType=BIGINT}
+  </update>
+</mapper>

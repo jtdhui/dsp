@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="propertyConfig" class="com.jtd.commons.PropertyConfig">
+		<property name="locations">
+			<list>
+				<value>config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.jtd.collector"/>
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="3" />
+		<property name="minIdle" value="3" />
+		<property name="maxActive" value="20" />
+		<property name="maxWait" value="60000" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+	
+	<bean id="countRedisGroup" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<!-- 
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node1']}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node2']}" /></bean> 
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node3']}" /></bean> 
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node4']}" /></bean> 
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node5']}" /></bean> 
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node6']}" /></bean> 
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node7']}" /></bean> 
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="#{props['countRedisGroup.node8']}" /></bean>
+				-->
+				
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node1}" /></bean>
+				<!--<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node2}" /></bean>-->
+				<!--<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node3}" /></bean> -->
+				<!--<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node4}" /></bean> -->
+				<!--<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node5}" /></bean> -->
+				<!--<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node6}" /></bean> -->
+				<!--<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node7}" /></bean> -->
+				<!--<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node8}" /></bean>-->
+				<!-- <bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node9}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node10}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node11}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node12}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node13}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node14}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node15}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node16}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node17}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node18}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node19}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node20}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node21}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node22}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node23}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${countRedisGroup.node24}" /></bean>
+				 -->
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWait" value="10" />
+		<property name="minIdle" value="0" />
+		<property name="testWhileIdle" value="true" />
+	</bean>
+	
+	<bean id="countPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="countRedisGroup" />
+		<constructor-arg value="0" />
+	</bean>
+	
+	<bean id="campaignPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg value="${businessRedis.host}" />
+		<constructor-arg value="${businessRedis.port}" />
+		<constructor-arg value="5000" />
+		<constructor-arg value="${businessRedis.password}" />
+		<constructor-arg value="0" />
+	</bean>
+	
+	<bean id="countDAO" class="com.jtd.collector.dao.CountDAOImpl" init-method="init">
+		<property name="pool" ref="countPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+	</bean>
+	
+	<bean id="campaignDAO" class="com.jtd.collector.dao.CampaignDAOImpl" init-method="init">
+		<property name="pool" ref="campaignPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+	</bean>
+	
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${amq.url}" />
+		<property name="userName" value="${amq.username}" />
+		<property name="password" value="${amq.password}" />
+	</bean>
+	
+	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory" ref="amqConnectionFactory" />
+		<property name="clientId" value="${amq.clientId}" />
+		<property name="reconnectOnException" value="true" />
+	</bean>
+	<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg>
+			<value>dsptopic</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="queue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>dspbidq</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="topic" />
+		<property name="deliveryPersistent" value="true" />
+	</bean>
+	<bean id="msglistener" class="com.jtd.collector.jms.JMSMessageListener">
+		<property name="campaignDAO" ref="campaignDAO" />
+		<property name="countDAO" ref="countDAO" />
+		<property name="collectService" ref="collectService" />
+	</bean>
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topic" />
+		<property name="messageListener" ref="msglistener" />
+		<property name="subscriptionDurable" value="true" />
+	</bean>
+	<!-- 队列监听 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="queue" />
+		<property name="messageListener" ref="msglistener" />
+	</bean>
+</beans>

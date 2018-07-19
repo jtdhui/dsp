@@ -1,0 +1,36 @@
+﻿@import "common";
+@import "module/handle-view";
+@import "module/second-links";
+@import "module/btn";
+@import "module/table";
+@import "module/modal";
+
+.header {
+  .nav-hover {
+    left: @startSize+@moveLeft*4px;
+  }
+}
+
+.handle-view {
+  margin-bottom: 50px;
+}
+
+.table {
+  width: 1120px;
+  margin: 0 auto;
+  .balance {
+    color: @main-color;
+  }
+}
+
+.modal-dialog {
+  top: 10%;
+  width: 976px;
+  margin-left: -488px;
+  //margin-top: -380px;
+  .modal-body {
+    .layer_get_code {
+      width: 100%;
+    }
+  }
+}

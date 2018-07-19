@@ -1,0 +1,128 @@
+2018-06-10 10:40:03 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1080
+2018-06-10 10:40:03 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>8378==活动id>>1080
+2018-06-10 10:40:03 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1080
+2018-06-10 10:40:03 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1080
+2018-06-10 10:40:03 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 10:40:08 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1080
+2018-06-10 10:40:08 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 10:40:08 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1080
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1082
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>8378==活动id>>1082
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1082
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1082
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1082
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1082
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1081
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>8378==活动id>>1081
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1081
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1081
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1081
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 10:51:56 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1081
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1083
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>8378==活动id>>1083
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1083
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1083
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1083
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 10:51:57 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1083
+2018-06-10 11:07:32 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1080
+2018-06-10 11:07:32 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>4954==活动id>>1080
+2018-06-10 11:07:32 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1080
+2018-06-10 11:07:32 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1080
+2018-06-10 11:07:32 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:07:38 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1080
+2018-06-10 11:07:38 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:07:38 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1080
+2018-06-10 11:08:28 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:08:34 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:08:36 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>1
+2018-06-10 11:08:38 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>false
+2018-06-10 11:15:04 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1082
+2018-06-10 11:15:04 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>4954==活动id>>1082
+2018-06-10 11:15:04 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1082
+2018-06-10 11:15:04 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1082
+2018-06-10 11:15:04 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:15:05 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1082
+2018-06-10 11:15:05 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:15:05 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1082
+2018-06-10 11:15:07 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:15:07 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:15:07 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>0
+2018-06-10 11:15:07 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>true
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1081
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>4954==活动id>>1081
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1081
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1081
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1081
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1081
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>1
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>false
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1083
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>4954==活动id>>1083
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1083
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1083
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1083
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1083
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>0
+2018-06-10 11:30:11 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>true
+2018-06-10 11:33:08 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1080
+2018-06-10 11:33:08 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>6575==活动id>>1080
+2018-06-10 11:33:08 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1080
+2018-06-10 11:33:08 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1080
+2018-06-10 11:33:08 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:33:09 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1080
+2018-06-10 11:33:09 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:33:09 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1080
+2018-06-10 11:33:16 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:33:17 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:33:17 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>1
+2018-06-10 11:33:17 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>false
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1082
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>6575==活动id>>1082
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1082
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1082
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1082
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1082
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>0
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>true
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1081
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>6575==活动id>>1081
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1081
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1081
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1081
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1081
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>1
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>false
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:48) : maxBidPrice>>bes:BidFloorMatcher>>140==活动id>>1083
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:49) : session.getBidFloor()>>bes:BidFloorMatcher>>6575==活动id>>1083
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:50) : maxBidPrice >= session.getBidFloor()>>bes:BidFloorMatcher>>false==活动id>>1083
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:51) : maxBidPrice >= session.getBidFloor()>>bes:false==活动id>>1083
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:36) : bes:CityMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:41) : matched，用户ip是否为空>>bes:地域匹配-CityMatcher>>falseip==活动id>>1083
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:29) : bes:DisplayTypeMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.DisplayTypeMatcher.doMatch(DisplayTypeMatcher.java:30) : 48、session.getAdType() == camp.getAdType()>>bes:广告展示类型匹配-DisplayTypeMatcher>>pc banner----pc banner>>活动id:1083
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:49) : bes:FreqMatcher--------------------------------------------
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:66) : 70、百度是首屏，vs>>bes:FreqMatcher>>2
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:71) : 71、页面的是否首屏0不限、1首屏、2非首屏，freq.getFirsts()>>bes:FreqMatcher>>0
+2018-06-10 11:37:29 [INFO ] com.jtd.engine.ad.matcher.FreqMatcher.matchAdBES(FreqMatcher.java:87) : 72、是否首屏的匹配，fsmatched>>bes:FreqMatcher>>true

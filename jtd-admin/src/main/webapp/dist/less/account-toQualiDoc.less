@@ -1,0 +1,145 @@
+﻿@import "common";
+@import "module/handle-view";
+@import "module/second-links";
+@import "module/select";
+@import "module/input";
+@import "module/btn";
+@import "module/font-color";
+
+.mt-100 {
+  margin-top: 100px;
+}
+
+.header {
+  .nav-hover {
+    left: @startSize+@moveLeft*4px;
+  }
+}
+
+.handle-view {
+  //padding-top: 10px;
+}
+
+.q-title {
+  width: 168px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 20px;
+  background-color: @c-purple;
+  padding: 0;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(133, 142, 255, 0.6);
+  margin: 0 auto 30px;
+}
+
+.table-bordered {
+  width: 1140px;
+  margin: 0 auto 40px;
+  td {
+    text-align: center;
+    font-size: 16px;
+    //color: #666;
+    span {
+      font-size: 16px;
+      //color: #666;
+    }
+  }
+  thead > tr > th {
+    text-align: center;
+    background-color: #fff;
+    font-weight: normal;
+    font-size: 16px;
+    color: #333;
+    border-bottom: 0;
+  }
+}
+
+//-- 资质上传
+.q-upload {
+  width: 785px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin: 30px 0;
+  .title {
+    font-size: 18px;
+    color: #666;
+  }
+  .select-box {
+    width: 388px;
+  }
+
+  .input_text {
+    width: 240px;
+    margin: 0 10px;
+  }
+  //-- 上传部分
+  .papers {
+    .papers_tit {
+      float: left;
+      text-align: left;
+      width: 160px;
+      height: 34px;
+      line-height: 34px;
+      font-size: 16px;
+      color: #666;
+    }
+
+    .papers_file {
+      float: left;
+      display: inline-block;
+      text-align: center;
+      border: medium none;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      display: inline-block;
+      margin: 0 20px;
+      *display: inline;
+      *zoom: 1;
+      input {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        right: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer;
+      }
+    }
+  }
+  //-- 已上传图片信息
+  .upload-img {
+    margin: 30px 0 0;
+    line-height: 1.2;
+    .img-logo {
+      float: left;
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: url("../../img/icons.png") no-repeat -111px -46px;
+      //background-color: #0f253c;
+      margin-right: 20px;
+    }
+    .img-info {
+      font-size: 16px;
+      color: #666;
+      margin-right: 60px;
+    }
+    .img-handle {
+      font-size: 16px;
+      margin: 0 15px;
+      color: #666666;
+    }
+    .img-del {
+      color: @main-color;
+    }
+  }
+
+}
+

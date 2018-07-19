@@ -1,0 +1,24 @@
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
+	<id>package</id>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<files>
+		<file>
+			<source>${project.basedir}/target/${build.finalName}.jar</source>
+			<outputDirectory>/${build.finalName}/lib</outputDirectory>
+		</file>
+	</files>
+	<fileSets>
+		<fileSet>
+			<directory>${project.basedir}/src/main/baseConfig</directory>
+			<outputDirectory>/${build.finalName}/conf</outputDirectory>
+		</fileSet>
+		<fileSet>
+			<directory>${project.customer.config}</directory>
+			<outputDirectory>/${build.finalName}/conf</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>

@@ -1,0 +1,161 @@
+﻿@import "common";
+@import "module/select";
+@import "module/input";
+@import "module/btn";
+@import "module/search-term";
+@import "module/modal";
+@import "module/table";
+@import "module/paging";
+
+input {
+  font-size: 12px;
+}
+
+.header {
+  .nav-hover {
+    left: @startSize+@moveLeft*1px;
+  }
+}
+
+// - 查询条件
+.form-horizontal {
+  line-height: 3;
+  .select-wrap {
+    margin-top: 2px;
+    margin-right: 16px;
+  }
+  .btn-search {
+    width: 90px;
+  }
+  .btn-search:first-child {
+    margin-right: 15px;
+  }
+  .select-box {
+    width: 120px;
+  }
+}
+
+// - 操作按钮
+.condition-btns {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+  .btn {
+    width: 126px;
+    height: 42px;
+    line-height: 40px;
+    border-radius: 20px;
+    margin: 0 15px;
+  }
+  .btn:hover {
+    background-color: @main-color;
+  }
+}
+
+// - 表格
+.table {
+  th:first-child, td:first-child {
+    text-align: left !important;
+    input[type=checkbox], input[type=radio] {
+      margin: 0 10px;
+    }
+  }
+}
+
+// todo: 模态框（错误提示）
+.warning-wrap {
+  @madal-w: 400px;
+  .modal-dialog {
+    left: 50%;
+    width: 400px;
+    height: 200px;
+    margin-left: -@madal-w/2;
+    .modal-body {
+      text-align: center;
+      padding: 30px;
+      .btn {
+        margin: 40px 0 10px;
+      }
+    }
+  }
+}
+
+.del-modal {
+  @madal-w: 400px;
+  .modal-dialog {
+    left: 50%;
+    width: 400px;
+    height: 200px;
+    margin-left: -@madal-w/2;
+    .modal-body {
+      text-align: center;
+      padding: 30px;
+      .btn {
+        margin: 40px 10px 10px;
+      }
+    }
+  }
+}
+
+.batch_set {
+  .modal-dialog {
+    margin-top: -190px;
+    margin-left: -200px;
+    width: 400px;
+    height: 380px;
+    //background-color: #fff;
+    .modal-body {
+      .form-horizontal {
+        .form-group {
+          width: 100%;
+          height: 32px;
+          line-height: 32px;
+          margin-bottom: 20px;
+        }
+        .control-label {
+          padding-top: 0 !important;
+          font-size: 16px;
+          color: @modal-font-color;
+          font-weight: normal;
+          position: relative;
+          //margin-right: 10px;
+        }
+        .control-label:before {
+          position: absolute;
+          right: 0;
+          top: 0;
+          content: ':';
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+          font-size: 18px;
+          font-weight: normal;
+          color: @modal-font-color;
+        }
+        .col-sm-2 {
+          width: 100px !important;
+        }
+        .col-sm-10 {
+          width: 252px !important;
+          .warning-tip {
+            display: none;
+            width: 100%;
+            font-size: 16px;
+            text-align: justify;
+            line-height: 22px;
+            margin: 10px 0;
+          }
+        }
+        .form-control {
+          width: 223px;
+          height: 32px;
+          line-height: 32px;
+          padding-right: 0;
+        }
+        .btn-arr {
+          margin: 10px 0;
+        }
+      }
+    }
+  }
+}

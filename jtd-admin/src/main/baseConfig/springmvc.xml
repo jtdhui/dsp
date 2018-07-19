@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd "> -->
+	
+	<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd  
+	http://www.springframework.org/schema/tx  
+	http://www.springframework.org/schema/tx/spring-tx.xsd  
+	http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop.xsd ">
+
+	<!-- http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd -->
+	<!-- 读取配置文件 -->
+	<bean class="com.jtd.commons.BeanFactory"/>
+	
+	<context:annotation-config/>
+	<!-- 使用spring组件扫描 -->
+	<context:component-scan base-package="com.jtd.web,com.jtd.tencent" />
+	
+	<!-- 开启aop，对类代理 -->
+	<aop:config proxy-target-class="true"></aop:config>
+	
+	
+	
+	
+	<!-- 注解处理器映射器 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	</bean>
+	
+	<!-- 注解适配器 -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<!-- 在webBindingInitializer中注入自定义转换器 -->
+		<property name="webBindingInitializer" ref="webBinder" />
+		<!-- 加入 json数据的消息转换器 MappingJacksonHttpMessageConverter依赖Jackson的包 -->
+		<property name="messageConverters">
+			<list>
+				<!-- 配合 @requestBody和@ResponseBody可以接受和返回json字符串 -->
+				<!-- <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" /> -->
+				<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+					<!-- json 日期格式转换 -->
+					<property name="objectMapper"> 
+						<bean class="com.fasterxml.jackson.databind.ObjectMapper"> 
+							<property name="dateFormat"> 
+								<bean class="java.text.SimpleDateFormat"> 
+									<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+								</bean> 
+							</property> 
+						</bean> 
+					</property> 
+				</bean>
+				<!-- ajax 请求返回json html 中文乱码问题 -->
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/html;charset=UTF-8</value>
+							<value>text/json;charset=UTF-8</value>
+							<value>application/json;charset=UTF-8</value>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置视图解析器 要求将jstl的包加到classpath -->
+	<!-- ViewResolver -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 注册属性转换器 -->
+	<!-- 自定义webBinder -->
+	 <bean id="webBinder" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+		<!-- 使用converter进行参数转 -->
+	    <property name="conversionService" ref="conversionService" />
+	 </bean>
+	
+	<!-- 消息转换转换器 -->
+	 <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.jtd.web.converter.CustomDateConverter"/>
+				<bean class="com.jtd.web.converter.StringTrimConverter"/>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 文件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置文件的最大，大小 -->
+		<property name="maxUploadSize">
+			<value>52242880</value>
+		</property>
+	</bean>
+	
+	<!-- 定义统一异常处理器 -->
+	<bean class="com.jtd.web.exception.PlatformExceptionResolver"/>
+	
+	<!-- <import resource="applicationContext-dao.xml" />
+	<import resource="applicationContext-transation.xml" />
+	<import resource="applicationContext-service.xml" />
+	<import resource="applicationContext-shiro.xml" />
+	<import resource="applicationContext-quartz.xml" /> -->
+	
+	
+</beans>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.TopDomainDao">
+
+	<!-- 域名 -->
+	<sql id="table">top_domain</sql>
+
+	<!-- 基本查询字段 -->
+	<sql id="Base_Column_List">
+		id, domain, site_name, site_num, price_range, flow, channel_id, web_site_type, pid, 
+    	max_price, min_price, adx_website_type, parentid,manual_entry, create_time, remark
+	</sql>
+	
+	<!-- 输出结果字段集合 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.TopDomain" >
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="domain" property="domain" jdbcType="VARCHAR" />
+		<result column="site_name" property="siteName" jdbcType="VARCHAR" />
+		<result column="site_num" property="siteNum" jdbcType="INTEGER" />
+		<result column="price_range" property="priceRange" jdbcType="VARCHAR" />
+		<result column="flow" property="flow" jdbcType="BIGINT" />
+		<result column="channel_id" property="channelId" jdbcType="BIGINT" />
+		<result column="web_site_type" property="webSiteType" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="BIGINT" />
+		<result column="max_price" property="maxPrice" jdbcType="INTEGER" />
+		<result column="min_price" property="minPrice" jdbcType="INTEGER" />
+		<result column="adx_website_type" property="adxWebsiteType" jdbcType="VARCHAR" />
+		<result column="parentid" property="parentid" jdbcType="VARCHAR" />
+		<result column="manual_entry" property="manualEntry" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from top_domain
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.TopDomain">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		<include refid="table" />
+		where 1=1
+			<if test="channelId != null">
+				and channel_id = #{channelId,jdbcType=BIGINT}
+			</if>
+			<if test="webSiteType != null">
+				and web_site_type = #{webSiteType,jdbcType=VARCHAR}
+			</if>
+			<if test="maxPrice != null">
+				and max_price = #{maxPrice,jdbcType=INTEGER}
+			</if>
+			<if test="minPrice != null">
+				and min_price = #{minPrice,jdbcType=INTEGER}
+			</if>
+			<if test="adxWebsiteType != null">
+				and adx_website_type = #{adxWebsiteType,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<!-- 分页 -->
+	<select id="getPageBy" resultMap="BaseResultMap"  parameterType="map" >
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where 1=1
+			<if test="condition.channelId != null">
+				and channel_id = #{condition.channelId,jdbcType=BIGINT}
+			</if>
+			<if test="condition.domain != null">
+				and domain LIKE CONCAT('%',#{condition.domain,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.flow_min != null">
+				and flow &gt;= #{condition.flow_min,jdbcType=BIGINT}
+			</if>
+			<if test="condition.flow_max != null">
+				and flow &lt;= #{condition.flow_max,jdbcType=BIGINT}
+			</if>
+			<if test="condition.webSiteType != null">
+				and web_site_type LIKE CONCAT('',#{condition.webSiteType,jdbcType=VARCHAR},'%')
+			</if>
+			<if test="condition.maxPrice != null">
+				and max_price = #{condition.maxPrice,jdbcType=INTEGER}
+			</if>
+			<if test="condition.minPrice != null">
+				and min_price = #{condition.minPrice,jdbcType=INTEGER}
+			</if>
+			<if test="condition.adxWebsiteType != null">
+				and adx_website_type = #{condition.adxWebsiteType,jdbcType=VARCHAR}
+			</if>
+		order by
+		<if test='condition.manualEntry != null and condition.manualEntry=="1"'>
+			manual_entry DESC,
+		</if>
+		<if test='condition.manualEntry != null and condition.manualEntry=="0"'>
+			manual_entry ASC,
+		</if>
+		create_time desc, id DESC
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from top_domain
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.TopDomain">
+		insert into top_domain
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="domain != null">
+				domain,
+			</if>
+			<if test="siteName != null">
+				site_name,
+			</if>
+			<if test="siteNum != null">
+				site_num,
+			</if>
+			<if test="priceRange != null">
+				price_range,
+			</if>
+			<if test="flow != null">
+				flow,
+			</if>
+			<if test="channelId != null">
+				channel_id,
+			</if>
+			<if test="webSiteType != null">
+				web_site_type,
+			</if>
+			<if test="pid != null">
+				pid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="maxPrice != null">
+				max_price,
+			</if>
+			<if test="minPrice != null">
+				min_price,
+			</if>
+			<if test="adxWebsiteType != null">
+				adx_website_type,
+			</if>
+			<if test="parentid != null">
+				parentid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="domain != null">
+				#{domain,jdbcType=VARCHAR},
+			</if>
+			<if test="siteName != null">
+				#{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteNum != null">
+				#{siteNum,jdbcType=INTEGER},
+			</if>
+			<if test="priceRange != null">
+				#{priceRange,jdbcType=VARCHAR},
+			</if>
+			<if test="flow != null">
+				#{flow,jdbcType=BIGINT},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=BIGINT},
+			</if>
+			<if test="webSiteType != null">
+				#{webSiteType,jdbcType=INTEGER},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="maxPrice != null">
+				#{maxPrice,jdbcType=INTEGER},
+			</if>
+			<if test="minPrice != null">
+				#{minPrice,jdbcType=INTEGER},
+			</if>
+			<if test="adxWebsiteType != null">
+				#{adxWebsiteType,jdbcType=VARCHAR},
+			</if>
+			<if test="parentid != null">
+				#{parentid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+
+	<update id="update" parameterType="com.jtd.web.po.TopDomain">
+		update top_domain
+		<set>
+			<if test="domain != null">
+				domain = #{domain,jdbcType=VARCHAR},
+			</if>
+			<if test="siteName != null">
+				site_name = #{siteName,jdbcType=VARCHAR},
+			</if>
+			<if test="siteNum != null">
+				site_num = #{siteNum,jdbcType=INTEGER},
+			</if>
+			<if test="priceRange != null">
+				price_range = #{priceRange,jdbcType=VARCHAR},
+			</if>
+			<if test="flow != null">
+				flow = #{flow,jdbcType=BIGINT},
+			</if>
+			<if test="channelId != null">
+				channel_id = #{channelId,jdbcType=BIGINT},
+			</if>
+			<if test="webSiteType != null">
+				web_site_type = #{webSiteType,jdbcType=INTEGER},
+			</if>
+			<if test="pid != null">
+				pid = #{pid,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="maxPrice != null">
+				max_price = #{maxPrice,jdbcType=INTEGER},
+			</if>
+			<if test="minPrice != null">
+				min_price = #{minPrice,jdbcType=INTEGER},
+			</if>
+			<if test="adxWebsiteType != null">
+				adx_website_type = #{adxWebsiteType,jdbcType=VARCHAR},
+			</if>
+			<if test="parentid != null">
+				parentid = #{parentid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

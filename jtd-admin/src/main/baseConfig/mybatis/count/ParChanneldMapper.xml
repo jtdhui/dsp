@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.ParChanneldDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> par_channeld </sql>
+	<!-- 查询结果映射 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.count.ParChanneld">
+		<result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+		<result column="channel_id" property="channelId" jdbcType="BIGINT" />
+		<result column="host" property="host" jdbcType="VARCHAR" />
+		<result column="bid" property="bid" jdbcType="INTEGER" />
+		<result column="pv" property="pv" jdbcType="INTEGER" />
+		<result column="uv" property="uv" jdbcType="INTEGER" />
+		<result column="click" property="click" jdbcType="INTEGER" />
+		<result column="uclick" property="uclick" jdbcType="INTEGER" />
+		<result column="arrpv" property="arrpv" jdbcType="INTEGER" />
+		<result column="arruv" property="arruv" jdbcType="INTEGER" />
+		<result column="expend" property="expend" jdbcType="INTEGER" />
+		<result column="cost" property="cost" jdbcType="INTEGER" />
+		<result column="date" property="date" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		partner_id, channel_id, host , bid, pv, uv,
+		click, uclick, arrpv, arruv, expend, cost, date
+	</sql>
+	
+	<sql id="showBaseCols">
+		pv, uv, click, click_rate , cost_yuan, expend_yuan, cpm_expend_yuan, cpc_expend_yuan, cpm_cost_yuan, cpc_cost_yuan
+	</sql>
+	
+	<!-- campd报表的基础统计sql -->
+	<sql id="countBaseCols">
+		IFNULL( sum(pv) , 0 ) AS pv,
+		IFNULL( sum(uv) , 0 ) AS uv,
+		IFNULL( sum(click) , 0 ) AS click,
+		IFNULL( ( ( sum(click) / sum(pv) ) * 100 ) , 0 ) AS click_rate,
+		IFNULL( ( sum(cost) / 100 ) , 0 ) AS cost_yuan,
+		IFNULL( ( sum(expend) / 100 ) , 0 ) AS expend_yuan,
+		IFNULL( ( ( sum(expend) / 100 ) / ( sum(pv) / 1000 ) ) , 0 ) AS cpm_expend_yuan,
+		IFNULL( ( ( sum(expend) / 100 ) / sum(click) ) , 0 ) AS cpc_expend_yuan,
+		IFNULL( ( ( sum(cost) / 100 ) / ( sum(pv) / 1000 ) ) , 0 ) AS cpm_cost_yuan,
+		IFNULL( ( ( sum(cost) / 100 ) / sum(click) ) , 0 ) AS cpc_cost_yuan
+	</sql>
+	
+	<!-- 活动渠道报表list-->
+	<select id="listByMap" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM
+			<include refid="table" />
+			WHERE 1=1 AND (host != '其他' OR host != '未知')
+			<if test='campIds != null and campIds != "ALL"'>
+				and partner_id in (${campIds})
+			</if>
+			<if test="channelId != null">
+				and channel_id = #{channelId}
+			</if>
+			<if test="host != null">
+				and host LIKE CONCAT('%',#{host},'%')
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum}
+			</if>
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+		<if test="desc != null">
+			${desc}
+		</if>
+	</select>
+	
+</mapper>

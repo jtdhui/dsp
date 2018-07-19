@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans default-lazy-init="false"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.1.xsd"> -->
+        
+        <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<bean id="redisGroup" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node1}" /></bean>
+				<!-- <bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node2}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node3}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node4}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node5}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node6}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node7}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node8}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node9}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node10}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node11}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node12}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node13}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node14}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node15}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node16}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node17}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node18}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node19}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node20}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node21}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node22}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node23}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node24}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node25}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node26}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node27}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node28}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node29}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node30}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node31}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node32}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node33}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node34}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node35}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node36}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node37}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node38}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node39}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node40}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node41}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node42}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node43}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node44}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node45}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node46}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node47}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node48}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node49}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node50}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node51}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node52}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node53}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node54}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node55}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node56}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node57}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node58}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node59}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node60}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node61}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node62}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node63}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node64}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node65}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node66}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node67}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node68}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node69}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node70}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node71}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node72}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node73}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node74}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node75}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node76}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node77}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node78}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node79}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node80}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node81}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node82}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node83}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node84}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node85}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node86}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node87}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node88}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node89}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node90}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node91}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node92}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node93}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node94}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node95}" /></bean>
+				<bean class="redis.clients.jedis.JedisShardInfo"><constructor-arg value="${redisGroup.node96}" /></bean> -->
+			</list>
+		</constructor-arg>
+	</bean>
+	<!-- jedisPool基础 池配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!-- 最大活跃，是mina处理请求线程数（adserver.processorCount），就是有几个线程可能会使用到redis，这里就设置为这个数字 -->
+		<property name="maxActive" value="9" />
+		<!-- 最大空闲数，同上 -->
+		<property name="maxIdle" value="9" />
+		<!-- 最大等待时长，就是在获取reids链接时，如果超过了这个时长，则抛出异常 -->
+		<property name="maxWait" value="10000" />
+		<!-- 最小空闲 -->
+		<property name="minIdle" value="0" />
+		<!-- 如果这些链接是空闲的话，则设置为true，那么在链接空闲的时候，会ping下链接，这样可以保持链接为激活状态 -->
+		<property name="testWhileIdle" value="true" />
+	</bean>
+	<!-- 数据分片存储配置 -->
+	<bean id="redisGroupPool" class="redis.clients.jedis.ShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+	</bean>
+	<!-- 本地redis服务配置，存储campaign数据 -->
+	<bean id="campaignPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg value="${businessRedis.host}" />
+		<constructor-arg value="${businessRedis.port}" />
+		<!-- 链接超时时间，就是链接5秒钟都连不上就会报错 -->
+		<constructor-arg value="5000" />
+		<!-- 这是redis，的密码 -->
+		<constructor-arg value="${businessRedis.password}" />
+		<!-- 数据索引 -->
+		<constructor-arg value="0" />
+	</bean>
+	
+	<!-- 本地redis服务的配置，只不过是不同的数据库 -->
+	<bean id="blackListPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg value="${businessRedis.host}" />
+		<constructor-arg value="${businessRedis.port}" />
+		<constructor-arg value="5000" />
+		<constructor-arg value="${businessRedis.password}" />
+		<constructor-arg value="1" />
+	</bean>
+	<!-- 广告主，创意审核后的结果，通过MQ，存储到这里面来，admin发到mq，引擎监听mq的消息后，存储到这个redis实例里 -->
+	<bean id="auditInfoPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg value="${businessRedis.host}" />
+		<constructor-arg value="${businessRedis.port}" />
+		<constructor-arg value="5000" />
+		<constructor-arg value="${businessRedis.password}" />
+		<constructor-arg value="2" />
+	</bean>
+	<!-- 存放广告请求总次数，调试信息等，相关内容 -->
+	<bean id="othorPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg value="${businessRedis.host}" />
+		<constructor-arg value="${businessRedis.port}" />
+		<constructor-arg value="5000" />
+		<constructor-arg value="${businessRedis.password}" />
+		<constructor-arg value="7" />
+	</bean>
+	
+</beans>

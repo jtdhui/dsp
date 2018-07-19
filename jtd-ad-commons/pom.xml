@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.jtd</groupId>
+        <artifactId>jtd-ad-parent</artifactId>
+        <version>1.0</version>
+        <relativePath>../jtd-ad-parent/pom.xml</relativePath>
+    </parent>
+    <!--jtd-ad-commons-->
+    <artifactId>${jtd-ad-commons.name}</artifactId>
+    <version>${jtd-ad-commons.version}</version>
+    <packaging>jar</packaging>
+
+    <name>${jtd-ad-commons.name}</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.0.18</version>
+        </dependency>
+        <!-- jackson begin -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.6</version>
+        </dependency>
+        <!-- jackson end -->
+
+        <dependency>
+            <groupId>com.jtd</groupId>
+            <artifactId>jtd-entity</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+    </dependencies>
+</project>

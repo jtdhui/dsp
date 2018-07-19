@@ -1,0 +1,17 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../config/ehcache.xsd" updateCheck="false"
+	>
+	<!--diskStore：缓存数据持久化的目录 地址  -->
+	<diskStore path="/Users/xutao/tmp/ehcache-jtd" />
+	<defaultCache 
+		maxElementsInMemory="1000" 
+		maxElementsOnDisk="10000000"
+		eternal="false" 
+		overflowToDisk="false" 
+		diskPersistent="false"
+		timeToIdleSeconds="36000"
+		timeToLiveSeconds="36000" 
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU">
+	</defaultCache>
+</ehcache>

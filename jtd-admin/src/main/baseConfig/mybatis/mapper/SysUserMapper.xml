@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.SysUserDao">
+
+	<sql id="table"> sys_user </sql>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, partner_id, login_name,
+		pwd,user_name,salt,email,mobile,tel,fax,qq,status,create_time,update_time,remark
+	</sql>
+	<!-- 返回值设置 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.SysUser">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+		<result column="login_name" property="loginName" jdbcType="VARCHAR" />
+		<result column="pwd" property="pwd" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+	</select>
+
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.SysUser"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="loginName != null">
+				and login_name = #{loginName,jdbcType=VARCHAR}
+			</if>
+			<if test="pwd != null">
+				and pwd = #{pwd,jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null">
+				and user_name = #{userName,jdbcType=VARCHAR}
+			</if>
+			<if test="salt != null">
+				and salt = #{salt,jdbcType=VARCHAR}
+			</if>
+			<if test="email != null">
+				and email = #{email,jdbcType=VARCHAR}
+			</if>
+			<if test="mobile != null">
+				and mobile = #{mobile,jdbcType=VARCHAR}
+			</if>
+			<if test="tel != null">
+				and tel = #{tel,jdbcType=VARCHAR}
+			</if>
+			<if test="fax != null">
+				and fax = #{fax,jdbcType=VARCHAR}
+			</if>
+			<if test="qq != null">
+				and qq = #{qq,jdbcType=VARCHAR}
+			</if>
+			<if test="status != null">
+				and status = #{status,jdbcType=INTEGER}
+			</if>
+			<if test="updateTime != null">
+				and update_time = #{updateTime,jdbcType=TIMESTAMP}
+			</if>
+			<if test="remark != null">
+				and remark = #{remark,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</select>
+
+	<select id="getById" parameterType="com.jtd.web.po.SysUser"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<!-- 分页查询 -->
+	<select id="getPageBy" parameterType="map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		<where>
+			<trim prefix="" prefixOverrides="and | or">
+				<if test="condition.loginName != null">
+					and login_name = #{condition.loginName,jdbcType=VARCHAR}
+				</if>
+
+				<if test="condition.userName != null">
+					and user_name = #{condition.userName,jdbcType=VARCHAR}
+				</if>
+			</trim>
+		</where>
+	</select>
+	
+	<select id="getMapPageBy" parameterType="map" resultType="java.util.HashMap">
+		select
+		u.*,p.partner_name,sr.name AS role_name
+		from
+		<include refid="table" /> AS u
+		JOIN partner AS p ON u.partner_id = p.id
+		JOIN sys_user_role sur ON u.id = sur.sys_user_id
+		JOIN sys_role sr ON sur.sys_role_id = sr.id
+		<where>
+			<trim prefix="" prefixOverrides="and | or">
+				<if test="condition.loginName != null">
+					and u.login_name LIKE CONCAT('%', #{condition.loginName,jdbcType=VARCHAR} ,'%')
+				</if>
+				<if test="condition.userName != null">
+					and u.user_name LIKE CONCAT('%', #{condition.userName,jdbcType=VARCHAR} ,'%') 
+				</if>
+				<if test="condition.partnerName != null">
+					and p.partner_name LIKE CONCAT('%', #{condition.partnerName,jdbcType=VARCHAR} ,'%')
+				</if>
+				<if test="condition.status != null">
+					and u.status = #{condition.status,jdbcType=INTEGER}
+				</if>
+				<if test="condition.userIds != null">
+					and FIND_IN_SET(u.id, #{condition.userIds,jdbcType=VARCHAR})
+				</if>
+				<if test="condition.isAdmin != null">
+					and u.id != 1
+				</if>
+			</trim>
+		</where>
+		ORDER BY u.id DESC
+	</select>
+
+	<!-- 添加数据 -->
+	<!-- <insert id="insert" parameterType="com.jtd.web.po.SysUser" keyProperty="id" 
+		useGeneratedKeys="true"> insert into sys_user (id, partner_id, login_name, 
+		pwd, user_name, salt, email, mobile, tel, fax, qq, status, create_time, update_time, 
+		remark) values (#{id,jdbcType=BIGINT}, #{partnerId,jdbcType=BIGINT}, #{loginName,jdbcType=VARCHAR}, 
+		#{pwd,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+		#{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+		#{fax,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}) 
+		</insert> -->
+	<insert id="insert" parameterType="com.jtd.web.po.SysUser"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="partnerId != null">
+				partner_id,
+			</if>
+			<if test="loginName != null">
+				login_name,
+			</if>
+			<if test="pwd != null">
+				pwd,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="salt != null">
+				salt,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="fax != null">
+				fax,
+			</if>
+			<if test="qq != null">
+				qq,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="partnerId != null">
+				#{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="loginName != null">
+				#{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				#{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="fax != null">
+				#{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				#{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量添加数据 -->
+	<insert id="batchInsert" parameterType="com.jtd.web.po.SysUser">
+		insert into
+		<include refid="table" />
+		( partner_id, login_name,
+		pwd, user_name, salt, email, mobile, tel,
+		fax, qq, status, create_time,
+		update_time, remark)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.partnerId,jdbcType=BIGINT},
+			#{item.loginName,jdbcType=VARCHAR}, #{item.pwd,jdbcType=VARCHAR},
+			#{item.userName,jdbcType=VARCHAR},
+			#{item.salt,jdbcType=VARCHAR},
+			#{item.email,jdbcType=VARCHAR}, #{item.mobile,jdbcType=VARCHAR},
+			#{item.tel,jdbcType=VARCHAR}, #{item.fax,jdbcType=VARCHAR},
+			#{item.qq,jdbcType=VARCHAR},
+			#{item.status,jdbcType=INTEGER},
+			#{item.createTime,jdbcType=TIMESTAMP},
+			#{item.updateTime,jdbcType=TIMESTAMP},
+			#{item.remark,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<!-- 修改数据 -->
+	<update id="update" parameterType="com.jtd.web.po.SysUser">
+		update
+		<include refid="table" />
+		<set>
+			<if test="partnerId != null">
+				partner_id = #{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="loginName != null">
+				login_name = #{loginName,jdbcType=VARCHAR},
+			</if>
+			<if test="pwd != null">
+				pwd = #{pwd,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				salt = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				tel = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="fax != null">
+				fax = #{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="qq != null">
+				qq = #{qq,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+</mapper>

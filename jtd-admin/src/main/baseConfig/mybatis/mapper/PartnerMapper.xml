@@ -1,0 +1,940 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.PartnerDao">
+
+	<!-- 对应数据表名-->
+	<sql id="table"> partner </sql>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id,pid,partner_type,simple_name,partner_name,website_name,website_url,taxid,acc_balance,credits,gross_profit,contact_name,
+		contact_telephone,contact_email,sales_name,sales_telephone,sales_email,company_address,company_telephone,postcode,status,delete_status,
+		tanx_advertiserid,remark,create_time , quali_doc_main_customer_type , quali_doc_optional_customer_type,
+		logo_img,style_code,login_url,copyright_start_year,website_record_code,boss_partner_code,boss_biz_type,dsp_sales_product_id,advertise_url_list
+		,region,city,first_online_time,create_user_id,partner_level
+	</sql>
+	<!-- 结果集 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.Partner">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="pid" property="pid" jdbcType="BIGINT" />
+		<result column="pname" property="pName" jdbcType="BIGINT" />
+		<result column="partner_type" property="partnerType" jdbcType="INTEGER" />
+		<result column="simple_name" property="simpleName" jdbcType="VARCHAR" />
+		<result column="partner_name" property="partnerName" jdbcType="VARCHAR" />
+		<result column="website_name" property="websiteName" jdbcType="VARCHAR" />
+		<result column="website_url" property="websiteUrl" jdbcType="VARCHAR" />
+		<result column="taxid" property="taxid" jdbcType="VARCHAR" />
+		<result column="acc_balance" property="accBalance" jdbcType="BIGINT" />
+		<result column="credits" property="credits" jdbcType="BIGINT" />
+		<result column="gross_profit" property="grossProfit" jdbcType="DECIMAL" />
+		<result column="contact_name" property="contactName" jdbcType="VARCHAR" />
+		<result column="contact_telephone" property="contactTelephone" jdbcType="VARCHAR" />
+		<result column="contact_email" property="contactEmail" jdbcType="VARCHAR" />
+		<result column="sales_name" property="salesName" jdbcType="VARCHAR" />
+		<result column="sales_telephone" property="salesTelephone" jdbcType="VARCHAR" />
+		<result column="sales_email" property="salesEmail" jdbcType="VARCHAR" />
+		<result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+		<result column="company_telephone" property="companyTelephone" jdbcType="VARCHAR" />
+		<result column="postcode" property="postcode" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+		<result column="tanx_advertiserid" property="tanxAdvertiserid" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="quali_doc_main_customer_type" property="qualiDocMainCustomerType" jdbcType="BIGINT" />
+		<result column="quali_doc_optional_customer_type" property="qualiDocOptionalCustomerType" jdbcType="BIGINT" />
+		<result column="logo_img" property="logoImg" jdbcType="VARCHAR" />
+		<result column="style_code" property="styleCode" jdbcType="VARCHAR" />
+		<result column="login_url" property="loginUrl" jdbcType="VARCHAR" />
+		<result column="copyright_start_year" property="copyrightStartYear" jdbcType="VARCHAR" />
+		<result column="website_record_code" property="websiteRecordCode" jdbcType="VARCHAR" />
+		<result column="boss_partner_code" property="bossPartnerCode" jdbcType="VARCHAR" />
+		<result column="boss_biz_type" property="bossBizType" jdbcType="VARCHAR" />
+		<result column="dsp_sales_product_id" property="dspSalesProductId" jdbcType="INTEGER" />
+		<result column="dsp_sales_product_id" property="dspSalesProductId" jdbcType="INTEGER" />
+		<result column="advertise_url_list" property="advertiseUrlList" jdbcType="VARCHAR" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="first_online_time" property="firstOnlineTime" jdbcType="TIMESTAMP" />
+		<result column="create_user_id" property="createUserId" jdbcType="BIGINT" />
+		<result column="partner_level" property="partnerLevel" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<!-- 分页查询 -->
+	<select id="getPageBy" resultMap="BaseResultMap" parameterType="map">
+		SELECT
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		<where>
+			<trim prefix="">
+				<if test="condition.partnerIdOrName != null">
+					AND (p1.id = #{condition.partnerIdOrName} OR p1.partner_name LIKE CONCAT('%',#{condition.partnerIdOrName},'%'))
+				</if>
+				<if test="condition.partnerName != null">
+					AND p1.partner_name LIKE CONCAT('%',#{condition.partnerName},'%')
+				</if>
+				<if test="condition.partnerType != null">
+					AND p1.partner_type = #{condition.partnerType}
+				</if>
+				<if test="condition.partnerPName != null">
+					AND p2.partner_name LIKE CONCAT('%',#{condition.partnerPName},'%')
+				</if>
+				<if test="condition.status != null">
+					AND p1.status = #{condition.status}
+				</if>
+				<if test="condition.noPartnerId != null">
+					AND p1.id != #{condition.noPartnerId}
+				</if>
+                <if test="condition.pId != null and condition.pId == -1">
+                    AND (p1.pid=0 or p1.pid=1)
+                </if>
+				<if test="condition.userId != null">
+					AND p1.id in(SELECT partner_id FROM user_partner WHERE user_id = #{condition.userId})
+				</if>
+				<if test="condition.region != null ">
+					AND p1.region LIKE CONCAT('%',#{condition.region},'%')  
+				</if>
+				<if test="condition.city != null ">
+					AND p1.city LIKE CONCAT('%',#{condition.city},'%')  
+				</if>
+				<if test="condition.updateFristOnlineStratTime != null">
+					and p1.first_online_time &gt;= #{condition.updateFristOnlineStratTime}
+				</if>
+				<if test="condition.updateFristOnlineEndTime != null">
+					and p1.first_online_time &lt;= #{condition.updateFristOnlineEndTime}
+				</if>
+				<if test="condition.startDate != null">
+					and p1.create_time &gt;= #{condition.startDate }
+				</if>
+				<if test="condition.endDate != null">
+					and p1.create_time &lt;= #{condition.endDate }
+				</if>
+			</trim>
+		</where>
+		ORDER BY p1.create_time DESC
+	</select>
+	
+	<!-- 分页查询 by map -->
+	<select id="getMapPageBy" resultType="java.util.Map" parameterType="map">
+		SELECT
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		<where>
+			<trim prefix="">
+				<if test="condition.partnerIdOrName != null">
+					AND (p1.id = #{condition.partnerIdOrName} OR p1.partner_name LIKE CONCAT('%',#{condition.partnerIdOrName},'%'))
+				</if>
+				<if test="condition.partnerName != null">
+					AND p1.partner_name LIKE CONCAT('%',#{condition.partnerName},'%')
+				</if>
+				<if test="condition.partnerType != null">
+					AND p1.partner_type = #{condition.partnerType}
+				</if>
+				<if test="condition.partnerPName != null">
+					AND p2.partner_name LIKE CONCAT('%',#{condition.partnerPName},'%')
+				</if>
+				<if test="condition.status != null">
+					AND p1.status = #{condition.status}
+				</if>
+				<if test="condition.noPartnerId != null">
+					AND p1.id != #{condition.noPartnerId}
+				</if>
+                <if test="condition.pId != null and condition.pId == -1">
+                    AND (p1.pid=0 or p1.pid=1)
+                </if>
+				<if test="condition.userId != null">
+					AND p1.id in(SELECT partner_id FROM user_partner WHERE user_id = #{condition.userId})
+				</if>
+				<if test="condition.region != null ">
+					AND p1.region LIKE CONCAT('%',#{condition.region},'%')  
+				</if>
+				<if test="condition.city != null ">
+					AND p1.city LIKE CONCAT('%',#{condition.city},'%')  
+				</if>
+				<if test="condition.updateFristOnlineStratTime != null">
+					and p1.first_online_time &gt;= "${condition.updateFristOnlineStratTime} 00:00:00"
+				</if>
+				<if test="condition.updateFristOnlineEndTime != null">
+					and p1.first_online_time &lt;= "${condition.updateFristOnlineEndTime} 23:59:59"
+				</if>
+				<if test="condition.startDate != null">
+					and p1.create_time &gt;= #{condition.startDate }
+				</if>
+				<if test="condition.endDate != null">
+					and p1.create_time &lt;= #{condition.endDate }
+				</if>
+			</trim>
+		</where>
+		ORDER BY p1.create_time DESC
+	</select>
+
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" /> 
+		from
+			<include refid="table" />
+		ORDER BY create_time DESC
+	</select>
+
+	<select id="listBy" parameterType="com.jtd.web.po.Partner" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where 1=1
+		<trim prefix="">
+            <if test="id != null">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+			<if test="pid != null">
+				and pid = #{pid,jdbcType=BIGINT}
+			</if>
+			<if test="partnerName != null">
+				AND partner_name LIKE CONCAT('%',#{partnerName},'%')
+			</if>
+			<if test="loginUrl != null">
+				AND login_url LIKE CONCAT('',#{loginUrl},'%')
+			</if>
+			<if test="bossPartnerCode != null">
+				AND boss_partner_code = #{bossPartnerCode}
+			</if>
+		</trim>
+		ORDER BY create_time DESC
+	</select>
+
+    <!-- 查询一级直客包括中企下面的直客和BOSS直客-->
+    <select id="listOneLevelPartnerBy" parameterType="com.jtd.web.po.Partner" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from
+        <include refid="table" />
+        where 1=1
+        <trim prefix="">
+            <if test="partnerType != null">
+                AND partner_type = #{partnerType}
+            </if>
+            <if test="pid != null and pid == -1">
+                AND (pid='0' or pid= '1')
+            </if>
+            <if test="bossPartnerCode != null">
+                AND boss_partner_code is not NULL
+            </if>
+        </trim>
+        ORDER BY id DESC
+    </select>
+    
+    <!-- 查询代理商下级广告主-->
+    <select id="listById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+       SELECT
+			id,pid,partner_name
+		FROM
+			partner
+		WHERE
+			pid = #{pid}
+        ORDER BY id DESC
+    </select>
+
+	
+	<!-- 根据条件查询 -->
+	<select id="listByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT 
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		WHERE 1=1
+			<trim prefix="">
+				<if test="id != null">
+	                AND p1.id = #{id,jdbcType=BIGINT}
+	            </if>
+				<if test="partnerName != null">
+					AND p1.partner_name LIKE CONCAT('%',#{partnerName},'%')
+				</if>
+				<if test="exactPartnerName != null">
+					AND p1.partner_name = #{exactPartnerName}
+				</if>
+				<if test="partnerType != null">
+					AND p1.partner_type IN (${partnerType})
+				</if>
+				<if test="partnerPName != null">
+					AND p2.partner_name LIKE CONCAT('%',#{partnerPName},'%')
+				</if>
+				<if test="editingPartnerId != null">
+					AND p1.id != #{editingPartnerId,jdbcType=BIGINT}
+				</if>
+				<if test="status != null">
+					AND p1.status = #{status,jdbcType=INTEGER}
+				</if>
+				<if test="userId != null">
+					AND p1.id IN(SELECT partner_id FROM user_partner WHERE user_id = #{userId})
+				</if>
+				<if test="pid != null and pid != -1 ">
+					AND p1.pid = #{pid,jdbcType=BIGINT}
+				</if>
+				<!-- 查顶级代理和中企直属下级 -->
+				<if test="pid != null and pid == -1">				
+                    AND (p1.pid='0' or p1.pid= '1') 
+                </if>
+				<if test="bossPartnerCode != null">
+					and p1.boss_partner_code = #{bossPartnerCode}
+				</if>
+				<if test="updateFristOnlineStratTime != null">
+					and p1.first_online_time &gt;= "${updateFristOnlineStratTime} 00:00:00"
+				</if>
+				<if test="updateFristOnlineEndTime != null">
+					and p1.first_online_time &lt;= "${updateFristOnlineEndTime} 23:59:59"
+				</if>
+			</trim>
+		ORDER BY p1.create_time DESC
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="listMapByMap" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		WHERE 1=1
+			<trim prefix="">
+				<if test="id != null">
+	                AND p1.id = #{id,jdbcType=BIGINT}
+	            </if>
+				<if test="partnerName != null">
+					AND p1.partner_name LIKE CONCAT('%',#{partnerName},'%')
+				</if>
+				<if test="exactPartnerName != null">
+					AND p1.partner_name = #{exactPartnerName}
+				</if>
+				<if test="partnerType != null">
+					AND p1.partner_type IN (${partnerType})
+				</if>
+				<if test="partnerPName != null">
+					AND p2.partner_name LIKE CONCAT('%',#{partnerPName},'%')
+				</if>
+				<if test="editingPartnerId != null">
+					AND p1.id != #{editingPartnerId,jdbcType=BIGINT}
+				</if>
+				<if test="status != null">
+					AND p1.status = #{status,jdbcType=INTEGER}
+				</if>
+				<if test="userId != null">
+					AND p1.id IN(SELECT partner_id FROM user_partner WHERE user_id = #{userId})
+				</if>
+				<if test="pid != null and pid != -1 ">
+					AND p1.pid = #{pid,jdbcType=BIGINT}
+				</if>
+				<!-- 查顶级代理和中企直属下级 -->
+				<if test="pid != null and pid == -1">				
+                    AND (p1.pid='0' or p1.pid= '1') 
+                </if>
+				<if test="bossPartnerCode != null">
+					and p1.boss_partner_code = #{bossPartnerCode}
+				</if>
+				<if test="updateFristOnlineStratTime != null">
+					and p1.first_online_time &gt;= "${updateFristOnlineStratTime} 00:00:00"
+				</if>
+				<if test="updateFristOnlineEndTime != null">
+					and p1.first_online_time &lt;= "${updateFristOnlineEndTime} 23:59:59"
+				</if>
+			</trim>
+		ORDER BY p1.create_time DESC
+	</select>
+	
+	<!-- 查询该广告主及该广告主的直接子集 -->
+    <select id="findPartnerAndChild" parameterType="java.util.Map" resultType="java.util.HashMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM
+        <include refid="table" />
+        where 1=1
+        <trim prefix="">
+            <if test="id != null">
+                and id = #{id,jdbcType=BIGINT} or pid = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="pid != null and pid == -1">
+                or pid = 0
+            </if>
+        </trim>
+    </select>
+
+    <select id="findPartnerPOAndChild" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM
+        <include refid="table" />
+        where 1=1
+        <trim prefix="">
+            <if test="id != null">
+                and id = #{id,jdbcType=BIGINT} or pid = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="pid != null and pid == -1">
+                or pid = 0
+            </if>
+        </trim>
+    </select>
+	
+	<select id="listTreeByMap" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT <include refid="Base_Column_List" /> 
+		FROM
+			<include refid="table" />
+		where 1=1
+        <trim prefix="">
+            <if test="pid != -1">
+                and FIND_IN_SET(id, queryPartnerChildren(#{id,jdbcType=BIGINT}))
+            </if>
+        </trim>
+	</select>
+
+	<select id="listChildPartnerByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" />
+		FROM
+		<include refid="table" />
+		where 1=1
+		<trim prefix="">
+			<if test="pid != -1">
+				and FIND_IN_SET(id, queryPartnerChildren(#{id,jdbcType=BIGINT}))
+			</if>
+		</trim>
+	</select>
+    
+	<!-- 根据ID查询广告主的及基子集的ID集合-->
+	<select id="getChildrenIdsById" parameterType="java.lang.Long" resultType="java.lang.String">
+		SELECT  queryPartnerChildren(#{id,jdbcType=BIGINT})
+	</select>
+	
+	<select id="listAllChildrenByMap" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT u.partner_id flag,p.*
+		FROM
+			<include refid="table" /> p
+		left join user_partner u on
+		u.partner_id= p.id
+		<if test="pid != -1">
+			and FIND_IN_SET(p.id, queryPartnerChildren(#{id,jdbcType=BIGINT}))
+		</if>
+		<if test="userId != null">
+			and u.user_id=#{userId,jdbcType=BIGINT}
+		</if>
+	</select>
+	
+	<select id="getById" resultMap="BaseResultMap" parameterType="com.jtd.web.po.Partner" >
+		select 
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		WHERE p1.id = #{id}
+	</select>
+	
+	<select id="getMapById" resultType="java.util.Map" parameterType="map" >
+		select 
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		WHERE p1.id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.Partner" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="pid != null">
+				pid,
+			</if>
+			<if test="partnerType != null">
+				partner_type,
+			</if>
+			<if test="simpleName != null">
+				simple_name,
+			</if>
+			<if test="partnerName != null">
+				partner_name,
+			</if>
+			<if test="websiteName != null">
+				website_name,
+			</if>
+			<if test="websiteUrl != null">
+				website_url,
+			</if>
+			<if test="taxid != null">
+				taxid,
+			</if>
+			<if test="accBalance != null">
+				acc_balance,
+			</if>
+			<if test="credits != null">
+				credits,
+			</if>
+			<if test="grossProfit != null">
+				gross_profit,
+			</if>
+			<if test="contactName != null">
+				contact_name,
+			</if>
+			<if test="contactTelephone != null">
+				contact_telephone,
+			</if>
+			<if test="contactEmail != null">
+				contact_email,
+			</if>
+			<if test="salesName != null">
+				sales_name,
+			</if>
+			<if test="salesTelephone != null">
+				sales_telephone,
+			</if>
+			<if test="salesEmail != null">
+				sales_email,
+			</if>
+			<if test="companyAddress != null">
+				company_address,
+			</if>
+			<if test="companyTelephone != null">
+				company_telephone,
+			</if>
+			<if test="postcode != null">
+				postcode,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="tanxAdvertiserid != null">
+				tanx_advertiserid,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUserId != null">
+				create_user_id,
+			</if>
+			<if test="logoImg != null">
+				logo_img,
+			</if>
+			<if test="styleCode != null">
+				style_code,
+			</if>
+			<if test="loginUrl != null">
+				login_url,
+			</if>
+			<if test="copyrightStartYear != null">
+				copyright_start_year,
+			</if>
+			<if test="websiteRecordCode != null">
+				website_record_code,
+			</if>
+			<if test="bossPartnerCode != null">
+				boss_partner_code,
+			</if>
+			<if test="bossBizType != null">
+				boss_biz_type,
+			</if>
+			<if test="dspSalesProductId != null">
+				dsp_sales_product_id,
+			</if>
+			<if test="region != null">
+				region,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="advertiseUrlList != null">
+				advertise_url_list,
+			</if>
+			<if test="partnerLevel != null">
+				partner_level,
+			</if>
+			<if test="firstOnlineTime != null">
+				first_online_time  
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="pid != null">
+				#{pid,jdbcType=BIGINT},
+			</if>
+			<if test="partnerType != null">
+				#{partnerType,jdbcType=INTEGER},
+			</if>
+			<if test="simpleName != null">
+				#{simpleName,jdbcType=VARCHAR},
+			</if>
+			<if test="partnerName != null">
+				#{partnerName,jdbcType=VARCHAR},
+			</if>
+			<if test="websiteName != null">
+				#{websiteName,jdbcType=VARCHAR},
+			</if>
+			<if test="websiteUrl != null">
+				#{websiteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="taxid != null">
+				#{taxid,jdbcType=VARCHAR},
+			</if>
+			<if test="accBalance != null">
+				#{accBalance,jdbcType=BIGINT},
+			</if>
+			<if test="credits != null">
+				#{credits,jdbcType=BIGINT},
+			</if>
+			<if test="grossProfit != null">
+				#{grossProfit,jdbcType=DECIMAL},
+			</if>
+			<if test="contactName != null">
+				#{contactName,jdbcType=VARCHAR},
+			</if>
+			<if test="contactTelephone != null">
+				#{contactTelephone,jdbcType=VARCHAR},
+			</if>
+			<if test="contactEmail != null">
+				#{contactEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="salesName != null">
+				#{salesName,jdbcType=VARCHAR},
+			</if>
+			<if test="salesTelephone != null">
+				#{salesTelephone,jdbcType=VARCHAR},
+			</if>
+			<if test="salesEmail != null">
+				#{salesEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="companyAddress != null">
+				#{companyAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="companyTelephone != null">
+				#{companyTelephone,jdbcType=VARCHAR},
+			</if>
+			<if test="postcode != null">
+				#{postcode,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="tanxAdvertiserid != null">
+				#{tanxAdvertiserid,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId,jdbcType=BIGINT},
+			</if>
+			<if test="logoImg != null">
+				#{logoImg,jdbcType=VARCHAR},
+			</if>
+			<if test="styleCode != null">
+				#{styleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="loginUrl != null">
+				#{loginUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="copyrightStartYear != null">
+				#{copyrightStartYear,jdbcType=VARCHAR},
+			</if>
+			<if test="websiteRecordCode != null">
+				#{websiteRecordCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bossPartnerCode != null">
+				#{bossPartnerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bossBizType != null">
+				#{bossBizType,jdbcType=VARCHAR},
+			</if>
+			<if test="dspSalesProductId != null">
+				#{dspSalesProductId},
+			</if>
+			<if test="advertiseUrlList != null">
+				#{advertiseUrlList},
+			</if>
+			<if test="region != null">
+				#{region,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				#{city,jdbcType=VARCHAR},  
+			</if> 
+			<if test="partnerLevel != null">
+				#{partnerLevel},
+			</if>
+			<if test="firstOnlineTime != null">
+				#{first_online_time,jdbcType=TIMESTAMP}
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterType="com.jtd.web.po.Partner">
+		update
+		<include refid="table" />
+		<trim prefix="set" suffixOverrides=",">
+			<if test="pid != null">
+				pid = #{pid,jdbcType=BIGINT},
+			</if>
+			<if test="partnerType != null">
+				partner_type = #{partnerType,jdbcType=INTEGER},
+			</if>
+			<if test="simpleName != null">
+				simple_name = #{simpleName,jdbcType=VARCHAR},
+			</if>
+			<if test="partnerName != null">
+				partner_name = #{partnerName,jdbcType=VARCHAR},
+			</if>
+			<if test="websiteName != null">
+				website_name = #{websiteName,jdbcType=VARCHAR},
+			</if>
+			<if test="websiteUrl != null">
+				website_url = #{websiteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="taxid != null">
+				taxid = #{taxid,jdbcType=VARCHAR},
+			</if>
+			<if test="accBalance != null">
+				acc_balance = #{accBalance,jdbcType=BIGINT},
+			</if>
+			<if test="credits != null">
+				credits = #{credits,jdbcType=BIGINT},
+			</if>
+			<if test="grossProfit != null">
+				gross_profit = #{grossProfit,jdbcType=INTEGER},
+			</if>
+			<if test="companyAddress != null">
+				company_address = #{companyAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="companyTelephone != null">
+				company_telephone = #{companyTelephone,jdbcType=VARCHAR},
+			</if>
+			<if test="postcode != null">
+				postcode = #{postcode,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="qualiDocMainCustomerType != null">
+				quali_doc_main_customer_type = #{qualiDocMainCustomerType,jdbcType=BIGINT},
+			</if>
+			<if test="qualiDocOptionalCustomerType != null">
+				quali_doc_optional_customer_type = #{qualiDocOptionalCustomerType,jdbcType=BIGINT},
+			</if>
+			<if test="logoImg != null">
+				logo_img = #{logoImg,jdbcType=VARCHAR},
+			</if>
+			<if test="styleCode != null">
+				style_code = #{styleCode,jdbcType=VARCHAR},
+			</if>
+			<if test="loginUrl != null">
+				login_url = #{loginUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="copyrightStartYear != null">
+				copyright_start_year = #{copyrightStartYear,jdbcType=VARCHAR},
+			</if>
+			<if test="websiteRecordCode != null">
+				website_record_code = #{websiteRecordCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bossPartnerCode != null">
+				boss_partner_code = #{bossPartnerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bossBizType != null">
+				boss_biz_type = #{bossBizType,jdbcType=VARCHAR},
+			</if>
+			<if test="dspSalesProductId != null">
+				dsp_sales_product_id = #{dspSalesProductId},
+			</if>
+			<if test="advertiseUrlList != null">
+				advertise_url_list = #{advertiseUrlList},
+			</if>
+			<if test="partnerLevel != null">
+				partner_level = #{partnerLevel},
+			</if>
+			<if test="createUserId != null">
+				create_user_id = #{createUserId},
+			</if>
+				contact_name = #{contactName,jdbcType=VARCHAR},
+				contact_telephone = #{contactTelephone,jdbcType=VARCHAR},
+				contact_email = #{contactEmail,jdbcType=VARCHAR},
+				sales_name = #{salesName,jdbcType=VARCHAR},
+				sales_telephone = #{salesTelephone,jdbcType=VARCHAR},
+				sales_email = #{salesEmail,jdbcType=VARCHAR},
+				region=#{region ,jdbcType=VARCHAR},
+				city = #{city ,jdbcType=VARCHAR}
+		</trim>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 开启，暂停 -->
+	<update id="updateStatus" parameterType="map">
+		update
+		<include refid="table" />
+		<set>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER}
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 修改上线记录时间 -->
+	<update id="updateFirstOnlineTime" parameterType="map">
+		update
+		<include refid="table"/>
+		<set>
+			<if test="updateFirOnlTime != null">
+				first_online_time = #{updateFirOnlTime}
+			</if>
+		</set>
+		where id = #{partnerId,jdbcType=BIGINT}
+	</update>
+	
+	
+	<!-- 修改账户余额 -->
+	<update id="updateAccountBalance" parameterType="map">
+		update
+		<include refid="table" />
+		set acc_balance = #{amount,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 修改毛利设置 -->
+	<update id="updataGrossProfit" parameterType="map">
+		update
+		<include refid="table"/>
+		<set>
+			<if test="grossProfit != null">
+				gross_profit = #{grossProfit}
+			</if>
+		</set>
+		where id = #{partnerId,jdbcType=BIGINT}
+	</update>
+	
+    <!-- 向targetPartnerId同步sourcePartnerId的个性化设置 -->
+	<update id="updateOEMSetting" parameterType="map">
+		UPDATE
+		partner AS p1 , 
+		(SELECT * FROM partner WHERE id = #{sourcePartnerId,jdbcType=BIGINT}) AS p2 
+		SET 
+		p1.logo_img = p2.logo_img ,
+		p1.login_url = p2.login_url ,
+		p1.style_code = p2.style_code ,
+		p1.copyright_start_year = p2.copyright_start_year ,
+		p1.website_record_code = p2.website_record_code
+		WHERE p1.id = #{targetPartnerId,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 查询下级代理 -->
+	<select id="findChildren" parameterType="com.jtd.web.po.Partner" resultMap="BaseResultMap">
+		select 
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		WHERE p1.pid = #{partnerId}
+	</select>
+	
+	<!-- 广告主运营列表分页查询 -->
+	<select id="operatorListByMap" resultMap="BaseResultMap" parameterType="map">
+		SELECT
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		<where>
+			<trim prefix="">
+				<if test="condition.partnerIdOrName != null">
+					AND (p1.id = #{condition.partnerIdOrName} OR p1.partner_name LIKE CONCAT('%',#{condition.partnerIdOrName},'%'))
+				</if>
+				<if test="condition.partnerName != null">
+					AND p1.partner_name LIKE CONCAT('%',#{condition.partnerName},'%')
+				</if>
+				<if test="condition.partnerType != null">
+					AND p1.partner_type = #{condition.partnerType}
+				</if>
+				<if test="condition.partnerPName != null">
+					AND p2.partner_name LIKE CONCAT('%',#{condition.partnerPName},'%')
+				</if>
+				<if test="condition.status != null">
+					AND p1.status = #{condition.status}
+				</if>
+				<!-- 查顶级代理和中企直属下级 -->
+				<if test="condition.pId != null and condition.pId == -1">				
+                    AND (p1.pid='0' or p1.pid= '1') 
+                </if>
+                <if test="condition.pId != null and condition.pId != -1">				
+                    AND p2.id = #{condition.pid}
+                </if>
+				<if test="condition.userId != null">
+					AND p1.id in(SELECT partner_id FROM user_partner WHERE user_id = #{condition.userId})
+				</if>
+				<if test="condition.region != null ">
+					AND p1.region LIKE CONCAT('%',#{condition.region},'%')  
+				</if>
+				<if test="condition.city != null ">
+					AND p1.city LIKE CONCAT('%',#{condition.city},'%')  
+				</if>
+				<if test="condition.updateFristOnlineStratTime != null">
+					and p1.first_online_time &gt;= "${condition.updateFristOnlineStratTime} 00:00:00"
+				</if>
+				<if test="condition.updateFristOnlineEndTime != null">
+					and p1.first_online_time &lt;= "${condition.updateFristOnlineEndTime} 23:59:59"
+				</if>
+				<if test="condition.noPartnerId != null">
+					AND p1.id != #{condition.noPartnerId}
+				</if>
+			</trim>
+		</where>
+		ORDER BY p1.create_time DESC
+	</select>
+	
+	<select id="operatorPageListMapByMap" resultType="java.util.Map" parameterType="map">
+		SELECT
+			p1.*, IFNULL(p2.partner_name,'无') AS pname
+		FROM
+			<include refid="table" /> AS p1
+		LEFT JOIN 
+			<include refid="table" /> AS p2 ON p1.pid = p2.id
+		<where>
+			<!-- 查顶级代理和中企直属下级 -->
+			<trim prefix="">
+				AND (p1.pid='0' or p1.pid= '1') 
+				<if test="condition.userId != null">
+					AND p1.id in(SELECT partner_id FROM user_partner WHERE user_id = #{condition.userId})
+				</if>
+			</trim>
+		</where>
+		ORDER BY p1.create_time DESC
+	</select>
+	
+	
+	
+</mapper>

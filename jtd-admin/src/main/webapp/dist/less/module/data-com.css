@@ -1,0 +1,45 @@
+﻿.data_table_div {
+  padding: 15px 20px;
+}
+.radio-wrap {
+  text-align: center;
+}
+.radio-wrap .radio-style {
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  background-color: #999;
+  box-shadow: 0 0 0 1px #999;
+  border: 2px solid #fff;
+}
+.radio-wrap .radio-style.active {
+  background-color: #9393ff;
+}
+.radio-wrap input[type=radio] {
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  cursor: pointer;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  margin: 0;
+}
+.radio-wrap label {
+  font-weight: normal;
+  font-size: 18px;
+  color: #666;
+  margin-left: 15px;
+  margin-right: 60px;
+  cursor: pointer;
+}
+.radio-wrap label:last-child {
+  margin-right: 0;
+}
+.charts {
+  margin: 0 auto;
+}

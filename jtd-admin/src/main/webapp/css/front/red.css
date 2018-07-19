@@ -1,0 +1,207 @@
+/*skin-red*/
+
+body,
+.category_con_tit i {
+    background: #ecf0f5
+}
+
+.nav li a:hover,
+.nav li.active a,
+.index_lt h2,
+.sponsor_select_tit,
+.paging_rt span a,
+.user_manage_cut li.active,
+.user_manage_cut li:hover,
+.login_button,
+.yen_details_bt span,
+.throw_manage .yen_day span.active,
+.throw_manage .yen_day span:hover,
+.throw_manage_tit span,
+.new_activity_bt span.bg_blue,
+.tool_con_tit,
+.upload_size_rt p.active,
+.yen_day span.active,
+.yen_day span:hover {
+    background: #d33724;
+}
+
+.nav li a:hover,
+.nav li.active a {
+    border-bottom: 3px solid #d33724;
+}
+
+.footer,
+.index_lt h2,
+.index_lt h2 a,
+.upload_size_table table tr th,
+.upload_size_rt p.active {
+    color: #fff
+}
+
+.footer {
+    background: #3e3a39;
+}
+
+.index_lt h2 a {
+    font-size: 12px;
+}
+
+.index_lt_nwbie li a:hover {
+    background: #f7f7f7
+}
+
+.sponsor_tit span {
+    background-color: #fff
+}
+
+.index_preview_table table tr th,
+.yen_details_table table tr th,
+.qua_upload_table table tr th,
+.upload_size_table table tr th {
+    background: #585656;
+}
+
+.sponsor_con li:hover,
+.sponsor_con li.active {
+    background: #f4f4f4;
+}
+
+.index_preview,
+.media_resource,
+.throw_manage,
+.new_activity {
+    border-top: 3px solid #d33724;
+}
+
+.index_preview {
+    border-radius: 3px;
+}
+
+.sponsor_con i.i_open,
+.upload_size_file {
+    background-color: #d33724;
+}
+
+.media_resource {
+    background: #fff;
+}
+
+.date,
+.throw_search .yen_date,
+.new_activity .yen_date,
+.yen_date {
+    background: #fff url(../../images/front/red_data.png) no-repeat right center;
+}
+
+.user_manage_con {
+    border: none;
+}
+
+.user_manage_cut,
+.upload_material .throw_manage_tit {
+    border-bottom: 1px solid #d33724;
+}
+
+.login_button,
+.date_six li {
+    border: 1px solid #d33724;
+}
+
+.date_six li i {
+    border-top: 31px solid #d33724;
+}
+
+.throw_manage_tit {
+    border-bottom: 1px dashed #d33724;
+}
+
+.upload_size_table table tr.even {
+    background: #fafafa
+}
+
+.upload_size_table table tr:hover {
+    background: #f2f2f4;
+}
+
+.step p.active i {
+    border: 3px solid #d33724;
+}
+
+.step p.active {
+    border-bottom: 6px solid #d33724;
+}
+
+
+/*login*/
+
+.login_lt {
+    display: none
+}
+
+.login_rt {
+    right: 50%;
+    margin-right: -260px;
+}
+
+.login_tit {
+    margin-top: 15px;
+    padding-bottom: 15px;
+}
+
+.corporate_name {
+    display: block;
+    font-family: "微软雅黑"
+}
+
+.select_special {
+    background-position: right -33px;
+}
+
+
+/*layer.css*/
+
+.layer_blue_tit,
+.layer_login_bt input,
+.layer_two_bt input.two_blue_button,
+.feedback_con input[type="submit"],
+.domain_name_tit,
+.domain_name_search input[type='submit'],
+.one_blue_button,
+.time_interval_button,
+.time_interval_table tr td p i.active,
+.time_interval_check .timecheck_rt span.active i {
+    background: #d33724;
+}
+
+.check_dress_rt label.active {
+    border-bottom: 2px solid #d33724;
+}
+
+.get_code_con textarea,
+.domain_name_operation,
+.domain_name_list,
+.domain_name_search input[type='text'],
+.activity_set input {
+    border: 1px solid #d33724;
+}
+
+.time_interval_table tr td a {
+    color: #d33724
+}
+
+.date_range_other li.active i,
+.date_range_other li i:hover {
+    background: #908f8f;
+}
+
+.checkbox_input input[type="checkbox"]:checked {
+    background-position: 0 -105px;
+}
+
+.domain_name_con td.w_td_operation {
+    background-position: 0 -21px
+}
+
+.domain_name_tit li.w_sel select {
+    background-position: right -30px
+}

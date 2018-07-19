@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.QualiDocTypeChannelCodeDao" >
+
+  <!-- 对应数据表名 -->
+  <sql id="table"> quali_doc_type_channel_code </sql>
+
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.QualiDocTypeChannelCode" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="doc_type_id" property="docTypeId" jdbcType="INTEGER" />
+	    <result column="channel_id" property="channelId" jdbcType="INTEGER" />
+	    <result column="channel_code" property="channelCode" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    id, doc_type_id , channel_id , channel_code
+  </sql>
+  
+  <select id="listByMap" resultMap="BaseResultMap" parameterType="map" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM 
+    <include refid="table" />
+    WHERE 1=1
+    <if test="id != null">
+		AND id = #{id}
+	</if>
+    <if test="channelId != null">
+		AND channel_id = #{channelId}
+	</if>
+	<if test="docTypeId != null">
+		AND doc_type_id = #{docTypeId}
+	</if>
+  </select>
+  
+</mapper>

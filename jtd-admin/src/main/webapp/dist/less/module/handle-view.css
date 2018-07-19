@@ -1,0 +1,8 @@
+﻿.handle-view {
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(120, 101, 253, 0.4);
+  padding-top: 80px;
+  padding-bottom: 80px;
+  margin-bottom: 100px;
+  border-radius: 5px;
+}

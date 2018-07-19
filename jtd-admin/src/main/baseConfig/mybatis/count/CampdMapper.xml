@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CampdCountDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> campd </sql>
+	<!-- 查询结果映射 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.count.Campd">
+		<result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+		<result column="campgroup_id" property="campgroupId" jdbcType="BIGINT" />
+		<result column="camp_id" property="campId" jdbcType="BIGINT" />
+		<result column="camp_type" property="campType" jdbcType="INTEGER" />
+		<result column="bid" property="bid" jdbcType="INTEGER" />
+		<result column="pv" property="pv" jdbcType="INTEGER" />
+		<result column="uv" property="uv" jdbcType="INTEGER" />
+		<result column="click" property="click" jdbcType="INTEGER" />
+		<result column="uclick" property="uclick" jdbcType="INTEGER" />
+		<result column="arrpv" property="arrpv" jdbcType="INTEGER" />
+		<result column="arruv" property="arruv" jdbcType="INTEGER" />
+		<result column="expend" property="expend" jdbcType="INTEGER" />
+		<result column="cost" property="cost" jdbcType="INTEGER" />
+		<result column="date" property="date" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		partner_id, campgroup_id, camp_id, camp_type, bid, pv, uv,
+		click, uclick, arrpv,
+		arruv, expend, cost, date
+	</sql>
+	
+	<!-- listBy -->
+	<select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.count.Campd">
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM campd
+		WHERE 1=1
+			<if test="partnerId != null">
+				and partner_id = #{partnerId}
+			</if>
+			<if test='campId != null'>
+				and camp_id in (${campId})
+			</if>
+			<if test="date != null">
+				and date = #{date}
+			</if>
+	</select>
+	
+	<sql id="showBaseCols">
+		pv_sum,uv_sum,click_sum,click_rate_sum,cpm_sum_yuan,cpc_sum_yuan,expend_sum_yuan
+	</sql>
+	
+	<!-- campd报表的基础统计sql -->
+	<sql id="countBaseCols">
+		IFNULL( sum(pv) , 0 ) AS pv_sum,
+		IFNULL( sum(uv) , 0 ) AS uv_sum,
+		IFNULL( sum(click) , 0 ) AS click_sum,
+		IFNULL( ( sum(expend) / 100 ) , 0 ) AS expend_sum_yuan,
+		IFNULL( ( ( sum(click) / sum(pv) ) * 100 ) , 0 ) AS click_rate_sum,
+		IFNULL( ( ( sum(expend) / 100 ) / ( sum(pv) / 1000 ) ) , 0 ) AS cpm_sum_yuan,
+		IFNULL( ( ( sum(expend) / 100 ) / sum(click) ) , 0 ) AS cpc_sum_yuan
+	</sql>
+	
+	<!-- 数据中心合计显示 -->
+	<select id="getReportSumSix" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			<include refid="showBaseCols" />
+		FROM(
+			SELECT
+			<include refid="countBaseCols" />
+			FROM 
+			<include refid="table" />
+			WHERE 1=1
+			<if test="partnerId != null">
+				and partner_id = #{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test='campIds != null and campIds != "ALL" '>
+				and camp_id in (${campIds})
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum,jdbcType=INTEGER}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum,jdbcType=INTEGER}
+			</if>
+		) AS a
+	</select>
+	
+	<!-- 时间报表图表-->
+	<select id="listMapForTimeChart" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			date,<include refid="showBaseCols" />
+		FROM
+		(
+			SELECT
+				date,
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1
+			<if test="partnerId != null">
+				and partner_id = #{partnerId}
+			</if>
+			<if test='campIds != null and campIds != "ALL" '>
+				and camp_id in (${campIds})
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum}
+			</if>
+			<if test="needGroupBy != null">
+			GROUP BY date
+			</if>
+		) AS a 
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+		<if test="desc != null">
+			${desc}
+		</if>
+	</select>
+	
+	<!-- 时间报表分页 & 自定义列-->
+	<select id="listMapForTimeReport" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			date,
+			${condition.cols}
+		FROM
+		(
+			SELECT
+				date,
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1
+			<if test="condition.partnerId != null">
+				and partner_id = #{condition.partnerId}
+			</if>
+			<if test='condition.campIds != null and condition.campIds != "ALL"'>
+				and camp_id in (${condition.campIds})
+			</if>
+			<if test="condition.startDateNum != null">
+				 and date &gt;= #{condition.startDateNum}
+			</if>
+			<if test="condition.endDateNum != null">
+				and date &lt;= #{condition.endDateNum}
+			</if>
+			GROUP BY date
+		) AS a 
+		<if test="condition.orderBy != null">
+			ORDER BY ${condition.orderBy}
+		</if>
+		<if test="condition.desc != null">
+			${condition.desc}
+		</if>
+		
+	</select>
+	
+	<!-- 活动类型报表图表 -->
+	<select id="listMapForCampTypeChart" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			camp_type,<include refid="showBaseCols" />
+		FROM
+		(
+			SELECT
+				camp_type,
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1
+			<if test="partnerId != null">
+				and partner_id = #{partnerId}
+			</if>
+			<if test='campIds != null and campIds != "ALL"'>
+				and camp_id in (${campIds})
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum}
+			</if>
+			<if test="needGroupBy != null">
+				GROUP BY camp_type
+			</if>
+		) AS a
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+		<if test="desc != null">
+			${desc}
+		</if>
+	</select>
+	
+	<!-- 活动类型报表分页 & 自定义列-->
+	<select id="listMapForCampTypeReport" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			camp_type,
+			${condition.cols}
+		FROM
+		(
+			SELECT
+				camp_type,
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1
+			<if test="condition.partnerId != null">
+				and partner_id = #{condition.partnerId}
+			</if>
+			<if test='condition.campIds != null and condition.campIds != "ALL"'>
+				and camp_id in (${condition.campIds})
+			</if>
+			<if test="condition.startDateNum != null">
+				 and date &gt;= #{condition.startDateNum}
+			</if>
+			<if test="condition.endDateNum != null">
+				and date &lt;= #{condition.endDateNum}
+			</if>
+			GROUP BY camp_type
+		) AS a
+		<if test="condition.orderBy != null">
+			ORDER BY ${condition.orderBy}
+		</if>
+		<if test="condition.desc != null">
+			${condition.desc}
+		</if>
+	</select>
+	
+	
+	<!-- 活动报表图表 -->
+	<select id="listMapForCampChart" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			camp_id,
+			camp_type,
+			<include refid="showBaseCols" />
+		FROM
+		(
+			SELECT
+				camp_id,
+				camp_type,
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1
+			<if test="partnerId != null">
+				and partner_id = #{partnerId}
+			</if>
+			<if test='campIds != null and campIds != "ALL"'>
+				and camp_id in (${campIds})
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum}
+			</if>
+			<if test="needGroupBy != null">
+				GROUP BY camp_id
+			</if>
+		) AS a
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+		<if test="desc != null">
+			${desc}
+		</if>
+	</select>
+	
+	<!-- 活动报表分页 & 自定义列-->
+	<select id="listMapForCampReport" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			camp_id,
+			camp_type,
+			${condition.cols}
+		FROM
+		(
+			SELECT
+				camp_id,
+				camp_type,
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1
+			<if test="condition.partnerId != null">
+				and partner_id = #{condition.partnerId}
+			</if>
+			<if test='condition.campIds != null and condition.campIds != "ALL"'>
+				and camp_id in (${condition.campIds})
+			</if>
+			<if test="condition.startDateNum != null">
+				 and date &gt;= #{condition.startDateNum}
+			</if>
+			<if test="condition.endDateNum != null">
+				and date &lt;= #{condition.endDateNum}
+			</if>
+			GROUP BY camp_id
+		) AS a
+		<if test="condition.orderBy != null">
+			ORDER BY ${condition.orderBy}
+		</if>
+		<if test="condition.desc != null">
+			${condition.desc}
+		</if>
+	</select>
+	
+	<!-- 查询所有数据 -->
+	<select id="findListByCampIds" resultMap="BaseResultMap" parameterType="map">
+		select partner_id partnerId,
+		campgroup_id campgroupId, camp_id campId, camp_type campType,
+		sum(pv) pv, sum(uv) uv,
+		sum(click) click, sum(uclick) uclick,
+		sum(arrpv) arrpv,
+		sum(arruv) arruv, sum(expend) expend, sum(cost) cost
+		from 
+		<include refid="table" />
+		where camp_id in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		group by camp_id
+	</select>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.count.Campd">
+		insert into campd
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="partnerId != null">
+				partner_id,
+			</if>
+			<if test="campgroupId != null">
+				campgroup_id,
+			</if>
+			<if test="campId != null">
+				camp_id,
+			</if>
+			<if test="campType != null">
+				camp_type,
+			</if>
+			<if test="bid != null">
+				bid,
+			</if>
+			<if test="pv != null">
+				pv,
+			</if>
+			<if test="uv != null">
+				uv,
+			</if>
+			<if test="click != null">
+				click,
+			</if>
+			<if test="uclick != null">
+				uclick,
+			</if>
+			<if test="arrpv != null">
+				arrpv,
+			</if>
+			<if test="arruv != null">
+				arruv,
+			</if>
+			<if test="expend != null">
+				expend,
+			</if>
+			<if test="cost != null">
+				cost,
+			</if>
+			<if test="date != null">
+				date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="partnerId != null">
+				#{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="campgroupId != null">
+				#{campgroupId,jdbcType=BIGINT},
+			</if>
+			<if test="campId != null">
+				#{campId,jdbcType=BIGINT},
+			</if>
+			<if test="campType != null">
+				#{campType,jdbcType=INTEGER},
+			</if>
+			<if test="bid != null">
+				#{bid,jdbcType=INTEGER},
+			</if>
+			<if test="pv != null">
+				#{pv,jdbcType=INTEGER},
+			</if>
+			<if test="uv != null">
+				#{uv,jdbcType=INTEGER},
+			</if>
+			<if test="click != null">
+				#{click,jdbcType=INTEGER},
+			</if>
+			<if test="uclick != null">
+				#{uclick,jdbcType=INTEGER},
+			</if>
+			<if test="arrpv != null">
+				#{arrpv,jdbcType=INTEGER},
+			</if>
+			<if test="arruv != null">
+				#{arruv,jdbcType=INTEGER},
+			</if>
+			<if test="expend != null">
+				#{expend,jdbcType=INTEGER},
+			</if>
+			<if test="cost != null">
+				#{cost,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				#{date,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="com.jtd.web.po.count.Campd">
+		update campd  
+		<set>
+			<if test="partnerId != null">
+				partner_id = #{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="campgroupId != null">
+				campgroup_id = #{campgroupId,jdbcType=BIGINT},
+			</if>
+			<if test="campId != null">
+				camp_id = #{campId,jdbcType=BIGINT},
+			</if>
+			<if test="campType != null">
+				camp_type = #{campType,jdbcType=INTEGER},
+			</if>
+			<if test="bid != null">
+				bid = #{bid,jdbcType=INTEGER},
+			</if>
+			<if test="pv != null">
+				pv = #{pv,jdbcType=INTEGER},
+			</if>
+			<if test="uv != null">
+				uv = #{uv,jdbcType=INTEGER},
+			</if>
+			<if test="click != null">
+				click = #{click,jdbcType=INTEGER},
+			</if>
+			<if test="uclick != null">
+				uclick = #{uclick,jdbcType=INTEGER},
+			</if>
+			<if test="arrpv != null">
+				arrpv = #{arrpv,jdbcType=INTEGER},
+			</if>
+			<if test="arruv != null">
+				arruv = #{arruv,jdbcType=INTEGER},
+			</if>
+			<if test="expend != null">
+				expend = #{expend,jdbcType=INTEGER},
+			</if>
+			<if test="cost != null">
+				cost = #{cost,jdbcType=INTEGER},
+			</if>
+			<if test="date != null">
+				date = #{date,jdbcType=INTEGER},
+			</if>
+		</set>
+		where partner_id = #{partnerId} AND camp_id = #{campId} AND date = #{date}
+	</update>
+	
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.PartnerExpendDailySnapshotDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> partner_expend_daily_snapshot </sql>
+
+	<!-- 根据条件查询 -->
+	<select id="findBy" parameterType="map" resultType="java.util.Map">
+		select *
+		from
+		<include refid="table" />
+		where
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="partnerId != null">
+				and partner_id = #{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="dateTime != null">
+				and DATE(date_time) = DATE(#{dateTime,jdbcType=TIMESTAMP})
+			</if>
+		</trim>
+	</select>
+	
+	<insert id="insert" parameterType="map">
+		insert into
+		<include refid="table" />
+		(  partner_id,expend_snapshot,account_balance,account_balance_result,date_time )
+		values
+			(#{partnerId,jdbcType=BIGINT},
+			#{expendSnapshot,jdbcType=BIGINT},
+			#{accountBalance,jdbcType=BIGINT},
+			#{accountBalanceResult,jdbcType=BIGINT},
+			#{dateTime,jdbcType=TIMESTAMP}
+			)
+	</insert>
+	
+	<update id="update" parameterType="map">
+		UPDATE
+			<include refid="table" />
+		SET 
+			expend_snapshot = #{expendSnapshot,jdbcType=BIGINT},
+			account_balance = #{accountBalance,jdbcType=BIGINT},
+			account_balance_result = #{accountBalanceResult,jdbcType=BIGINT},
+			date_time = #{dateTime,jdbcType=TIMESTAMP}
+		WHERE 
+			partner_id = #{partnerId,jdbcType=BIGINT}
+			AND DATE(date_time) = DATE(#{dateTime,jdbcType=TIMESTAMP})
+	</update>
+
+</mapper>

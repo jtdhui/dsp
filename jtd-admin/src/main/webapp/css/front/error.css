@@ -1,0 +1,132 @@
+body {
+    background: #1da7d8;
+    /*8ed3eb*/
+}
+
+.fzf {
+    position: absolute;
+    right: 0;
+    left: 0;
+    background: #fbfbfb;
+    height: 300px;
+    top: 50%;
+    margin-top: -150px;
+    font-family: "微软雅黑", arial;
+}
+
+.w1000 {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    height: 300px;
+}
+
+.below,
+.above {
+    position: absolute;
+}
+
+.below {
+    width: 133px;
+    height: 23px;
+    left: 0;
+    top: 0;
+    background: url(../../images/front/below.png) no-repeat;
+}
+
+.above {
+    height: 26px;
+    width: 104px;
+    bottom: 0;
+    right: 0;
+    background: url(../../images/front/above.png) no-repeat;
+}
+
+.fzf_img {
+    text-align: center;
+}
+
+.fzf_img img {
+    width: 170px;
+    height: 96px;
+    margin-top: 25px;
+}
+
+.fzf_img i {
+    font-size: 26px;
+    color: #345c7f;
+    margin-left: 20px;
+    font-style: normal;
+    font-family: arial;
+}
+
+.fzf_img span {
+    text-align: center;
+    color: #1d3549;
+    text-transform: uppercase;
+    text-shadow: #345c7f 3px 3px 5px;
+    font-variant: small-caps;
+    font-size: 100px
+}
+
+.fzf_tip {
+    margin-top: 50px;
+    overflow: hidden;
+    clear: both;
+    text-align: center;
+}
+
+.fzf_tip span {
+    color: #345c7f;
+    font-size: 12px;
+    margin-right: 20px;
+}
+
+.fzf_tip span i {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #4c92f3;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.fzf_choose {
+    clear: both;
+    color: #345c7f;
+    font-size: 12px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.fzf_choose a {
+    display: inline-block;
+    padding: 10px 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    background-color: #4c92f2;
+    text-decoration: none;
+    border-radius: 5px;
+    margin: 0 20px;
+}
+.fzf_choose i{
+  font-style: normal;
+}
+
+.fzf_choose a:hover {
+    opacity: .8
+}
+
+.fzf_other {
+    color: #345c7f;
+    text-align: center;
+    font-size: 32px;
+    padding-top: 25px;
+    height: 96px;
+    line-height: 96px;
+}

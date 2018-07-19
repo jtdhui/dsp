@@ -1,0 +1,55 @@
+﻿.table-striped > tbody > tr:nth-of-type(odd),
+.footable > tbody > tr:nth-of-type(odd) {
+  background-color: #eee;
+}
+
+.table-striped > tbody > tr:nth-of-type(even),
+.footable > tbody > tr:nth-of-type(even) {
+  background-color: #f6f6f6;
+}
+
+.footable > thead > tr > th > span.footable-sort-indicator {
+  font-size: 14px;
+}
+
+/*.table-striped > tbody > tr:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}*/
+/*.table-striped > tbody > tr:nth-of-type(odd):hover {
+  background-color: rgba(238, 238, 238, .8);
+}
+
+.table-striped > tbody > tr:nth-of-type(even):hover {
+  background-color: rgba(246, 246, 246, .8);
+}*/
+
+.table {
+  tr {
+    border: none;
+  }
+  td, th {
+    //padding: 0!important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    border: none !important;
+
+  }
+  thead {
+    th {
+      height: 57px;
+      color: #fff;
+      font-size: 16px;
+      background-color: #9393FF;
+    }
+  }
+  tbody {
+    td {
+      height: 59px;
+      color: #666;
+      font-size: 16px;
+      a, span {
+        font-size: 16px;
+      }
+    }
+  }
+}

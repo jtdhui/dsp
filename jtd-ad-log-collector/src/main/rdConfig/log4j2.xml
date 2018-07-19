@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<!--<Property name="baseLogDir">/Users/mwf/work/tomcats/tomcat7-guess-branches/logs/dsp</Property>-->
+		<Property name="baseLogDir">./logs</Property>
+		<Property name="pattern">%d{yyyy-MM-dd HH:mm:ss} [%-5level] %l \: %msg%n</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${pattern}" />
+		</Console>
+		<!-- 记录所有日志-->
+		<RollingFile name="allLog" fileName="${baseLogDir}/all.log"
+			filePattern="${baseLogDir}/all.log.%d{MM-dd-yyyy}">
+			<PatternLayout pattern="${pattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+		<RollingFile name="errorLog" fileName="${baseLogDir}/error.log"
+			filePattern="${baseLogDir}/error.log.%d{MM-dd-yyyy}">
+			<PatternLayout pattern="${pattern}" />
+			<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+		<RollingFile name="adxDebugLog" fileName="${baseLogDir}/myDebugLog.log"
+			filePattern="${baseLogDir}/myDebugLog.log.%d{MM-dd-yyyy}">
+			<PatternLayout pattern="${pattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="allLog" />
+			<AppenderRef ref="errorLog" />
+		</Root>
+		<Logger name="myDebugLog" level="info" additivity="false">
+            <AppenderRef ref="adxDebugLog"/>
+        </Logger>
+	</Loggers>
+</Configuration>

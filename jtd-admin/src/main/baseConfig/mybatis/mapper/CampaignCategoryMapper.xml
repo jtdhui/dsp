@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jtd.web.dao.impl.CampaignCategoryDao">
+	<!-- 对应数据表名-->
+	<sql id="table"> campaign_category </sql>
+	
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.CampaignCategory">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="campaign_id" property="campaignId" jdbcType="BIGINT" />
+		<result column="catgserial" property="catgserial" jdbcType="VARCHAR" />
+		<result column="catgid" property="catgid" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, campaign_id, catgserial, catgid,create_time,remark
+	</sql>
+	<!-- 定义where条件 -->
+	<sql id="where_condition">
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="id != null">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="campaignId != null">
+				and campaign_id = #{campaignId,jdbcType=BIGINT}
+			</if>
+			<if test="catgserial != null">
+				and catgserial = #{catgserial,jdbcType=VARCHAR}
+			</if>
+			<if test="catgid != null">
+				and catgid = #{catgid,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</sql>
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.Campaign" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+		from
+			<include refid="table" />
+		where
+			<include refid="where_condition" />
+	</select>
+
+	<select id="selectByCampaignId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from <include refid="table" />
+		where campaign_id = #{campaign_id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 根据活动ID查询所选渠道及行业类别 -->
+	<select id="selectChannelCatgByCampId" parameterType="java.util.Map" resultType="java.util.HashMap">
+	SELECT
+		ch.id channel_id,
+		ch.channel_name channel_name,
+		ch.catgserial catgserial,
+		cc.catgid catgid
+	FROM
+	channel AS ch
+	Left JOIN campaign_category AS cc ON ch.catgserial = cc.catgserial and
+		cc.campaign_id=#{campaign_id,jdbcType=BIGINT}
+	WHERE ch.id in
+		<foreach item="item" index="index" collection="channel_ids" open="("  separator="," close=")">  
+	       	#{item}
+	   	</foreach>
+		
+	</select>
+	<!-- and ch.id in ( #{channelIds,jdbcType=VARCHAR} )-->
+	<delete id="deleteByCampaignId" parameterType="java.lang.Long">
+		delete from <include refid="table" />
+		where campaign_id = #{campaign_id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.CampaignCategory"  useGeneratedKeys="true" keyProperty="id">
+		insert into <include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="campaignId != null">
+				campaign_id,
+			</if>
+			<if test="catgserial != null">
+				catgserial,
+			</if>
+			<if test="catgid != null">
+				catgid,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="campaignId != null">
+				#{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="catgserial != null">
+				#{catgserial,jdbcType=VARCHAR},
+			</if>
+			<if test="catgid != null">
+				#{catgid,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量添加数据 -->
+	<insert id="batchInsert" parameterType="com.jtd.web.po.CampaignCategory">
+		insert into
+		<include refid="table" />
+		(  campaign_id,catgserial,catgid )
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.campaignId,jdbcType=BIGINT},
+			#{item.catgserial,jdbcType=VARCHAR},
+			#{item.catgid,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+	
+	<update id="update" parameterType="com.jtd.web.po.CampaignCategory">
+		update <include refid="table" />
+		<set>
+			<if test="campaignId != null">
+				campaign_id = #{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="catgserial != null">
+				catgserial = #{catgserial,jdbcType=VARCHAR},
+			</if>
+			<if test="catgid != null">
+				catgid = #{catgid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+</mapper>

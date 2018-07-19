@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.PartnerStatusQualiDocDao" >
+	
+  <!-- 对应数据表名 -->
+  <sql id="table"> partner_status_quali_doc </sql>
+  
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.PartnerStatusQualiDoc" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+    <result column="channel_id" property="channelId" jdbcType="BIGINT" />
+    <result column="quali_doc_id" property="qualiDocId" jdbcType="BIGINT" />
+    <result column="doc_type_id" property="docTypeId" jdbcType="BIGINT" />
+    <result column="is_main_doc" property="isMainDoc" jdbcType="INTEGER" />
+    <result column="submit_user_id" property="submitUserId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, partner_id, channel_id, quali_doc_id, doc_type_id , is_main_doc , submit_user_id , create_time
+  </sql>
+  
+  <select id="listByMap" resultMap="BaseResultMap" parameterType="map" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM 
+    <include refid="table" />
+    WHERE 1=1
+    <if test="id != null">
+	    AND id = #{id,jdbcType=BIGINT}
+    </if>
+    <if test="partnerId != null">
+	    AND partner_id = #{partnerId,jdbcType=BIGINT}
+    </if>
+    <if test="channelId != null">
+	    AND channel_id = #{channelId,jdbcType=BIGINT}
+    </if> 
+    <if test="qualiDocId != null">
+	    AND quali_doc_id = #{qualiDocId,jdbcType=BIGINT}
+    </if> 
+    <if test="docTypeId != null">
+	    AND doc_type_id = #{docTypeId,jdbcType=BIGINT}
+    </if> 
+    <if test="isMainDoc != null">
+	    AND is_main_doc = #{isMainDoc,jdbcType=INTEGER}
+    </if> 
+    <if test="submitUserId != null">
+	    AND submit_user_id = #{submitUserId,jdbcType=BIGINT}
+    </if> 
+  </select>
+  
+  <insert id="insert" parameterType="com.jtd.web.po.PartnerStatusQualiDoc" >
+    insert into
+    <include refid="table" />
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="id != null">
+		    id,
+	    </if>
+	    <if test="partnerId != null">
+		    partner_id,
+	    </if>
+	    <if test="channelId != null">
+		    channel_id,
+	    </if> 
+	    <if test="qualiDocId != null">
+		    quali_doc_id,
+	    </if> 
+	    <if test="docTypeId != null">
+		    doc_type_id,
+	    </if> 
+	    <if test="isMainDoc != null">
+		    is_main_doc,
+	    </if>
+	    <if test="submitUserId != null">
+	       submit_user_id,
+   	 	</if> 
+	    <if test="createTime != null">
+		    create_time,
+	    </if> 
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+    	<if test="id != null">
+		    #{id,jdbcType=BIGINT},
+	    </if>
+	    <if test="partnerId != null">
+		    #{partnerId,jdbcType=BIGINT},
+	    </if>
+	    <if test="channelId != null">
+		    #{channelId,jdbcType=BIGINT}, 
+	    </if> 
+	    <if test="qualiDocId != null">
+		    #{qualiDocId,jdbcType=BIGINT}, 
+	    </if> 
+	    <if test="docTypeId != null">
+		    #{docTypeId,jdbcType=BIGINT},
+	    </if> 
+	    <if test="isMainDoc != null">
+		    #{isMainDoc,jdbcType=INTEGER},
+	    </if>
+	    <if test="submitUserId != null">
+	    	#{submitUserId,jdbcType=BIGINT},
+    	</if> 
+	    <if test="createTime != null">
+		    #{createTime,jdbcType=VARCHAR},
+	    </if> 
+    </trim>
+  </insert>
+  
+  <update id="updateUploadQualiDoc" parameterType="map" >
+    update  
+    <include refid="table" />
+    SET
+    	quali_doc_id = #{qualiDocId,jdbcType=BIGINT}
+    WHERE 
+    	partner_id = #{partnerId,jdbcType=BIGINT}
+    	AND doc_type_id = #{docTypeId,jdbcType=BIGINT}
+    	AND channel_id = #{channelId,jdbcType=BIGINT}
+  </update>
+  
+  <update id="deleteByMap" parameterType="map" >
+    DELETE FROM 
+    <include refid="table" />
+    WHERE 
+    partner_id = #{partnerId,jdbcType=BIGINT}
+    AND doc_type_id = #{docTypeId,jdbcType=BIGINT}
+    <if test="id != null">
+	    id = #{id,jdbcType=BIGINT}
+    </if>
+    <if test="channelId != null">
+	    AND channel_id = #{channelId,jdbcType=BIGINT}
+    </if> 
+    <if test="qualiDocId != null">
+	    AND quali_doc_id = #{qualiDocId,jdbcType=BIGINT}
+    </if> 
+    <if test="isMainDoc != null">
+	    AND is_main_doc = #{isMainDoc,jdbcType=INTEGER}
+    </if> 
+  </update>
+  
+</mapper>

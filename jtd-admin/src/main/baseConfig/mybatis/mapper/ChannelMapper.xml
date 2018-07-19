@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.ChannelDao">
+
+	<!-- 对应数据表名-->
+	<sql id="table"> channel </sql>
+	
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.Channel">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="channel_name" property="channelName" jdbcType="VARCHAR" />
+		<result column="catgserial" property="catgserial" jdbcType="VARCHAR" />
+		<result column="trans_type" property="transType" jdbcType="INTEGER" />
+		<result column="ad_type" property="adType" jdbcType="INTEGER" />
+		<result column="website_url" property="websiteUrl" jdbcType="VARCHAR" />
+		<result column="logo" property="logo" jdbcType="VARCHAR" />
+		<result column="delete_status" property="deleteStatus"
+			jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, channel_name, catgserial, trans_type, ad_type, website_url, logo,
+		delete_status, remark
+	</sql>
+	
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+	</select>
+	
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select 
+			<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where 1=1
+		<if test="_parameter != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+	</select>
+	
+	<select id="listAllByCampId" parameterType="java.util.Map" resultType="java.util.HashMap">
+	SELECT
+		c.id id,
+		c.channel_name channelName,
+		c.catgserial catgserial,
+		cc.campaign_id campaign_id,
+		cc.catgid
+	FROM
+	channel AS c
+	Left JOIN campaign_category AS cc ON c.catgserial = cc.catgserial and
+	cc.campaign_id=#{id,jdbcType=VARCHAR}
+		
+	</select>
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.Channel" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+		from
+			<include refid="table" />
+		where 1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="channelName != null">
+			and channel_name = #{channelName,jdbcType=VARCHAR}
+		</if>
+		<if test="catgserial != null">
+			and catgserial = #{catgserial,jdbcType=VARCHAR}
+		</if>
+		<if test="transType != null">
+			and trans_type = #{transType,jdbcType=INTEGER}
+		</if>
+		<if test="adType != null">
+			and ad_type = #{adType,jdbcType=INTEGER}
+		</if>
+		<if test="websiteUrl != null">
+			and website_url = #{websiteUrl,jdbcType=VARCHAR}
+		</if>
+		<if test="logo != null">
+			and logo = #{logo,jdbcType=VARCHAR}
+		</if>
+		<if test="deleteStatus != null">
+			and delete_status = #{deleteStatus,jdbcType=INTEGER}
+		</if>
+		<if test="remark != null">
+			and remark = #{remark,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.Channel">
+		insert into channel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="channelName != null">
+				channel_name,
+			</if>
+			<if test="catgserial != null">
+				catgserial,
+			</if>
+			<if test="transType != null">
+				trans_type,
+			</if>
+			<if test="adType != null">
+				ad_type,
+			</if>
+			<if test="websiteUrl != null">
+				website_url,
+			</if>
+			<if test="logo != null">
+				logo,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="channelName != null">
+				#{channelName,jdbcType=VARCHAR},
+			</if>
+			<if test="catgserial != null">
+				#{catgserial,jdbcType=VARCHAR},
+			</if>
+			<if test="transType != null">
+				#{transType,jdbcType=INTEGER},
+			</if>
+			<if test="adType != null">
+				#{adType,jdbcType=INTEGER},
+			</if>
+			<if test="websiteUrl != null">
+				#{websiteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="logo != null">
+				#{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.Channel">
+		update channel
+		<set>
+			<if test="channelName != null">
+				channel_name = #{channelName,jdbcType=VARCHAR},
+			</if>
+			<if test="catgserial != null">
+				catgserial = #{catgserial,jdbcType=VARCHAR},
+			</if>
+			<if test="transType != null">
+				trans_type = #{transType,jdbcType=INTEGER},
+			</if>
+			<if test="adType != null">
+				ad_type = #{adType,jdbcType=INTEGER},
+			</if>
+			<if test="websiteUrl != null">
+				website_url = #{websiteUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="logo != null">
+				logo = #{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.jtd.web.po.Channel">
+		update channel
+		set channel_name = #{channelName,jdbcType=VARCHAR},
+		catgserial = #{catgserial,jdbcType=VARCHAR},
+		trans_type = #{transType,jdbcType=INTEGER},
+		ad_type = #{adType,jdbcType=INTEGER},
+		website_url = #{websiteUrl,jdbcType=VARCHAR},
+		logo = #{logo,jdbcType=VARCHAR},
+		delete_status = #{deleteStatus,jdbcType=INTEGER},
+		remark = #{remark,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

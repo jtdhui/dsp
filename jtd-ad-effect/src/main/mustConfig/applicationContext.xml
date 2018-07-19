@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<bean class="com.jtd.commons.BeanFactory"/>
+	<context:annotation-config />
+	<context:component-scan base-package="com.jtd.effect"/>
+	<bean id="propertyConfig" class="com.jtd.commons.PropertyConfig">
+		<property name="locations">
+			<list>
+				<value>config.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="3" />
+		<property name="minIdle" value="3" />
+		<property name="maxActive" value="20" />
+		<property name="maxWait" value="60000" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+	
+	<bean id="serviceAddresses" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value type="java.net.InetSocketAddress">${serviceAddress}</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean class="org.jboss.netty.bootstrap.ServerBootstrap">
+		<property name="factory">
+			<bean class="org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory">
+				<constructor-arg index="0" type="java.util.concurrent.Executor">
+					<bean class="java.util.concurrent.Executors" factory-method="newCachedThreadPool" />
+				</constructor-arg>
+				<constructor-arg index="1" type="java.util.concurrent.Executor">
+					<bean class="java.util.concurrent.Executors" factory-method="newCachedThreadPool" />
+				</constructor-arg>
+				<constructor-arg index="2" type="int" value="${processorCount}" />
+			</bean>
+		</property>
+		<property name="pipelineFactory" ref="serverPipelineFactory" />
+		<property name="options">
+			<map>
+				<entry key="reuseAddress">
+					<value type="java.lang.Boolean">true</value>
+				</entry>
+				<entry key="child.reuseAddress">
+					<value type="java.lang.Boolean">true</value>
+				</entry>
+				<entry key="child.tcpNoDelay">
+					<value type="java.lang.Boolean">true</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<ref bean="inetSocketAddressConverter"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="redisGroup" class="com.jtd.support.redis.RedisGroupFactory">
+		<constructor-arg value ="redisGroup.node"/>
+	</bean>
+	<bean id="clickGroup" class="com.jtd.support.redis.RedisGroupFactory">
+		<constructor-arg value ="clickGroup.node"/>
+	</bean>
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWait" value="10" />
+		<property name="minIdle" value="2" />
+		<property name="testWhileIdle" value="true" />
+	</bean>
+	
+	<bean id="cookieDataPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+		<constructor-arg value="15" />
+	</bean>
+	
+	<bean id="besCookieDataPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+		<constructor-arg value="14" />
+	</bean>
+	<bean id="tanxCookieMappingPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+		<constructor-arg value="13" />
+	</bean>
+	<bean id="besCookieMappingPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+		<constructor-arg value="12" />
+	</bean>
+	<!--  -->
+	<bean id="cookieMappingPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+		<constructor-arg value="11" />
+	</bean>
+	<bean id="xtraderCookieMappingPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+		<constructor-arg value="9" />
+	</bean>
+	
+	<bean id="customCookiePool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="redisGroup" />
+		<constructor-arg value="0" />
+	</bean>
+	
+	<bean id="clickPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg ref="clickGroup" />
+		<constructor-arg value="0" />
+	</bean>
+	
+	<bean id="campaignPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg value="${businessRedis.host}" />
+		<constructor-arg value="${businessRedis.port}" />
+		<constructor-arg value="5000" />
+		<constructor-arg value="${businessRedis.password}" />
+		<constructor-arg value="0" />
+	</bean>
+
+	<bean id="cookieDataDAO" class="com.jtd.effect.dao.CookieDataDAOImpl" init-method="init">
+		<property name="pool" ref="cookieDataPool" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	
+	<bean id="besCookieDataDAO" class="com.jtd.effect.dao.CookieDataDAOImpl" init-method="init">
+		<property name="pool" ref="besCookieDataPool" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	
+	<bean id="tanxCookieMappingDAO" class="com.jtd.effect.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="tanxCookieMappingPool" />
+	</bean>
+	<bean id="besCookieMappingDAO" class="com.jtd.effect.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="besCookieMappingPool" />
+	</bean>
+	
+	<bean id="xtraderCookieMappingDAO" class="com.jtd.effect.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="xtraderCookieMappingPool" />
+	</bean>
+	
+	<bean id="customCookieMappingDAO" class="com.jtd.effect.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="customCookiePool" />
+	</bean>
+	
+	<bean id="cookieMappingDAO" class="com.jtd.effect.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="cookieMappingPool" />
+	</bean>
+	<bean id="clickDAO" class="com.jtd.effect.dao.ClickDAOImpl" init-method="init">
+		<property name="pool" ref="clickPool" />
+	</bean>
+	<bean id="trackDAO" class="com.jtd.effect.dao.TrackDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="campaignDAO" class="com.jtd.effect.dao.CampaignDAOImpl" init-method="init">
+		<property name="pool" ref="campaignPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+	</bean>
+	
+	<bean id="cookieDataService" class="com.jtd.effect.service.CookieDataServiceImpl">
+		<property name="tanxCookieMappingDAO" ref="tanxCookieMappingDAO" />
+		<property name="besCookieMappingDAO" ref="besCookieMappingDAO" />
+		<property name="cookieMappingDAO" ref="cookieMappingDAO" />
+		<property name="cookieDataDAO" ref="cookieDataDAO" />
+		<property name="besCookieDataDAO" ref="besCookieDataDAO" />
+		<property name="xtraderCookieMappingDAO" ref="xtraderCookieMappingDAO" />
+		<property name="customCookieMappingDAO" ref="customCookieMappingDAO"></property>
+	</bean>
+	
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${amq.url}" />
+		<property name="userName" value="${amq.username}" />
+		<property name="password" value="${amq.password}" />
+	</bean>
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="amqConnectionFactory" />
+		<property name="clientId" value="${amq.clientId}" />
+		<property name="reconnectOnException" value="true" />
+	</bean>
+	<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg>
+			<value>dsptopic</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="msglistener" class="com.jtd.effect.jms.JMSMessageListener">
+		<property name="campaignDAO" ref="campaignDAO" />
+	</bean>
+	
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topic" />
+		<property name="messageListener" ref="msglistener" />
+		<property name="subscriptionDurable" value="true" />
+	</bean>
+</beans>

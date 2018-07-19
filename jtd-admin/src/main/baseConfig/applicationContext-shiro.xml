@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!-- 加载配置文件 -->
+	<bean id="propertyConfig" class="com.jtd.commons.PropertyConfig">
+		<property name="locations">
+			<list>
+			<!-- <value>classpath*:application-*.properties</value> -->
+				<value>classpath*:application-*.properties</value>
+				<!-- <value>classpath*:application-dao.properties</value> -->
+			</list>
+		</property>
+	</bean>
+	<!-- 开启shiro注解支持 -->
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	
+	<!-- 自定义form认证过虑器 -->
+	<!-- 基于Form表单的身份验证过滤器，不配置将也会注册此过虑器，表单中的用户账号、密码及loginurl将采用默认值，建议配置 -->
+	<bean id="formAuthenticationFilter" class="com.jtd.web.shiro.PlatformFormAuthenticationFilter">
+		<!-- 表单中账号的input名称 -->
+		<property name="usernameParam" value="username" />
+		<!-- 表单中密码的input名称 -->
+		<property name="passwordParam" value="password" />
+		<!-- 记住我input的名称 -->
+		<!--<property name="rememberMeParam" value="rememberMe" />-->
+	</bean>
+	
+	<!-- web.xml中shiro的filter对应的bean -->
+	<!-- Shiro 的Web过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，请求此地址将由formAuthenticationFilter进行表单认证 -->
+		<property name="loginUrl" value="/login.action" />
+		<!-- 认证成功统一跳转到/front/home.action，建议不配置，shiro认证成功自动到上一个请求路径 -->
+		<property name="successUrl" value="/front/home.action" />
+		<!-- 通过unauthorizedUrl指定没有权限操作时跳转页面 -->
+		<property name="unauthorizedUrl" value="/refuse.jsp" />
+		<!-- 自定义filter配置 -->
+		<property name="filters">
+			<map>
+				<!-- 将自定义 的FormAuthenticationFilter注入shiroFilter中 -->
+				<entry key="authc" value-ref="formAuthenticationFilter" />
+			</map>
+		</property>
+
+		<!-- 过虑器链定义，从上向下顺序执行，一般将/**放在最下边 -->
+		<property name="filterChainDefinitions">
+			<value>
+				
+				<!-- 腾讯的回调不进行权限拦截 ***************************************************************************************** -->
+				/qq/** = anon
+				/tencent/** = anon
+				
+				<!-- 对静态资源设置匿名访问,anon即不需要登录 -->
+				/ = anon
+				/favicon.ico = anon
+				/images/** = anon
+				/data/** = anon
+				/js/** = anon
+				/css/** = anon
+				/assets/** = anon
+				/echarts/** = anon
+				/layer/** = anon
+				/validatecode.jsp = anon
+				/404.jsp = anon
+				/init/** = anon <!-- init/**为InitController里，部署应用时用于数据初始化时的一些工具方法 -->
+				/bes.jsp = anon <!-- bes.jsp为百度接口的测试页面 -->
+				/**/showImage.action = anon <!-- 不用验证就能访问资质图片 -->
+                /xinmt/SendEmail.action = anon <!--开放官网发送邮件接口 -->
+                /landingpage/** = anon
+                /contact/** = anon <!--开放landPage联系人保存接口 -->
+                /ztree/** = anon
+                
+                <!-- jtd -->
+				/img/** = anon
+				/dist/** = anon
+				/static/** = anon
+				
+				<!-- 广告主或运营使用，目的是可以向adx发送mapping，然后将dsp的cookie和adx的cookie -->
+				/ck/** = anon
+				/cookiemapping.jsp = anon
+				/adxmapping.jsp = anon
+				
+				
+				<!-- authc为所有url都必须认证通过才可以访问，即使有"记住我"也不可以 --> 
+				/login.action = authc
+				<!-- 请求 logout.action就等于调用shiro的logout拦截器，shiro会自动清除session-->
+				/logout.action = logout
+				<!-- user为有"记住我"或认证通过都可以访问的地址 -->
+	            /** = user
+				<!-- 用户列表需要用户列表的权限 -->
+				<!-- /admin/user/list.action = perms[user:query] -->
+				
+			</value>
+		</property>
+	</bean>
+
+	<!-- securityManager安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="customRealm" />
+		<!-- 注入缓存管理器 -->
+		<property name="cacheManager" ref="cacheManager" />
+		<!-- 注入session管理器 -->
+		<property name="sessionManager" ref="sessionManager" />
+		<!-- 记住我 -->
+		<property name="rememberMeManager" ref="rememberMeManager" />
+
+	</bean>
+
+	<!-- realm -->
+	<bean id="customRealm" class="com.jtd.web.shiro.PlatformRealm">
+		<!-- 将凭证匹配器设置到realm中，realm按照凭证匹配器的要求进行散列 -->
+		<property name="credentialsMatcher" ref="credentialsMatcher" />
+	</bean>
+
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<!-- 使用的散列算法 -->
+		<property name="hashAlgorithmName" value="${shiro.hashAlgorithmName}" />
+		<!-- <property name="hashAlgorithmName" value="md5" /> -->
+		<!-- 散列的次数 -->
+		<property name="hashIterations" value="${shiro.hashIterations}" />
+		<!-- <property name="hashIterations" value="2" /> -->
+	</bean>
+
+	<!-- 缓存管理器 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml" />
+	</bean>
+
+	<!-- 会话管理器 -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- session的失效时长，单位毫秒 -->
+		<property name="globalSessionTimeout" value="60000000" />
+		<!-- 删除失效的session -->
+		<property name="deleteInvalidSessions" value="true" />
+	</bean>
+
+	<!-- rememberMeManager管理器，写cookie，取出cookie生成用户信息 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+<!-- 	<bean id="rememberMeManager" class="com.jtd.web.shiro.MyCookieRememberMeManager"> -->
+		<property name="cipherKey"
+                  value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+	<!-- 记住我cookie -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<property name="httpOnly" value="true"/>
+		<!-- 记住我cookie生效时间30天，单位是秒 -->
+		<property name="maxAge" value="2592000" />
+	</bean>
+
+</beans>

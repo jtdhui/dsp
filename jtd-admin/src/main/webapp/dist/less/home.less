@@ -1,0 +1,180 @@
+﻿@import "common";
+@import "module/table";
+@import "module/paging";
+/*index*/
+.wrapper {
+  padding-top: 0;
+}
+
+//todo: left ------------------------------------------
+@p-left: 99px;
+.index_lt {
+  float: left;
+  width: 400px;
+  margin-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 40px;
+  .box-shadow;
+  h2 {
+    font-weight: normal;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #eee;
+    padding-left: @p-left;
+    margin-bottom: 20px;
+    .font-title;
+  }
+
+  .index_lt_con {
+    p {
+      line-height: 24px;
+      padding-left: @p-left;
+      .font-content;
+      span {
+        .font-content;
+      }
+    }
+  }
+
+  .index_lt_nwbie {
+    li {
+      text-align: center;
+      a {
+        display: inline-block;
+        width: 383px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 20px;
+        text-align: left;
+        padding-left: 90px;
+        .font-content;
+      }
+      a:hover {
+        color: #fff;
+        background-color: @main-color;
+      }
+    }
+  }
+}
+
+//todo: right ------------------------------------------
+.index_rt {
+  float: left;
+  width: 860px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+//--todo：图表
+
+.index_chart {
+  /* No 1  日期*/
+  .index_chart_day {
+    .chart_day_rt {
+      float: right;
+      .chart_lt,
+      .chart_rt {
+        .font-content;
+      }
+
+      .chart_lt i,
+      .chart_rt i {
+        display: inline-block;
+        width: 30px;
+        height: 12px;
+        border-radius: 7px;
+        margin-left: 38px;
+        margin-right: 10px;
+      }
+      .chart_lt i {
+        background-color: @main-color;
+      }
+      .chart_rt i {
+        background-color: @c-gray;
+      }
+
+      .date {
+        background: url(../../img/icons.png) no-repeat;
+        background-position: 120px -118px;
+        float: right;
+        width: 173px;
+        height: 36px;
+        line-height: 36px;
+        border-radius: 4px;
+        border: 1px solid @border-color;
+        padding: 5px 0 5px 16px;
+        margin-left: 20px;
+        .font-content;
+      }
+
+      input.date:focus {
+        outline: none;
+      }
+    }
+  }
+
+  /* No 2 展现量*/
+  .index_chart_con {
+    border: 1px solid @border-color;
+    border-radius: 10px;
+    padding: 60px 0 20px;
+    margin-top: 46px;
+    overflow: hidden;
+    .index_chart_tit {
+      height: 40px;
+      line-height: 20px;
+    }
+
+    .index_chart_tit p {
+      float: left;
+      width: 16.65%;
+      text-align: center;
+      .font-content;
+      span {
+        display: block;
+        .font-content-main;
+        line-height: 1.5;
+      }
+    }
+
+    .chart_img {
+      margin-top: 10px;
+      height: 149px;
+      overflow: hidden;
+    }
+  }
+}
+
+//--todo：表格  详细数据
+.index_preview {
+  margin-top: 40px;
+  .index_chart_day {
+    .chart_day_lt {
+      .font-title;
+      .icons-charts {
+        float: left;
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background: url("../../img/icons.png") no-repeat -8px -199px;
+        margin-right: 10px;
+      }
+    }
+  }
+  .index_preview_table {
+    margin-top: 30px;
+    //margin-bottom: 60px;
+    .table {
+      thead {
+        th {
+          height: 48px;
+        }
+      }
+      tbody {
+        td {
+          height: 47px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+﻿.font-main {
+  font-weight: normal;
+  font-size: 16px;
+  color: #343843;
+}
+.modal-dialog {
+  width: 1240px;
+  margin-left: -620px;
+  top: 10%;
+}
+.modal-dialog .modal-header .modal-title {
+  text-align: left;
+}
+.modal-dialog .modal-header .modal-title span.f-r {
+  float: right;
+}
+.modal-dialog .modal-header .modal-title span.f-r label {
+  font-weight: normal;
+  color: #343843;
+  margin-right: 10px;
+}
+.modal-dialog .btn-arr {
+  margin: 40px;
+}
+.check_dress {
+  clear: both;
+  margin: 0 auto;
+}
+.check_dress input {
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-color: #fff;
+  border: 1px solid #c9caca;
+  font-size: 0;
+  margin-right: 5px;
+  margin-top: 4px;
+  float: left;
+}
+.check_dress .layer_check_dress {
+  width: 1248px;
+  height: 895px;
+  margin: 0 auto;
+  background-color: rgba(153, 153, 153, 0.33);
+}
+.check_dress .layer_check_dress .check_dress_con {
+  height: 834px;
+  padding: 40px 70px;
+}
+.check_dress .area-left,
+.check_dress .area-right {
+  float: left;
+}
+.check_dress span.area-left {
+  width: 180px;
+}
+.check_dress span.area-left label {
+  float: left;
+  width: 157px;
+  margin-right: 5px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: relative;
+  z-index: 198910190;
+  height: 20px;
+  font-weight: normal;
+  font-size: 16px;
+  color: #343843;
+}
+.check_dress .area-right {
+  width: 928px;
+}
+.check_dress .area-right .check_dress_rt {
+  margin-left: 0;
+}
+.check_dress .area-right .check_dress_rt label {
+  float: left;
+  width: 226px;
+  margin-right: 5px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  cursor: pointer;
+  position: relative;
+  font-weight: normal;
+  font-size: 16px;
+  color: #343843;
+}
+.check_dress .area-right .check_dress_rt label span {
+  font-weight: normal;
+  font-size: 16px;
+  color: #343843;
+}
+.check_dress .area-right .check_dress_rt .dress_city {
+  width: 180px;
+  padding: 10px;
+}
+.check_dress .area-right .check_dress_rt .dress_city label {
+  width: 100%;
+  padding: 0;
+  margin: 10px 0;
+}
+.check_dress .area-right .check_dress_rt .dress_city label:hover {
+  background-color: transparent;
+}
+.check_dress .area-right .check_dress_rt label.active {
+  z-index: 1989101900;
+  border-bottom: none;
+  height: 18px;
+}
+.layer_two_bt input:hover {
+  opacity: 1;
+}

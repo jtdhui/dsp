@@ -1,0 +1,17 @@
+﻿.modal-dialog {
+  top: 10%;
+  left: 50%;
+  border-radius: 5px;
+}
+.modal-header {
+  padding: 18px;
+}
+.modal-header .modal-title {
+  font-weight: normal;
+  text-align: center;
+  font-size: 20px;
+  color: #343843;
+}
+.modal-body {
+  padding: 20px;
+}

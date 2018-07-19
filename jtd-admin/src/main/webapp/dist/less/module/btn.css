@@ -1,0 +1,17 @@
+﻿.btn {
+  padding: 0;
+  font-size: 20px;
+  text-align: center;
+}
+.btn:hover,
+.btn:active,
+.btn:link,
+.btn:focus {
+  color: #fff;
+}
+.btn-small {
+  width: 135px;
+  height: 45px;
+  line-height: 45px;
+  border-radius: 20px;
+}

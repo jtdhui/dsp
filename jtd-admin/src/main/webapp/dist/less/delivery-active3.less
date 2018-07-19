@@ -1,0 +1,438 @@
+﻿@import "common";
+@import "module/handle-view";
+@import "module/input";
+@import "module/radio";
+@import "module/btn";
+@import "module/table";
+@import "module/modal";
+
+i {
+  font-style: normal;
+}
+
+input {
+  font-size: 12px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
+}
+
+.header {
+  .nav-hover {
+    left: @startSize+@moveLeft*1px;
+  }
+}
+
+/* 1. 创建活动流程 step-wrap*/
+.step-wrap {
+  width: 999px;
+  height: 100px;
+  margin: 0 auto 20px;
+  .steps {
+    float: left;
+    position: relative;
+    z-index: 1;
+    width: 33.33%;
+    height: 100%;
+    // - 线
+    .line {
+      position: absolute;
+      top: 22px;
+      left: 125px;
+      display: block;
+      width: 450px;
+      height: 1px;
+      background-color: @border-color;
+    }
+    // - 序号
+    .step-num {
+      position: absolute;
+      top: 0;
+      //left: 0;
+      display: block;
+      width: 126px;
+      height: 42px;
+      line-height: 42px;
+      border-radius: 20px;
+      background-color: #fff;
+      border: 1px solid @border-color;
+      box-shadow: 0 2px 10px rgba(120, 101, 253, .4);
+      color: #666;
+      font-size: 18px;
+      text-align: center;
+      z-index: 2;
+    }
+
+    // - 描述
+    .step-des {
+      position: absolute;
+      display: block;
+      width: 100%;
+      padding-top: 65px;
+      .font-content
+    }
+  }
+  .steps.active {
+    .line {
+      background-color: @main-color;
+    }
+    .step-num {
+      color: #fff;
+      border: none;
+      background-color: @main-color;
+    }
+  }
+  .steps.step_one {
+    //width: 230px;
+    .step-num {
+      left: 0
+    }
+    .step-des {
+      text-align: left;
+      //left: -10px
+    }
+  }
+  .steps.step_two {
+    .step-num {
+      left: 50%;
+      margin-left: -63px;
+    }
+    .step-des {
+      text-align: center;
+      //left: 160px
+    }
+  }
+  .steps.step_three {
+    .step-num {
+      right: 0
+    }
+    .step-des {
+      text-align: right;
+      //right: -25px
+    }
+  }
+}
+
+/* 2. 填写信息*/
+.handle-view {
+  padding: 45px 30px 20px;
+  margin-bottom: 60px;
+  /*投放管理*/
+  .throw_manage {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px 15px;
+    border-radius: 3px;
+  }
+  .throw_search {
+    margin-bottom: 10px;
+  }
+  .throw_fl {
+    float: left;
+  }
+  .throw_tit {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 7px;
+    float: left;
+  }
+  .throw_select {
+    margin-right: 10px;
+    width: 100px;
+    height: 30px;
+    border: 1px solid #efefef;
+    line-height: 30px;
+    font-family: Trebuchet MS \9;
+    padding: 5px 0 \9;
+  }
+  .throw_select:focus {
+    outline: none;
+  }
+  .throw_text {
+    height: 28px;
+    border: 1px solid #efefef;
+    line-height: 28px;
+    width: 100px;
+    margin-right: 10px;
+  }
+  .throw_search .yen_date {
+    background-position: 149px -133px;
+    width: 170px;
+  }
+  .throw_manage .yen_day span {
+    background: #f2f2f2
+  }
+  .throw_manage .yen_day span.active,
+  .throw_manage .yen_day span:hover {
+    background: @c-purple;
+  }
+  .throw_manage .yen_day span:hover a {
+    color: #fff
+  }
+  .table_checkbox {
+    padding: 0;
+    margin: 3px 5px 0 5px;
+    border: medium none;
+    float: left;
+  }
+  .throw_manage .yen_details_table table tr th {
+    padding: 10px 5px
+  }
+  .throw_manage .yen_details_table table tr td {
+    padding: 10px 5px
+  }
+  .throw_manage .yen_details_table table tr td a {
+    text-align: left;
+    display: inline-block;
+  }
+  .throw_img {
+    width: 63px;
+    height: 59px;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .throw_manage_tit {
+    overflow: hidden;
+    text-align: center;
+  }
+  .throw_manage_tit span {
+    display: inline-block;
+    padding: 0;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+    font-style: normal;
+    width: 135px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: @main-color;
+    margin-bottom: 30px;
+  }
+  .throw_manage_tit a {
+    float: right;
+    color: #209ce6;
+    font-size: 12px;
+    margin-right: 5px;
+    margin-top: 8px;
+  }
+  .throw_preview {
+    padding: 25px 0 40px 0;
+    overflow: hidden;
+    line-height: 24px;
+  }
+  .throw_preview span {
+    float: left;
+    width: 130px;
+    padding-right: 50px;
+    display: inline-block;
+    text-align: right;
+    font-family: '\5FAE\8F6F\96C5\9ED1', "微软雅黑", arial;
+  }
+  .return_list {
+    width: 110px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    background: #e4e4e4;
+    color: #000;
+    border-radius: 5px;
+    display: block;
+  }
+
+  /*上传素材*/
+  .upload_material .throw_manage_tit {
+  }
+  .upload_size {
+    padding: 15px 0 0 0;
+  }
+  .upload_size_fl {
+    float: left;
+    width: 143px;
+    margin-right: 10px;
+    text-align: right;
+  }
+  .upload_size_fl p {
+    padding-bottom: 20px;
+    .font-content
+  }
+  .upload_size_rt {
+    float: left;
+    width: 1067px;
+  }
+  .upload_size_rt p {
+    width: 90px;
+    height: 90px;
+    background: #ccc;
+    color: #fff;
+    float: left;
+    margin: 0 7px 7px 0;
+    text-align: center;
+    span {
+      display: block;
+      margin-top: 20px;
+      font-size: 16px
+    }
+    i {
+      display: block;
+      margin-top: 5px;
+      font-size: 16px
+    }
+  }
+  .upload_size_rt p.active {
+    background: @c-purple;
+  }
+}
+
+// - 批量上传 和 删除按钮
+.upload_size_tip {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  p {
+    display: inline-block;
+    .font-content;
+    margin-right: 50px;
+  }
+}
+
+.upload_size_bt {
+  margin-top: 35px;
+  margin-bottom: 50px;
+  text-align: center;
+  .upload_size_file {
+    position: relative;
+    margin-right: 40px;
+    input {
+      position: absolute;
+      width: 120px;
+      height: 40px;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      cursor: pointer;
+    }
+  }
+  .upload_size_del {
+  }
+}
+
+// - 上传列表
+.upload_size_table {
+  .table tbody {
+    tr td:last-child a {
+      font-size: 20px;
+      color: @main-color;
+      cursor: pointer;
+    }
+  }
+}
+
+// - 落地页链接
+.upload_size_other {
+  margin-top: 10px;
+  padding-bottom: 30px;
+  p {
+    margin-top: 30px;
+    i {
+      float: left;
+      display: inline-block;
+      width: 535px;
+      text-align: right;
+      margin-right: 10px;
+      margin-top: 5px;
+      .font-content;
+    }
+    .input_text {
+      width: 250px;
+    }
+    .pv-url {
+      width: 436px;
+      height: 127px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;;
+      border: 1px solid @border-color;
+      padding: 10px;
+      .font-content;
+    }
+  }
+
+}
+
+.type_set {
+  padding: 0 0 0 20px;
+  p {
+    margin-top: 20px;
+    clear: both;
+    span {
+      display: block;
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      padding: 0 5px;
+      width: 150px;
+      text-align: center;
+      select {
+        width: 120px;
+        height: 28px;
+        border: 1px solid #efefef;
+        line-height: 28px;
+        padding: 5px 0 \9;
+      }
+    }
+  }
+}
+
+.new_activity_bt {
+  text-align: center;
+  margin-bottom: 60px;
+  .btn-save {
+    margin: 0 50px;
+  }
+}
+.delModal {
+  @madal-w: 400px;
+  .modal-dialog {
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    height: 200px;
+    margin-left: -@madal-w/2;
+    margin-top: -100px;
+    z-index: 11111111111111111111111111111111;
+    .modal-body {
+      text-align: center;
+      padding: 30px;
+      .btn {
+        margin: 40px 0 10px;
+      }
+    }
+  }
+}
+.del-modal {
+  @madal-w: 400px;
+  .modal-dialog {
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    height: 200px;
+    margin-left: -@madal-w/2;
+    margin-top: -100px;
+    .modal-body {
+      text-align: center;
+      padding: 30px;
+      .btn {
+        margin: 40px 10px 10px;
+      }
+    }
+  }
+}

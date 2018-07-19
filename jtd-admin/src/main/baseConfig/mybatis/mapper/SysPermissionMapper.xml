@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.SysPermissionDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> sys_permission </sql>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, name,available,create_time,remark,type,url,percode,parent_id,parent_ids,level,sort_string
+	</sql>
+	
+	<!-- 定义where条件 -->
+	<sql id="where_condition">
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="available != null">
+				and available = #{available,jdbcType=INTEGER}
+			</if>
+			<if test="type != null">
+				and type = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="level != null">
+				and level = #{level,jdbcType=BIGINT}
+			</if>
+		</trim>
+	</sql>
+
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.SysPermission">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="percode" property="percode" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="BIGINT" />
+		<result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+		<result column="sort_string" property="sortString" jdbcType="VARCHAR" />
+		<result column="available" property="available" jdbcType="CHAR" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="BIGINT" />
+	</resultMap>
+	
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" /> 
+		from
+		<include refid="table" />
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.SysPermission" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from
+			<include refid="table" />
+		where
+			<include refid="where_condition" />
+		order by sort_string
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="listMapBy" parameterType="com.jtd.web.po.SysPermission" resultType="java.util.Map">
+		select 
+			sp1.*,IFNULL(sp2.name,'') as parent_name
+		from
+			<include refid="table" /> as sp1
+			LEFT JOIN <include refid="table" /> as sp2 ON sp1.parent_id = sp2.id
+		where
+			1 = 1
+			<if test="name != null">
+				and sp1.name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="available != null">
+				and sp1.available = #{available,jdbcType=INTEGER}
+			</if>
+			<if test="type != null">
+				and sp1.type = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="level != null">
+				and sp1.level = #{level,jdbcType=BIGINT}
+			</if>
+		order by sp1.sort_string
+	</select>
+	
+	<select id="getById" parameterType="com.jtd.web.po.SysPermission" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from 
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.SysPermission" keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="available != null">
+				available,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="url != null">
+				url,
+			</if>
+			<if test="percode != null">
+				percode,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="parentIds != null">
+				parent_ids,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+			<if test="sortString != null">
+				sort_string
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="available != null">
+				#{available,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="percode != null">
+				#{percode,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="parentIds != null">
+				#{parentIds,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=BIGINT},
+			</if>
+			<if test="sortString != null">
+				#{sortString,jdbcType=BIGINT}
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterType="com.jtd.web.po.SysPermission">
+		update
+		<include refid="table" />
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="available != null">
+				available = #{available,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="percode != null">
+				percode = #{percode,jdbcType=VARCHAR},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=BIGINT},
+			</if>
+			<if test="parentIds != null">
+				parent_ids = #{parentIds,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=BIGINT},
+			</if>
+			<if test="sortString != null">
+				sort_string = #{sortString,jdbcType=BIGINT},
+			</if>
+			
+			
+			url = #{url,jdbcType=VARCHAR}
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateStatus" parameterType="com.jtd.web.po.SysPermission">
+		update
+		<include refid="table" />
+		set available = #{available,jdbcType=INTEGER}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 根据用户id查询url TYPE = 'permission' -->
+	<select id="findPermissionListByUserId" parameterType="long" resultMap="BaseResultMap">
+		SELECT <include refid="Base_Column_List" /> FROM
+		<include refid="table" />
+		WHERE TYPE = 'permission'
+		AND id IN
+		(SELECT sys_permission_id FROM sys_role_permission WHERE sys_role_id IN
+		(SELECT sys_role_id FROM sys_user_role WHERE sys_user_id = #{id}))
+	</select>
+
+	<!-- 根据用户id查询菜单 -->
+	<select id="findMenuListByUserId" parameterType="long" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List" /> 
+		FROM
+		<include refid="table" />
+		WHERE TYPE = 'menu' AND id IN
+		(SELECT sys_permission_id FROM sys_role_permission WHERE sys_role_id IN
+		(SELECT sys_role_id FROM sys_user_role WHERE sys_user_id = #{id}))
+		order by sort_string
+	</select>
+
+</mapper>

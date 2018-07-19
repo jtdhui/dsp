@@ -1,0 +1,41 @@
+﻿@radio-size: 15px;
+.radio-wrap {
+  text-align: center;
+  // - 单选按钮
+  .radio-style {
+    position: relative;
+    display: inline-block;
+    width: @radio-size;
+    height: @radio-size;
+    border-radius: @radio-size;
+    background-color: #999;
+    box-shadow: 0 0 0 1px #999;
+    border: 2px solid #fff;
+  }
+  .radio-style.active {
+    background-color: #9393ff;
+  }
+  input[type=radio] {
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    margin: 0;
+  }
+  label {
+    font-weight: normal;
+    font-size: 18px;
+    color: #666;
+    margin-left: 15px;
+    margin-right: 60px;
+    cursor: pointer;
+  }
+  label:last-child {
+    margin-right: 0
+  }
+}

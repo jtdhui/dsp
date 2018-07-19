@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.BossRequestLogDao" >
+
+ <sql id="Base_Column_List" >
+    id, request_ip , request_port , request_url , boss_partner_code , request_type, request_data , result_code, result_message, 
+    create_time, remark
+  </sql>
+
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.BossRequestLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="request_ip" property="requestIp" jdbcType="VARCHAR" />
+    <result column="request_port" property="requestPort" jdbcType="VARCHAR" />
+    <result column="request_url" property="requestUrl" jdbcType="VARCHAR" />
+    <result column="boss_partner_code" property="bossPartnerCode" jdbcType="VARCHAR" />
+    <result column="request_type" property="requestType" jdbcType="INTEGER" />
+    <result column="request_data" property="requestData" jdbcType="VARCHAR" />
+    <result column="result_code" property="resultCode" jdbcType="VARCHAR" />
+    <result column="result_message" property="resultMessage" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.BossRequestLog" >
+    select
+    <include refid="Base_Column_List" />
+    from boss_request_log
+    where 1=1
+	<trim prefix="">
+		<if test="bossPartnerCode != null">
+			and boss_partner_code = #{bossPartnerCode}
+		</if>
+		<if test="resultCode != null">
+			and result_code = #{resultCode}
+		</if>
+		<if test="requestType != null">
+			and request_type = #{requestType}
+		</if>
+	</trim>
+  </select>
+
+  <insert id="insert" parameterType="com.jtd.web.po.BossRequestLog" >
+    insert into boss_request_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="requestIp != null" >
+        request_ip,
+      </if>
+      <if test="requestPort != null" >
+        request_port,
+      </if>
+      <if test="requestUrl != null" >
+        request_url,
+      </if>
+      <if test="bossPartnerCode != null" >
+        boss_partner_code,
+      </if>
+      <if test="requestType != null" >
+        request_type,
+      </if>
+      <if test="requestData != null" >
+        request_data,
+      </if>
+      <if test="resultCode != null" >
+        result_code,
+      </if>
+      <if test="resultMessage != null" >
+        result_message,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="requestIp != null" >
+        #{requestIp,jdbcType=VARCHAR},
+      </if>
+      <if test="requestPort != null" >
+        #{requestPort,jdbcType=VARCHAR},
+      </if>
+      <if test="requestUrl != null" >
+        #{requestUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bossPartnerCode != null" >
+        #{bossPartnerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="requestType != null" >
+        #{requestType,jdbcType=INTEGER},
+      </if>
+      <if test="requestData != null" >
+        #{requestData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="resultCode != null" >
+        #{resultCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resultMessage != null" >
+        #{resultMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+</mapper>

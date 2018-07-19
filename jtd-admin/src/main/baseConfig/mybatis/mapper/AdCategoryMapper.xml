@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.AdCategoryDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> ad_category </sql>
+
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.AdCategory">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="campaign_id" property="campaignId" jdbcType="BIGINT" />
+		<result column="ad_id" property="adId" jdbcType="BIGINT" />
+		<result column="catgserial" property="catgserial" jdbcType="VARCHAR" />
+		<result column="catg_id" property="catgId" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, campaign_id, ad_id, catgserial, catg_id, create_time, remark
+	</sql>
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from ad_category
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="selectByAdId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from ad_category
+		where ad_id = #{adId,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getAdCategory" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from ad_category
+		where ad_id = #{adId,jdbcType=BIGINT}
+		and catgserial = #{catgserial,jdbcType=VARCHAR}
+	</select>
+
+	<select id="findAdCategoryBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.AdCategory">
+		select
+		<include refid="Base_Column_List" />
+		from ad_category
+		where 1=1
+		<if test="adId != null">
+			and ad_id = #{adId,jdbcType=BIGINT}
+		</if>
+
+		<if test="campaignId != null">
+			and campaign_id = #{campaignId,jdbcType=BIGINT}
+		</if>
+		<if test="catgserial != null">
+			and catgserial = #{catgserial,jdbcType=VARCHAR}
+		</if>
+
+	</select>
+
+	<select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.AdCategory">
+		select
+		<include refid="Base_Column_List" />
+		from ad_category
+		where 1=1
+		<if test="adId != null">
+			and ad_id = #{adId,jdbcType=BIGINT}
+		</if>
+
+		<if test="campaignId != null">
+			and campaign_id = #{campaignId,jdbcType=BIGINT}
+		</if>
+		<if test="catgserial != null">
+			and catgserial = #{catgserial,jdbcType=VARCHAR}
+		</if>
+
+	</select>
+	
+	<!-- 根据广告ID查询所选渠道及行业类别 -->
+	<select id="selectChannelCatgByAdId" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT
+			ch.id channel_id, ch.channel_name channel_name, ch.catgserial catgserial,
+			aas.status status,aas.audit_info audit_info,
+			ad.catg_id catgid
+		FROM
+			channel AS ch
+			Left JOIN ad_category AS ad ON ch.catgserial = ad.catgserial and ad.ad_id=#{id,jdbcType=BIGINT}
+			left join ad_audit_status aas on aas.ad_id=ad.ad_id and aas.channel_id=ch.id
+		WHERE 1=1
+		<if test="channel_ids != null">
+			and	ch.id in
+			<foreach item="item" index="index" collection="channel_ids"
+				open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+		
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from ad_category
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<delete id="deleteAdCategory" parameterType="com.jtd.web.po.AdCategory">
+		delete from ad_category
+		where 1=1
+        <if test="campaignId != null">
+          and campaign_id = #{campaignId,jdbcType=BIGINT}
+        </if>
+        <if test="adId != null">
+		  and ad_id = #{adId,jdbcType=BIGINT}
+        </if>
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.AdCategory">
+		insert into ad_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="campaignId != null">
+				campaign_id,
+			</if>
+			<if test="adId != null">
+				ad_id,
+			</if>
+			<if test="catgserial != null">
+				catgserial,
+			</if>
+			<if test="catgId != null">
+				catg_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="campaignId != null">
+				#{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="adId != null">
+				#{adId,jdbcType=BIGINT},
+			</if>
+			<if test="catgserial != null">
+				#{catgserial,jdbcType=VARCHAR},
+			</if>
+			<if test="catgId != null">
+				#{catgId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 批量添加数据 -->
+	<insert id="batchInsert" parameterType="com.jtd.web.po.AdCategory">
+		insert into
+		<include refid="table" />
+		(  campaign_id,ad_id,catgserial,catg_id,create_time )
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.campaignId,jdbcType=BIGINT},
+			#{item.adId,jdbcType=BIGINT},
+			#{item.catgserial,jdbcType=VARCHAR},
+			#{item.catgId,jdbcType=VARCHAR},
+			#{item.createTime,jdbcType=TIMESTAMP})
+		</foreach>
+	</insert>
+	
+	<update id="update" parameterType="com.jtd.web.po.AdCategory">
+		update ad_category
+		<set>
+			<if test="campaignId != null">
+				campaign_id = #{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="adId != null">
+				ad_id = #{adId,jdbcType=BIGINT},
+			</if>
+			<if test="catgserial != null">
+				catgserial = #{catgserial,jdbcType=VARCHAR},
+			</if>
+			<if test="catgId != null">
+				catg_id = #{catgId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where  id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="updateCatgId" parameterType="com.jtd.web.po.AdCategory">
+		update ad_category
+		<set>
+			<if test="campaignId != null">
+				campaign_id = #{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="adId != null">
+				ad_id = #{adId,jdbcType=BIGINT},
+			</if>
+			<if test="catgserial != null">
+				catgserial = #{catgserial,jdbcType=VARCHAR},
+			</if>
+			<if test="catgId != null">
+				catg_id = #{catgId,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where 1=1
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="campaignId != null">
+			and campaign_id = #{campaignId,jdbcType=BIGINT}
+		</if>
+		<if test="adId != null">
+			and ad_id = #{adId,jdbcType=BIGINT}
+		</if>
+		<if test="catgserial != null">
+			and catgserial = #{catgserial,jdbcType=VARCHAR}
+		</if>
+	</update>
+
+
+	
+	<!-- 根据广告ID删除关联的行业类型 -->
+	<delete id="deleteByAdId" parameterType="java.lang.Long">
+		delete from <include refid="table" />
+		where ad_id = #{adId,jdbcType=BIGINT}
+	</delete>
+
+</mapper>

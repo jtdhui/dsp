@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.AdDao">
+	<!-- 对应数据表名 -->
+	<sql id="table"> ad </sql>
+
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, campaign_id, creative_id, click_url, landing_page,
+		landing_type,
+		internal_audit,internal_audit_info,
+		delete_status,
+		phone_title,
+		phone_propaganda, phone_describe, original_price,
+		discount_price,
+		sales_volume, optional, deep_link, monitor,
+		phone_deep_link_url
+	</sql>
+	<sql id="Blob_Column_List">
+		pv_urls
+	</sql>
+
+	<!-- 返回字段集合映射 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.Ad">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="campaign_id" property="campaignId" jdbcType="BIGINT" />
+		<result column="creative_id" property="creativeId" jdbcType="BIGINT" />
+		<result column="click_url" property="clickUrl" jdbcType="VARCHAR" />
+		<result column="landing_page" property="landingPage" jdbcType="VARCHAR" />
+		<result column="landing_type" property="landingType" jdbcType="INTEGER" />
+		<result column="internal_audit" property="internalAudit"
+			jdbcType="INTEGER" />
+		<result column="internal_audit_info" property="internalAuditInfo"
+			jdbcType="VARCHAR" />
+		<result column="delete_status" property="deleteStatus"
+			jdbcType="INTEGER" />
+		<result column="phone_title" property="phoneTitle" jdbcType="VARCHAR" />
+		<result column="phone_propaganda" property="phonePropaganda"
+			jdbcType="VARCHAR" />
+		<result column="phone_describe" property="phoneDescribe"
+			jdbcType="VARCHAR" />
+		<result column="original_price" property="originalPrice"
+			jdbcType="VARCHAR" />
+		<result column="discount_price" property="discountPrice"
+			jdbcType="VARCHAR" />
+		<result column="sales_volume" property="salesVolume" jdbcType="VARCHAR" />
+		<result column="optional" property="optional" jdbcType="CHAR" />
+		<result column="deep_link" property="deepLink" jdbcType="CHAR" />
+		<result column="monitor" property="monitor" jdbcType="CHAR" />
+		<result column="phone_deep_link_url" property="phoneDeepLinkUrl"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="ResultMapWithBLOBs" type="com.jtd.web.po.Ad"
+		extends="BaseResultMap">
+		<result column="pv_urls" property="pvUrls" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<select id="getById" parameterType="com.jtd.web.po.Ad"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="listBy" parameterType="com.jtd.web.po.Ad" resultMap="ResultMapWithBLOBs">
+		select 
+			<include refid="Base_Column_List" />
+			,
+			<include refid="Blob_Column_List" />
+		from
+			<include refid="table" />
+		where delete_status=0
+		<if test="id != null">
+			and id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="campaignId != null">
+			and campaign_id = #{campaignId,jdbcType=BIGINT}
+		</if>
+		<if test="creativeId != null">
+			and creative_id = #{creativeId,jdbcType=BIGINT}
+		</if>
+		<if test="deleteStatus != null">
+			and delete_status = #{deleteStatus,jdbcType=INTEGER}
+		</if>
+		order by id desc
+	</select>
+
+	<!-- 后台创意列表分页 -->
+	<select id="getMapPageBy" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select * from
+		(
+			select
+				a.id ad_id, a.internal_audit internal_audit,a.delete_status delete_status,
+				p.id partner_id, p.partner_name partner_name,
+				c.id id,c.creative_name creative_name,c.update_time update_time,c.size size,
+				cam.id campaign_id, cam.campaign_name campaign_name,
+				au.status status, au.audit_info, au.audit_time audit_time, au.create_time AS internal_audit_time ,
+				count(1) total,
+				sum(IF(au.status=2,1,0)) sucess_num, sum(IF(au.status=3,1,0)) failed_num
+			from
+				ad a
+			    join creative c on a.creative_id = c.id
+			    join campaign cam on a.campaign_id = cam.id
+			    join partner p on c.partner_id = p.id
+			    left join ad_audit_status au on a.id = au.ad_id
+			group by a.id
+			
+			) ad
+			where ad.delete_status =0
+			<trim prefix="">
+				<if test="condition.partnerId != null">
+					and ad.partner_id = #{condition.partnerId}
+				</if>
+				<if test="condition.partnerIds != null">
+					AND ad.partner_id in(${condition.partnerIds})
+				</if>
+				<if test="condition.partnerName!= null and  condition.partnerName!= '' ">
+					and ad.partner_name LIKE
+					CONCAT('%',#{condition.partnerName},'%')
+				</if>
+				<if test="condition.campaignId != null">
+					and ad.campaign_id = #{condition.campaignId}
+				</if>
+				<if test="condition.campaignName != null and condition.campaignName != '' ">
+					and ad.campaign_name LIKE CONCAT('%',#{condition.campaignName},'%')
+				</if>
+				<if test="condition.internalAuditStatus != null">
+					and ad.internal_audit = #{condition.internalAuditStatus}
+				</if>
+				
+				<if test="condition.internalAuditStartDate != null">
+					and ad.internal_audit_time &gt;= #{condition.internalAuditStartDate}
+				</if>
+				<if test="condition.internalAuditEndDate != null">
+					and ad.internal_audit_time &lt;= #{condition.internalAuditEndDate}
+				</if>
+				
+				<if test="condition.updateStartDate != null">
+					and ad.update_time &gt;= #{condition.updateStartDate}
+				</if>
+				<if test="condition.updateEndDate != null">
+					and ad.update_time &lt;= #{condition.updateEndDate}
+				</if>
+			</trim>
+			order by internal_audit,update_time desc
+	</select>
+
+	<select id="findAdMapById" parameterType="java.util.Map"
+		resultType="java.util.HashMap">
+		SELECT
+		a.id AS id,a.internal_audit AS internal_audit,a.click_url AS click_url,a.pv_urls AS pv_urls,
+		a.internal_audit_info AS internal_audit_info,a.landing_page AS landing_page,
+		c.size size,c.creative_name AS creative_name,c.update_time AS update_time,
+		c.creative_url AS creative_url, c.size AS creative_size ,
+        pc.catgid AS parter_catgid,
+		p.id AS partner_id, p.partner_name AS partner_name,
+		cam.id AS campaign_id, cam.campaign_name AS campaign_name, cam.campaign_type AS campaign_type,
+		cam.ad_type AS ad_type, cam.start_time AS camp_start_time, cam.end_time AS camp_end_time
+		FROM
+		ad a,
+		creative c,
+		campaign cam,
+        partner_category pc,
+		partner p
+		where a.campaign_id= cam.id
+		and a.creative_id= c.id
+		and c.partner_id=p.id
+        and pc.partner_id= p.id
+        and pc.catgserial='dsp'
+		and a.id= #{id,jdbcType=BIGINT}
+	</select>
+
+
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.Ad"  useGeneratedKeys="true" keyProperty="id">
+		insert into ad
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="campaignId != null">
+				campaign_id,
+			</if>
+			<if test="creativeId != null">
+				creative_id,
+			</if>
+			<if test="clickUrl != null">
+				click_url,
+			</if>
+			<if test="landingPage != null">
+				landing_page,
+			</if>
+			<if test="landingType != null">
+				landing_type,
+			</if>
+			<if test="internalAudit != null">
+				internal_audit,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="phoneTitle != null">
+				phone_title,
+			</if>
+			<if test="phonePropaganda != null">
+				phone_propaganda,
+			</if>
+			<if test="phoneDescribe != null">
+				phone_describe,
+			</if>
+			<if test="originalPrice != null">
+				original_price,
+			</if>
+			<if test="discountPrice != null">
+				discount_price,
+			</if>
+			<if test="salesVolume != null">
+				sales_volume,
+			</if>
+			<if test="optional != null">
+				optional,
+			</if>
+			<if test="deepLink != null">
+				deep_link,
+			</if>
+			<if test="monitor != null">
+				monitor,
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				phone_deep_link_url,
+			</if>
+			<if test="pvUrls != null">
+				pv_urls,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="campaignId != null">
+				#{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="creativeId != null">
+				#{creativeId,jdbcType=BIGINT},
+			</if>
+			<if test="clickUrl != null">
+				#{clickUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="landingPage != null">
+				#{landingPage,jdbcType=VARCHAR},
+			</if>
+			<if test="landingType != null">
+				#{landingType,jdbcType=INTEGER},
+			</if>
+			<if test="internalAudit != null">
+				#{internalAudit,jdbcType=INTEGER},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="phoneTitle != null">
+				#{phoneTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="phonePropaganda != null">
+				#{phonePropaganda,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneDescribe != null">
+				#{phoneDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="originalPrice != null">
+				#{originalPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="discountPrice != null">
+				#{discountPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="salesVolume != null">
+				#{salesVolume,jdbcType=VARCHAR},
+			</if>
+			<if test="optional != null">
+				#{optional,jdbcType=CHAR},
+			</if>
+			<if test="deepLink != null">
+				#{deepLink,jdbcType=CHAR},
+			</if>
+			<if test="monitor != null">
+				#{monitor,jdbcType=CHAR},
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				#{phoneDeepLinkUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="pvUrls != null">
+				#{pvUrls,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="update" parameterType="com.jtd.web.po.Ad">
+		update ad
+		<set>
+			<if test="campaignId != null">
+				campaign_id = #{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="creativeId != null">
+				creative_id = #{creativeId,jdbcType=BIGINT},
+			</if>
+			<if test="clickUrl != null">
+				click_url = #{clickUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="landingPage != null">
+				landing_page = #{landingPage,jdbcType=VARCHAR},
+			</if>
+			<if test="landingType != null">
+				landing_type = #{landingType,jdbcType=INTEGER},
+			</if>
+			<if test="internalAudit != null">
+				internal_audit = #{internalAudit,jdbcType=INTEGER},
+			</if>
+			<if test="internalAuditInfo != null">
+				internal_audit_info = #{internalAuditInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="phoneTitle != null">
+				phone_title = #{phoneTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="phonePropaganda != null">
+				phone_propaganda = #{phonePropaganda,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneDescribe != null">
+				phone_describe = #{phoneDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="originalPrice != null">
+				original_price = #{originalPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="discountPrice != null">
+				discount_price = #{discountPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="salesVolume != null">
+				sales_volume = #{salesVolume,jdbcType=VARCHAR},
+			</if>
+			<if test="optional != null">
+				optional = #{optional,jdbcType=CHAR},
+			</if>
+			<if test="deepLink != null">
+				deep_link = #{deepLink,jdbcType=CHAR},
+			</if>
+			<if test="monitor != null">
+				monitor = #{monitor,jdbcType=CHAR},
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				phone_deep_link_url = #{phoneDeepLinkUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="pvUrls != null">
+				pv_urls = #{pvUrls,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where 1=1
+			<if test="id != null">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="campaignId != null">
+				and campaign_id = #{campaignId,jdbcType=BIGINT}
+			</if>
+			<if test="creativeId != null">
+				and creative_id = #{creativeId,jdbcType=BIGINT}
+			</if>
+	</update>
+
+	<update id="updateAdListByCampId" parameterType="com.jtd.web.po.Ad">
+		update ad
+		<set>
+			<if test="creativeId != null">
+				creative_id = #{creativeId,jdbcType=BIGINT},
+			</if>
+			<if test="clickUrl != null">
+				click_url = #{clickUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="landingPage != null">
+				landing_page = #{landingPage,jdbcType=VARCHAR},
+			</if>
+			<if test="landingType != null">
+				landing_type = #{landingType,jdbcType=INTEGER},
+			</if>
+			<if test="internalAudit != null">
+				internal_audit = #{internalAudit,jdbcType=INTEGER},
+			</if>
+			<if test="internalAuditInfo != null">
+				internal_audit_info = #{internalAuditInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="phoneTitle != null">
+				phone_title = #{phoneTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="phonePropaganda != null">
+				phone_propaganda = #{phonePropaganda,jdbcType=VARCHAR},
+			</if>
+			<if test="phoneDescribe != null">
+				phone_describe = #{phoneDescribe,jdbcType=VARCHAR},
+			</if>
+			<if test="originalPrice != null">
+				original_price = #{originalPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="discountPrice != null">
+				discount_price = #{discountPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="salesVolume != null">
+				sales_volume = #{salesVolume,jdbcType=VARCHAR},
+			</if>
+			<if test="optional != null">
+				optional = #{optional,jdbcType=CHAR},
+			</if>
+			<if test="deepLink != null">
+				deep_link = #{deepLink,jdbcType=CHAR},
+			</if>
+			<if test="monitor != null">
+				monitor = #{monitor,jdbcType=CHAR},
+			</if>
+			<if test="phoneDeepLinkUrl != null">
+				phone_deep_link_url = #{phoneDeepLinkUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="pvUrls != null">
+				pv_urls = #{pvUrls,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where campaign_id = #{campaignId,jdbcType=BIGINT}
+	</update>
+
+	<select id="listByMap" resultType="java.util.HashMap" parameterType="java.util.Map" >
+		SELECT
+			a.id AS id,
+			a.internal_audit AS internal_audit,
+			a.click_url AS click_url,
+			a.internal_audit_info AS internal_audit_info,
+			a.landing_page AS landing_page,
+			cam.id AS campaign_id, 
+			cam.campaign_name AS campaign_name,
+			cam.campaign_status AS campaign_status,
+			c.id AS creative_id,
+			c.size AS size,
+			c.creative_name AS creative_name,
+			c.update_time AS update_time,
+			c.creative_url AS creative_url, 
+			c.size AS creative_size ,
+			p.id AS partner_id, 
+			p.partner_name AS partner_name
+		FROM
+			ad AS a
+			JOIN campaign AS cam ON cam.id = a.campaign_id 
+			JOIN partner AS p ON p.id = cam.partner_id
+			JOIN creative AS c ON c.id = a.creative_id
+			
+		WHERE 1=1
+			<if test="partnerId != null">
+				AND cam.partner_id = #{partnerId,jdbcType=VARCHAR}
+			</if>
+			<if test="campaignName != null">
+				AND cam.campaign_name LIKE CONCAT('%',#{campaignName},'%')
+			</if>
+			<if test="campaignType != null">
+				and cam.campaign_type = #{campaignType,jdbcType=INTEGER}
+			</if>
+			<if test="campaignStatus != null">
+				and cam.campaign_status = #{campaignStatus,jdbcType=INTEGER}
+			</if>
+	</select>
+	
+	<select id="getFullAdById" resultType="java.util.HashMap" parameterType="com.jtd.web.po.Ad">
+		SELECT a.*,c.size,cs.id size_id,cg.id group_id,cg.group_name group_name
+		FROM 
+			ad a, creative c ,creative_group cg, creative_size cs
+		where a.creative_id = c.id
+			and cg.id = c.group_id
+			and cs.size = c.size
+			and a.delete_status =0 
+			and a.id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<delete id="deleteAdByCamapignId" parameterType="java.lang.Long">
+		delete from <include refid="table" />
+		where campaign_id = #{campaignId,jdbcType=BIGINT}
+	</delete>
+	
+</mapper>

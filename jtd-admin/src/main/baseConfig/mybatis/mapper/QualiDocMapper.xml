@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.QualiDocDao" >
+
+	<!-- 对应数据表名-->
+	<sql id="table"> quali_doc </sql>
+
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.QualiDoc" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+	    <result column="upload_user_id" property="uploadUserId" jdbcType="BIGINT" />
+	    <result column="doc_type_id" property="docTypeId" jdbcType="BIGINT" />
+	    <result column="doc_name" property="docName" jdbcType="VARCHAR" />
+	    <result column="doc_old_name" property="docOldName" jdbcType="VARCHAR" />
+	    <result column="doc_path" property="docPath" jdbcType="VARCHAR" />
+	    <result column="doc_number" property="docNumber" jdbcType="VARCHAR" />
+	    <result column="doc_valid_date" property="docValidDate" jdbcType="VARCHAR" />
+	    <result column="validity_start" property="validityStart" jdbcType="TIMESTAMP" />
+	    <result column="validity_end" property="validityEnd" jdbcType="TIMESTAMP" />
+	    <result column="status" property="status" jdbcType="INTEGER" />
+	    <result column="internal_audit_time" property="internalAuditTime" jdbcType="TIMESTAMP" />
+	    <result column="audit_user_id" property="auditUserId" jdbcType="BIGINT" />
+	    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="audit_mq_success" property="auditMqSuccess" jdbcType="INTEGER" />
+ 	</resultMap>
+
+  <sql id="Base_Column_List" >
+    id, partner_id, upload_user_id ,  doc_type_id , doc_name, doc_old_name, doc_path, doc_number , doc_valid_date , validity_start, validity_end, status,  
+    internal_audit_time , audit_user_id , update_time , create_time, remark , audit_mq_success
+  </sql>
+  
+  <!-- getById -->
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from quali_doc
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- listBy -->
+  <select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.QualiDoc" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM quali_doc AS qd
+    WHERE 1=1 
+    <if test="id != null">
+    	AND id = #{id,jdbcType=BIGINT}	
+    </if>
+    <if test="partnerId != null">
+    	AND partner_id = #{partnerId,jdbcType=BIGINT}	
+    </if>
+    <if test="status != null">
+    	AND status = #{status,jdbcType=INTEGER}	
+    </if>
+    <if test="docTypeId != null">
+    	AND doc_type_id = #{docTypeId,jdbcType=BIGINT}	
+    </if>
+  </select>
+  
+  <!-- listByPartnerId -->
+  <select id="listByPartnerId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM quali_doc
+    WHERE partner_id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <!-- listMapByMap -->
+  <select id="listMapByMap" resultType="java.util.HashMap" parameterType="map" >
+    SELECT 
+    qd.* , qdt.id AS doc_type_id , qdt.doc_type_name
+    FROM quali_doc AS qd
+    JOIN quali_doc_type AS qdt ON qdt.id = qd.doc_type_id
+    WHERE 1=1 
+    <if test="id != null">
+    	AND id = #{id,jdbcType=BIGINT}	
+    </if>
+    <if test="partnerId != null">
+    	AND partner_id = #{partnerId,jdbcType=BIGINT}	
+    </if>
+    <if test="status != null">
+    	AND status = #{status,jdbcType=INTEGER}	
+    </if>
+    <if test="docTypeId != null">
+    	AND doc_type_id = #{docTypeId,jdbcType=BIGINT}	
+    </if>
+  </select>
+  
+  <!-- deleteById -->
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from quali_doc
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  
+  <!-- insert -->
+  <insert id="insert" parameterType="com.jtd.web.po.QualiDoc" >
+    insert into 
+    <include refid="table" />
+	<trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="partnerId != null">
+    		partner_id,
+    	</if>
+    	<if test="uploadUserId != null">
+    		upload_user_id,
+    	</if>
+    	<if test="docTypeId != null">
+    		doc_type_id,
+    	</if>
+    	<if test="docName != null">
+    		doc_name,
+    	</if>
+    	<if test="docOldName != null">
+    		doc_old_name,	
+    	</if>
+    	<if test="docPath != null">
+    		doc_path,
+    	</if>
+    	<if test="docNumber != null">
+    		doc_number,
+    	</if>
+    	<if test="docValidDate != null">
+    		doc_valid_date,
+    	</if>
+    	<if test="status != null">
+    		status,
+    	</if>
+    	<if test="internalAuditTime != null">
+    		internal_audit_time,
+    	</if>
+    	<if test="auditUserId != null">
+    		audit_user_id,
+    	</if>
+    	<if test="updateTime != null">
+    		update_time,
+    	</if>
+    	<if test="createTime != null">
+    		create_time,
+    	</if>
+    	<if test="remark != null">
+    		remark,
+    	</if>
+    	<if test="auditMqSuccess != null">
+    		audit_mq_success ,
+    	</if>
+    </trim>
+    <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+    	<if test="partnerId != null">
+    		#{partnerId,jdbcType=BIGINT}, 
+    	</if>
+    	<if test="uploadUserId != null">
+    		#{uploadUserId,jdbcType=BIGINT}, 
+    	</if>
+	    <if test="docTypeId != null">
+    		#{docTypeId,jdbcType=INTEGER},  
+    	</if>
+	    <if test="docName != null">
+    		#{docName,jdbcType=VARCHAR}, 
+    	</if>
+	    <if test="docOldName != null">
+	    	#{docOldName,jdbcType=VARCHAR}, 
+	    </if>
+	    <if test="docPath != null">
+	    	#{docPath,jdbcType=VARCHAR}, 
+	    </if>
+	    <if test="docNumber != null"> 
+	    	#{docNumber,jdbcType=VARCHAR} ,
+	    </if>
+	    <if test="docValidDate != null"> 
+	    	#{docValidDate,jdbcType=VARCHAR},
+	    </if>
+	    <if test="status != null"> 
+	    	#{status,jdbcType=INTEGER},  
+	    </if>
+      	<if test="internalAuditTime != null">
+      		#{internalAuditTime,jdbcType=TIMESTAMP},
+      	</if> 
+      	<if test="auditUserId != null">
+    		#{auditUserId,jdbcType=BIGINT}, 
+    	</if>
+      	<if test="updateTime != null">
+      		#{updateTime,jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="createTime != null"> 
+      		#{createTime,jdbcType=TIMESTAMP},
+      	</if> 
+      	<if test="remark != null">
+      		#{remark,jdbcType=VARCHAR}
+      	</if>
+      	<if test="auditMqSuccess != null">
+    		#{auditMqSuccess},
+    	</if>
+    </trim>
+  </insert>
+  
+  <!-- update -->
+  <update id="update" parameterType="com.jtd.web.po.QualiDoc" >
+    UPDATE 
+    	quali_doc
+    SET 
+    <trim prefix="" suffix="" suffixOverrides=",">
+    	<if test="docTypeId != null">
+    		doc_type_id = #{docTypeId},
+    	</if>
+    	<if test="docName != null">
+    		doc_name = #{docName},
+    	</if>
+    	<if test="docOldName != null">
+    		doc_old_name = #{docOldName},
+    	</if>
+    	<if test="docPath != null">
+    		doc_path = #{docPath},
+		</if>
+    	<if test="docNumber != null">
+    		doc_number = #{docNumber},
+    	</if>
+    	<if test="docValidDate != null">
+    		doc_valid_date = #{docValidDate},
+    	</if>
+    	<if test="status != null">
+    		status = #{status},
+    	</if>
+    	<if test="internalAuditTime != null">
+    		internal_audit_time = #{internalAuditTime},
+    	</if>
+    	<if test="auditUserId != null">
+    		audit_user_id = #{auditUserId,jdbcType=BIGINT}, 
+    	</if>
+    	<if test="updateTime != null">
+    		update_time = #{updateTime},
+    	</if>
+    	<if test="remark != null">
+    		remark = #{remark},
+    	</if>
+    	<if test="auditMqSuccess != null">
+    		audit_mq_success = #{auditMqSuccess},
+    	</if>
+    </trim>
+    WHERE 
+    	partner_id = #{partnerId,jdbcType=BIGINT}
+    	<if test="docTypeId != null">
+    		AND doc_type_id = #{docTypeId}
+    	</if>
+    	<if test="id != null">
+    		AND id = #{id}
+    	</if>
+  </update>
+  
+  <update id="updateStatus" parameterType="map" >
+    UPDATE 
+    	quali_doc
+    <set>
+    	<if test="status != null">
+      		status = #{status,jdbcType=INTEGER},
+      	</if>
+      	<if test="internalAuditTime != null">
+      		internal_audit_time = #{internalAuditTime,jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="auditUserId != null">
+      		audit_user_id = #{auditUserId,jdbcType=BIGINT}, 
+      	</if>
+      	<if test="remark != null">
+      		remark = #{remark,jdbcType=VARCHAR},
+      	</if>
+      	<if test="auditMqSuccess != null">
+      		audit_mq_success = #{auditMqSuccess,jdbcType=INTEGER}
+      	</if>
+   </set> 
+    WHERE 
+    	partner_id = #{partnerId,jdbcType=BIGINT}
+  </update>
+</mapper>

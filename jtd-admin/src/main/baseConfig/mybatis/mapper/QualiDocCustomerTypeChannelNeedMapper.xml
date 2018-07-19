@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.QualiDocCustomerTypeChannelNeedDao" >
+
+  <!-- 对应数据表名 -->
+  <sql id="table"> quali_doc_customer_type_channel_need </sql>
+
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.QualiDocCustomerTypeChannelNeed" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="customer_type_id" property="customerTypeId" jdbcType="BIGINT" />
+	    <result column="channel_id" property="channelId" jdbcType="BIGINT" />
+	    <result column="doc_type_id" property="docTypeId" jdbcType="BIGINT" />
+	    <result column="is_main_qualidoc" property="isMainQualidoc" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <resultMap id="DocTypeMap" type="com.jtd.web.po.QualiDocType" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="doc_type_name" property="docTypeName" jdbcType="VARCHAR" />
+	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    id, customer_type_id , channel_id , doc_type_id , is_main_qualidoc
+  </sql>
+  
+  <select id="listDocTypeByMap" resultMap="DocTypeMap" parameterType="map" >
+    SELECT * FROM quali_doc_type
+    WHERE id IN
+    (
+	    SELECT 
+	    	DISTINCT doc_type_id
+	    FROM 
+	    	<include refid="table" />
+	    WHERE
+	    	customer_type_id = #{customerTypeId}
+	    	<if test="channelId != null">
+				AND channel_id = #{channelId}
+			</if>
+	    	<if test="isMainQualidoc != null">
+				AND is_main_qualidoc = #{isMainQualidoc}
+			</if>
+	)
+  </select>
+  
+</mapper>

@@ -1,0 +1,264 @@
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1080
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1082
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1081
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:01 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1080
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1082
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1081
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:09 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1080
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1082
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1081
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:13:45 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1080
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1082
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1081
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:23 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1080
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1082
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1081
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:30 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1080
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1082
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1081
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:122) : 35、heartBeatDAO.isAlive()>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:123) : 36、camp.getAutoStatus() == CampaignAutoStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:124) : 36~37、camp.getAutoStatus()自动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:125) : 36~37、camp.getAutoStatus()手动状态>>bes:StatusMatch>>ONLINE>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:126) : 37、camp.getManulStatus() == CampaignManulStatus.ONLINE>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:127) : 38、!(camp.getBudgetCtrlType() == BudgetCtrlType.STANDARD && campaignDAO.isPause(camp.getId()))>>xtrader:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:128) : 39、auditInfoDAO.isPartnerStarted(camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:129) : 40、auditInfoDAO.iscommittedPartner(Adx.BES,camp.getPartnerId())>>bes:StatusMatch>>false>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:130) : 41、!auditInfoDAO.isRefusedPartner(camp.getPartnerId())>>bes:StatusMatch>>true>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:131) : 42、!auditInfoDAO.isRefusedPartner(Adx.BES, camp.getPartnerId())>>bes:StatusMatch>>true>>活动id>>1083
+2018-06-11 16:14:40 [INFO ] com.jtd.engine.ad.matcher.StatusMatcher.matchAdBES(StatusMatcher.java:141) : 百度状态的匹配结果:+false>>活动id>>1083

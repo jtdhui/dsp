@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans default-lazy-init="false"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-3.1.xsd
+	http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.1.xsd"> -->
+	<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<bean class="com.jtd.commons.BeanFactory"/>
+	
+	<!-- 配置文件工具类 -->
+	<bean id="propertyConfig" class="com.jtd.commons.PropertyConfig">
+		<property name="locations">
+			<list>
+				<value>server-config.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- ip库处理，是通过ip查地域的工具 -->
+	<bean id="iPBUtil" class="com.jtd.engine.utils.IPBUtil" init-method="init" />
+	<!-- 百度行业类别工具，百度用户行业类别，和dsp行业类别映射 -->
+	<bean id="besUserCatgUtil" class="com.jtd.engine.utils.BesUserCatgUtil" init-method="init" />
+	<!-- tanx 移动端设备号解密 -->
+	<bean id="tanxDeviceidDecoder" class="com.jtd.engine.ad.TanxDeviceidDecoder" init-method="init">
+		<property name="tanxKey" value="${tanxKey}" />
+	</bean>
+	
+	<!-- 定时器 -->
+	<bean id="timer" class="com.jtd.engine.utils.HashWheelTimer" init-method="startup" destroy-method="shutdown" />
+	
+	<!-- 系统定时器封装，系统初始化时调用init -->
+	<bean id="systemTime" class="com.jtd.engine.utils.SystemTime" init-method="init">
+		<property name="timer" ref="timer"/>
+	</bean>
+	
+	<!-- 
+	属性编辑器，在项目中注入的类型为InetSocketAddress属性，在spring初始化注入的时候，都会先通过mina定义的InetSocketAddressEditor属性编辑器, 
+	通过InetSocketAddressEditor属性编辑器后，都会被转换成InetSocketAddress，然后被注入到bean属性中。
+	-->
+	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.net.InetSocketAddress" value="org.apache.mina.integration.beans.InetSocketAddressEditor" />
+			</map>
+		</property>
+	</bean>
+
+	
+	
+</beans>

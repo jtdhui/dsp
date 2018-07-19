@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.SysRoleDao">
+
+	<!-- 对应数据表名-->
+	<sql id="table"> sys_role </sql>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, name,available,create_time,remark
+	</sql>
+	<!-- 结果集 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.SysRole">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="available" property="available" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 定义where条件 -->
+	<sql id="where_condition">
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+			<if test="available != null">
+				and available = #{available,jdbcType=INTEGER}
+			</if>
+			<if test="remark != null">
+				and remark = #{remark,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</sql>
+
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" /> 
+		from
+		<include refid="table" />
+	</select>
+	
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.SysRole" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from
+			<include refid="table" />
+		where
+			<include refid="where_condition" />
+	</select>
+	
+	<select id="getById" parameterType="com.jtd.web.po.SysRole" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from 
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.SysRole"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into
+		<include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="available != null">
+				available,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="available != null">
+				#{available,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<!-- 修改数据 -->
+	<update id="update" parameterType="com.jtd.web.po.SysRole">
+		update
+		<include refid="table" />
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="available != null">
+				available = #{available,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

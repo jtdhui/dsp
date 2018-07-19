@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.QualiDocCustomerTypeDao" >
+
+  <!-- 对应数据表名 -->
+  <sql id="table"> quali_doc_customer_type </sql>
+
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.QualiDocCustomerType" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="customer_type_name" property="customerTypeName" jdbcType="VARCHAR" />
+	    <result column="is_for_main_qualidoc" property="isForMainQualidoc" jdbcType="INTEGER" />
+  </resultMap>
+ 	
+  <sql id="Base_Column_List" >
+    id, customer_type_name , is_for_main_qualidoc
+  </sql>
+  
+  <select id="listByMap" resultMap="BaseResultMap" parameterType="map" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM 
+    <include refid="table" />
+    WHERE 1=1
+    <if test="id != null">
+		AND id = #{id}
+	</if>
+	<if test="isForMain != null">
+		AND is_for_main_qualidoc = #{isForMain}
+	</if>
+  </select>
+  
+</mapper>

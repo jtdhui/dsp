@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CreativeSizeFlowDao">
+
+	<sql id="table">creative_size_flow</sql>
+	
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, channel_id,size_id, flow,ad_type,create_time,remark
+	</sql>
+	
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.CreativeSizeFlow">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="channel_id" property="channelId" jdbcType="BIGINT" />
+		<result column="size_id" property="sizeId" jdbcType="BIGINT" />
+		<result column="flow" property="flow" jdbcType="INTEGER" />
+		<result column="ad_type" property="adType" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+	</select>
+
+	<!-- 根据渠道与广告类型查询广告尺寸流量 -->
+	<select id="selectListByMap" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select f.channel_id, f.ad_type, f.size_id, s.size, sum(f.flow) flow
+		from
+		creative_size s,
+		creative_size_flow f
+		where s.id = f.size_id
+		<if test="channel_ids != null">
+			and f.channel_id in
+			<foreach item="item" index="index" collection="channel_ids" open="("  separator="," close=")">  
+            	#{item}
+        	</foreach>
+		</if>
+		<if test="adType != null">
+			and f.ad_type = #{adType,jdbcType=INTEGER}
+		</if>
+		group by f.size_id
+		order by flow desc
+	</select>
+	
+	<select id="selectSumFlowByMap" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select sum(f.flow) flow
+		from
+		creative_size s,
+		creative_size_flow f
+		where s.id = f.size_id
+		<if test="channel_ids != null">
+			and f.channel_id in
+			<foreach item="item" index="index" collection="channel_ids" open="("  separator="," close=")">  
+            	#{item}
+        	</foreach>
+		</if>
+		<if test="adType != null">
+			and f.ad_type = #{adType,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="select" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from creative_size_flow
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		creative_size_flow
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.CreativeSizeFlow">
+		insert into creative_size_flow
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="channelId != null">
+				channel_id,
+			</if>
+			<if test="sizeId != null">
+				size_id,
+			</if>
+			<if test="flow != null">
+				flow,
+			</if>
+			<if test="adType != null">
+				ad_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=BIGINT},
+			</if>
+			<if test="sizeId != null">
+				#{sizeId,jdbcType=BIGINT},
+			</if>
+			<if test="flow != null">
+				#{flow,jdbcType=INTEGER},
+			</if>
+			<if test="adType != null">
+				#{adType,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.CreativeSizeFlow">
+		update creative_size_flow
+		<set>
+			<if test="channelId != null">
+				channel_id = #{channelId,jdbcType=BIGINT},
+			</if>
+			<if test="sizeId != null">
+				size_id = #{sizeId,jdbcType=BIGINT},
+			</if>
+			<if test="flow != null">
+				flow = #{flow,jdbcType=INTEGER},
+			</if>
+			<if test="adType != null">
+				ad_type = #{adType,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

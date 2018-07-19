@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.UserFavDao">
+
+	<sql id="table">user_fav</sql>
+	
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.UserFav">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="setting_name" property="settingName" jdbcType="VARCHAR" />
+		<result column="setting" property="setting" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, user_id, setting_name, setting
+	</sql>
+
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.UserFav" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from
+			<include refid="table" />
+		where 1=1
+		<if test="userId != null">
+			and user_id = #{userId,jdbcType=BIGINT}
+		</if>
+		<if test="settingName != null">
+			and setting_name = #{settingName,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from <include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<delete id="deleteUserFav" parameterType="com.jtd.web.po.UserFav">
+		delete from <include refid="table" />
+		where user_id = #{userId,jdbcType=BIGINT}
+			and setting_name = #{settingName,jdbcType=VARCHAR}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.UserFav">
+		insert into <include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="settingName != null">
+				setting_name,
+			</if>
+			<if test="setting != null">
+				setting,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="settingName != null">
+				#{settingName,jdbcType=VARCHAR},
+			</if>
+			<if test="setting != null">
+				#{setting,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.UserFav">
+		update <include refid="table" />
+		<set>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="settingName != null">
+				setting_name = #{settingName,jdbcType=VARCHAR},
+			</if>
+			<if test="setting != null">
+				setting = #{setting,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where 1=1
+			<if test="id != null">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="userId != null">
+				and user_id = #{userId,jdbcType=BIGINT}
+			</if>
+			<if test="settingName != null">
+				and setting_name = #{settingName,jdbcType=VARCHAR}
+			</if>
+	</update>
+
+</mapper>

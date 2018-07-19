@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CampAdTpdCountDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> camp_ad_tpd </sql>
+	<!-- 查询结果映射 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.count.CampAdTpd">
+		<result column="camp_id" property="campId" jdbcType="BIGINT" />
+		<result column="ad_type" property="adType" jdbcType="INTEGER" />
+		<result column="bid" property="bid" jdbcType="INTEGER" />
+		<result column="pv" property="pv" jdbcType="INTEGER" />
+		<result column="uv" property="uv" jdbcType="INTEGER" />
+		<result column="click" property="click" jdbcType="INTEGER" />
+		<result column="uclick" property="uclick" jdbcType="INTEGER" />
+		<result column="arrpv" property="arrpv" jdbcType="INTEGER" />
+		<result column="arruv" property="arruv" jdbcType="INTEGER" />
+		<result column="expend" property="expend" jdbcType="INTEGER" />
+		<result column="cost" property="cost" jdbcType="INTEGER" />
+		<result column="date" property="date" jdbcType="INTEGER" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		camp_id, ad_type, bid, pv, uv,
+		click, uclick, arrpv,
+		arruv, expend, cost, date
+	</sql>
+	
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+	</select>
+	
+	<!-- 活动类型报表中按展示类型显示的报表 -->
+	<select id="listMapForCampTypeReport" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			ad_type,
+			pv_sum,
+			click_sum,
+			(click_sum / pv_sum) * 100 AS click_rate_sum,
+			expend_sum_yuan / (pv_sum / 1000) AS cpm_sum_yuan,
+			expend_sum_yuan / click_sum AS cpc_sum_yuan,
+		  	expend_sum_yuan
+		FROM
+		(
+			SELECT
+				ad_type,
+				sum(pv) as pv_sum,
+				sum(click) as click_sum,
+				sum(expend)/100 as expend_sum_yuan
+			FROM
+			<include refid="table" />
+			WHERE 1=1
+			<if test="campIds != null">
+				and camp_id in (${campIds})
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum}
+			</if>
+			GROUP BY ad_type
+		) AS a
+	</select>
+	
+</mapper>

@@ -1,0 +1,74 @@
+﻿@import "common";
+@import "module/handle-view";
+@import "module/second-links";
+@import "module/select";
+@import "module/input";
+@import "module/btn";
+@import "module/table";
+@import "module/paging";
+
+
+input {
+  font-size: 12px;
+}
+
+.mt-100 {
+  margin-top: 100px;
+}
+
+.header {
+  .nav-hover {
+    left: @startSize+@moveLeft*4px;
+  }
+}
+
+.handle-view {
+  //padding-top: 75px;
+  margin-bottom: 50px;
+}
+
+.font-info {
+  font-size: 18px;
+  color: #333;
+}
+
+.ml-167 {
+  margin-left: 167px;
+}
+
+.mt-50 {
+  margin-right: 50px;
+}
+
+//-- 账户余额
+.account-money {
+  text-align: center;
+  .font-info;
+  span {
+    .font-info
+  }
+}
+
+//-- 搜索条件
+.form-horizontal {
+  margin: 40px auto;
+  .select-wrap {
+    float: left;
+  }
+  .f-r{
+    float: right;
+    margin-right: 140px;
+    margin-top: -5px;
+    .btn:first-child{
+      margin-right: 30px;
+    }
+  }
+}
+
+.table {
+  width: 1120px;
+  margin: 0 auto;
+  .balance{
+    color: @main-color;
+  }
+}

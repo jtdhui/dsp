@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans default-lazy-init="true"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.1.xsd"> -->
+        
+        <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!-- ==================使用的是redis集群A=================== -->
+	<!-- 存储、获取，adx发送过来的cookie数据;所操作的是redis集群A中数据库索引为15的数据库 -->
+	<bean id="cookieDataDAO" class="com.jtd.engine.dao.CookieDataDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="index" value="15" />
+	</bean>
+	<bean id="besCookieDataDAO" class="com.jtd.engine.dao.CookieDataDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="index" value="14" />
+	</bean>
+	
+	<!-- 存储cookie映射数据 -->
+	<bean id="cookieMappingDAO" class="com.jtd.engine.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="index" value="11" />
+	</bean>
+	<bean id="besCookieMappingDAO" class="com.jtd.engine.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="index" value="12" />
+	</bean>
+	<bean id="tanxCookieMappingDAO" class="com.jtd.engine.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="index" value="13" />
+	</bean>
+	<!-- 存储零集cookieMapping数据 -->
+	<bean id="xtraderCookieMappingDAO" class="com.jtd.engine.dao.CookieMappingDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="index" value="9" />
+	</bean>
+	
+	<!-- 存储特殊用户的cookie -->
+	<bean id="customCookiePoolDAO" class="com.jtd.engine.dao.CookieDataDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="index" value="0" />
+	</bean>
+	
+	<!-- ==================使用的是redis本地数据库=================== -->
+	<!-- 验证广告主，广告内部审核、adx审核是否通过 -->
+	<bean id="auditInfoDAO" class="com.jtd.engine.dao.AuditInfoDAOImpl" init-method="init">
+		<property name="pool" ref="auditInfoPool" />
+	</bean>
+	<!-- 设置、获取，平台、活动黑名单 -->
+	<bean id="blackListDAO" class="com.jtd.engine.dao.BlackListDAOImpl" init-method="init">
+		<property name="pool" ref="blackListPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+	</bean>
+	<!-- 广告活动数据的添加，修改；活动状态的操作；活动的毛利设置；活动的af值设置，广告主的状态等操作 -->
+	<bean id="campaignDAO" class="com.jtd.engine.dao.CampaignDAOImpl" init-method="init">
+		<property name="pool" ref="campaignPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+	</bean>
+	<!-- 获取某个用户对于某个广告活动的曝光和点击数据 -->
+	<bean id="freqDataDAO" class="com.jtd.engine.dao.FreqDataDAOImpl" init-method="init">
+		<property name="pool" ref="redisGroupPool" />
+		<property name="index" value="10" />
+	</bean>
+	<!--  -->
+	<bean id="heartBeatDAO" class="com.jtd.engine.dao.HeartBeatDAOImpl">
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	
+	<!-- 存放系统总访问次数，总点击次数 -->
+	<bean id="otherDAO" class="com.jtd.engine.dao.OtherDAOImpl" init-method="init">
+		<property name="pool" ref="othorPool" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="timer" ref="timer" />
+	</bean>
+</beans>

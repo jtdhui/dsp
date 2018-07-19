@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.SysUserRoleDao">
+
+	<!-- 对应数据表名-->
+	<sql id="table"> sys_user_role </sql>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, sys_user_id,sys_role_id,create_time,remark
+	</sql>
+	
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.SysUserRole">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="sys_user_id" property="sysUserId" jdbcType="BIGINT" />
+		<result column="sys_role_id" property="sysRoleId" jdbcType="BIGINT" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="UserResultMap" type="com.jtd.web.po.SysUser">
+		<result column="user_id" property="id" jdbcType="BIGINT" />
+		<result column="user_name" property="userName" jdbcType="BIGINT" />
+	</resultMap>
+
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.SysUserRole" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from
+			<include refid="table" />
+		where 1 = 1
+		<if test="sysUserId != null">
+			and sys_user_id = #{sysUserId,jdbcType=BIGINT}
+		</if>
+		<if test="sysRoleId != null">
+			and sys_role_id = #{sysRoleId,jdbcType=BIGINT}
+		</if>
+	</select>
+	
+	<select id="listUserBy" parameterType="map" resultMap="UserResultMap">
+		select 
+			ur.sys_user_id AS user_id , u.user_name AS user_name
+		from
+			<include refid="table" /> AS ur
+			JOIN sys_user AS u ON ur.sys_user_id = u.id
+		where 1 = 1
+		<if test="sysRoleId != null">
+			and ur.sys_role_id = #{sysRoleId,jdbcType=BIGINT}
+		</if>
+		<if test="userName != null">
+			and u.user_name LIKE CONCAT('%',#{userName,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	
+	<select id="findUserPageBy" parameterType="map" resultMap="UserResultMap">
+		select 
+			ur.sys_user_id AS user_id , u.user_name AS user_name
+		from
+			<include refid="table" /> AS ur
+			JOIN sys_user AS u ON ur.sys_user_id = u.id
+		where 1 = 1
+		<if test="condition.sysRoleId != null">
+			and ur.sys_role_id = #{condition.sysRoleId,jdbcType=BIGINT}
+		</if>
+		<if test="condition.userName != null">
+			and u.user_name LIKE CONCAT('%',#{condition.userName,jdbcType=VARCHAR},'%')
+		</if>
+	</select>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where sys_user_id = #{sysUserId,jdbcType=BIGINT}
+	</delete>
+
+	<!-- 修改数据 -->
+	<update id="update" parameterType="com.jtd.web.po.SysUserRole">
+		update
+		<include refid="table" />
+		<set>
+			<if test="sysRoleId != null">
+				sys_role_id = #{sysRoleId,jdbcType=BIGINT},
+			</if>
+		</set>
+		where sys_user_id = #{sysUserId,jdbcType=BIGINT}
+	</update>
+
+	<insert id="insert" parameterType="com.jtd.web.po.SysUserRole">
+		INSERT INTO <include refid="table"/>
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sysUserId != null">
+				sys_user_id,
+			</if>
+			<if test="sysRoleId != null">
+				sys_role_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sysUserId != null">
+				#{sysUserId,jdbcType=BIGINT},
+			</if>
+			<if test="sysRoleId != null">
+				#{sysRoleId,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 批量添加数据 -->
+	<insert id="batchInsert" parameterType="com.jtd.web.po.SysUserRole">
+		insert into
+		<include refid="table" />
+		(  sys_user_id,sys_role_id )
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.sysUserId,jdbcType=BIGINT},
+			#{item.sysRoleId,jdbcType=BIGINT})
+		</foreach>
+	</insert>
+	
+	
+</mapper>

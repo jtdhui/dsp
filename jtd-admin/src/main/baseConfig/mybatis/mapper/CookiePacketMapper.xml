@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CookiePacketDao" >
+
+  <sql id="table">cookie_packet</sql>
+
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.CookiePacket" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="cookie_gid" property="cookieGid" jdbcType="BIGINT" />
+    <result column="owner_partner_id" property="ownerPartnerId" jdbcType="BIGINT" />
+    <result column="packet_name" property="packetName" jdbcType="VARCHAR" />
+    <result column="is_public" property="isPublic" jdbcType="INTEGER" />
+    <result column="cookie_num" property="cookieNum" jdbcType="INTEGER" />
+    <result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, cookie_gid, owner_partner_id, packet_name, is_public, cookie_num, delete_status, 
+    create_time, remark
+  </sql>
+
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from <include refid="table" />
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.CookiePacket" >
+    select
+    <include refid="Base_Column_List" />
+    from <include refid="table" />
+    where 1=1
+    <if test="ownerPartnerId != null">
+      and owner_partner_id = #{ownerPartnerId,jdbcType=INTEGER}
+    </if>
+    <if test="isPublic != null">
+      and is_public = #{isPublic,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from <include refid="table" />
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.jtd.web.po.CookiePacket" >
+    insert into <include refid="table" />
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cookieGid != null" >
+        cookie_gid,
+      </if>
+      <if test="ownerPartnerId != null" >
+        owner_partner_id,
+      </if>
+      <if test="packetName != null" >
+        packet_name,
+      </if>
+      <if test="isPublic != null" >
+        is_public,
+      </if>
+      <if test="cookieNum != null" >
+        cookie_num,
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="cookieGid != null" >
+        #{cookieGid,jdbcType=BIGINT},
+      </if>
+      <if test="ownerPartnerId != null" >
+        #{ownerPartnerId,jdbcType=BIGINT},
+      </if>
+      <if test="packetName != null" >
+        #{packetName,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null" >
+        #{isPublic,jdbcType=INTEGER},
+      </if>
+      <if test="cookieNum != null" >
+        #{cookieNum,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="com.jtd.web.po.CookiePacket" >
+    update <include refid="table" />
+    <set >
+      <if test="cookieGid != null" >
+        cookie_gid = #{cookieGid,jdbcType=BIGINT},
+      </if>
+      <if test="ownerPartnerId != null" >
+        owner_partner_id = #{ownerPartnerId,jdbcType=BIGINT},
+      </if>
+      <if test="packetName != null" >
+        packet_name = #{packetName,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublic != null" >
+        is_public = #{isPublic,jdbcType=INTEGER},
+      </if>
+      <if test="cookieNum != null" >
+        cookie_num = #{cookieNum,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStatus != null" >
+        delete_status = #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CreativeDao">
+
+	<sql id="table">creative</sql>
+
+	<sql id="Base_Column_List">
+		id, partner_id, group_id, creative_name, creative_type, size,
+		creative_url, pub_status,local_creative_url,suffix,
+		delete_status, duration, create_time, update_time, remark
+	</sql>
+
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.Creative">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+		<result column="group_id" property="groupId" jdbcType="BIGINT" />
+		<result column="creative_name" property="creativeName"
+			jdbcType="VARCHAR" />
+		<result column="creative_type" property="creativeType"
+			jdbcType="INTEGER" />
+		<result column="size" property="size" jdbcType="VARCHAR" />
+		<result column="creative_url" property="creativeUrl" jdbcType="VARCHAR" />
+		<result column="local_creative_url" property="localCreativeUrl" jdbcType="VARCHAR" />
+        <result column="suffix" property="suffix" jdbcType="VARCHAR" />
+		<result column="pub_status" property="pubStatus" jdbcType="INTEGER" />
+		<result column="delete_status" property="deleteStatus"
+			jdbcType="INTEGER" />
+		<result column="duration" property="duration" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getById" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from creative
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<select id="getAdsBy" resultType="java.util.HashMap" parameterType="java.util.Map">
+		SELECT a.id ad_id,a.campaign_id,c.* FROM ad a,creative c
+		where c.id = a.creative_id
+		and a.delete_status=0
+		and c.delete_status=0
+		and a.campaign_id=#{campaign_id,jdbcType=BIGINT}
+		and c.size='${size}'
+	</select>
+
+	<select id="getByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		<include refid="table" />
+		where 1=1
+			<if test="partnerId != null">
+				and partner_id=#{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="groupId != null">
+				and group_id=#{groupId,jdbcType=BIGINT}
+			</if>
+			<if test="creativeName != null">
+				and creative_name= #{creativeName,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from creative
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.Creative"  useGeneratedKeys="true" keyProperty="id">
+		insert into creative
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="partnerId != null">
+				partner_id,
+			</if>
+			<if test="groupId != null">
+				group_id,
+			</if>
+			<if test="creativeName != null">
+				creative_name,
+			</if>
+			<if test="creativeType != null">
+				creative_type,
+			</if>
+			<if test="size != null">
+				size,
+			</if>
+			<if test="creativeUrl != null">
+				creative_url,
+			</if>
+			<if test="localCreativeUrl != null">
+				local_creative_url,
+			</if>
+            <if test="suffix != null">
+                suffix,
+            </if>
+			<if test="pubStatus != null">
+				pub_status,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="duration != null">
+				duration,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="partnerId != null">
+				#{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupId != null">
+				#{groupId,jdbcType=BIGINT},
+			</if>
+			<if test="creativeName != null">
+				#{creativeName,jdbcType=VARCHAR},
+			</if>
+			<if test="creativeType != null">
+				#{creativeType,jdbcType=INTEGER},
+			</if>
+			<if test="size != null">
+				#{size,jdbcType=VARCHAR},
+			</if>
+			<if test="creativeUrl != null">
+				#{creativeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="localCreativeUrl != null">
+				#{localCreativeUrl,jdbcType=VARCHAR},
+			</if>
+            <if test="suffix != null">
+                #{suffix,jdbcType=VARCHAR},
+            </if>
+			<if test="pubStatus != null">
+				#{pubStatus,jdbcType=INTEGER},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="duration != null">
+				#{duration,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.Creative">
+		update creative
+		<set>
+			<if test="partnerId != null">
+				partner_id = #{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupId != null">
+				group_id = #{groupId,jdbcType=BIGINT},
+			</if>
+			<if test="creativeName != null">
+				creative_name = #{creativeName,jdbcType=VARCHAR},
+			</if>
+			<if test="creativeType != null">
+				creative_type = #{creativeType,jdbcType=INTEGER},
+			</if>
+			<if test="size != null">
+				size = #{size,jdbcType=VARCHAR},
+			</if>
+			<if test="creativeUrl != null">
+				creative_url = #{creativeUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="localCreativeUrl != null">
+				local_creative_url = #{localCreativeUrl,jdbcType=VARCHAR},
+			</if>
+            <if test="suffix != null">
+                suffix = #{suffix,jdbcType=VARCHAR},
+            </if>
+			<if test="pubStatus != null">
+				pub_status = #{pubStatus,jdbcType=INTEGER},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="duration != null">
+				duration = #{duration,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

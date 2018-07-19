@@ -1,0 +1,17 @@
+2018-06-09 14:44:43 [INFO ] com.jtd.engine.ad.matcher.WebSiteCatgMatcher.matchAdBES(WebSiteCatgMatcher.java:150) : xtrader:WebSiteCatgMatcher--------------------------------------------
+2018-06-09 14:44:44 [INFO ] com.jtd.engine.ad.matcher.NetworkMatcher.matchAdBES(NetworkMatcher.java:223) : bes:NetworkMatcher--------------------------------------------
+2018-06-09 14:44:49 [INFO ] com.jtd.engine.ad.matcher.DeviceMatcher.matchAdBES(DeviceMatcher.java:283) : bes:DeviceMatcher--------------------------------------------
+2018-06-09 14:44:52 [INFO ] com.jtd.engine.ad.matcher.AppMatcher.matchAdBES(AppMatcher.java:479) : bes:AppMatcher--------------------------------------------
+2018-06-09 14:44:52 [INFO ] com.jtd.engine.ad.matcher.PageUrlMatcher.matchAdBES(PageUrlMatcher.java:92) : xtrader:PageUrlMatcher--------------------------------------------
+2018-06-09 15:05:43 [INFO ] com.jtd.engine.ad.matcher.NetworkMatcher.matchAdBES(NetworkMatcher.java:223) : bes:NetworkMatcher--------------------------------------------
+2018-06-09 15:06:01 [INFO ] com.jtd.engine.ad.matcher.DeviceMatcher.matchAdBES(DeviceMatcher.java:283) : bes:DeviceMatcher--------------------------------------------
+2018-06-09 15:06:24 [INFO ] com.jtd.engine.ad.matcher.AppMatcher.matchAdBES(AppMatcher.java:479) : bes:AppMatcher--------------------------------------------
+2018-06-09 15:06:24 [INFO ] com.jtd.engine.ad.matcher.PageUrlMatcher.matchAdBES(PageUrlMatcher.java:92) : xtrader:PageUrlMatcher--------------------------------------------
+2018-06-09 15:14:10 [INFO ] com.jtd.engine.ad.matcher.NetworkMatcher.matchAdBES(NetworkMatcher.java:223) : bes:NetworkMatcher--------------------------------------------
+2018-06-09 15:14:18 [INFO ] com.jtd.engine.ad.matcher.DeviceMatcher.matchAdBES(DeviceMatcher.java:283) : bes:DeviceMatcher--------------------------------------------
+2018-06-09 15:14:29 [INFO ] com.jtd.engine.ad.matcher.AppMatcher.matchAdBES(AppMatcher.java:479) : bes:AppMatcher--------------------------------------------
+2018-06-09 15:14:29 [INFO ] com.jtd.engine.ad.matcher.PageUrlMatcher.matchAdBES(PageUrlMatcher.java:92) : xtrader:PageUrlMatcher--------------------------------------------
+2018-06-09 15:19:49 [INFO ] com.jtd.engine.ad.matcher.NetworkMatcher.matchAdBES(NetworkMatcher.java:223) : bes:NetworkMatcher--------------------------------------------
+2018-06-09 15:19:52 [INFO ] com.jtd.engine.ad.matcher.DeviceMatcher.matchAdBES(DeviceMatcher.java:283) : bes:DeviceMatcher--------------------------------------------
+2018-06-09 15:20:07 [INFO ] com.jtd.engine.ad.matcher.AppMatcher.matchAdBES(AppMatcher.java:479) : bes:AppMatcher--------------------------------------------
+2018-06-09 15:20:07 [INFO ] com.jtd.engine.ad.matcher.PageUrlMatcher.matchAdBES(PageUrlMatcher.java:92) : xtrader:PageUrlMatcher--------------------------------------------

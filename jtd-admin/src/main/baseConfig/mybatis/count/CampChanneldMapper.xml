@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CampChanneldDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> camp_channeld </sql>
+	<!-- 查询结果映射 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.count.CampChanneld">
+		<result column="camp_id" property="campId" jdbcType="BIGINT" />
+		<result column="channel_id" property="channelId" jdbcType="BIGINT" />
+		<result column="host" property="host" jdbcType="VARCHAR" />
+		<result column="bid" property="bid" jdbcType="INTEGER" />
+		<result column="pv" property="pv" jdbcType="INTEGER" />
+		<result column="uv" property="uv" jdbcType="INTEGER" />
+		<result column="click" property="click" jdbcType="INTEGER" />
+		<result column="uclick" property="uclick" jdbcType="INTEGER" />
+		<result column="arrpv" property="arrpv" jdbcType="INTEGER" />
+		<result column="arruv" property="arruv" jdbcType="INTEGER" />
+		<result column="expend" property="expend" jdbcType="INTEGER" />
+		<result column="cost" property="cost" jdbcType="INTEGER" />
+		<result column="date" property="date" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		camp_id, channel_id, host , bid, pv, uv,
+		click, uclick, arrpv, arruv, expend, cost, date
+	</sql>
+	
+	<sql id="showBaseCols">
+		pv, uv, click, click_rate , cost_yuan, expend_yuan, cpm_expend_yuan, cpc_expend_yuan, cpm_cost_yuan, cpc_cost_yuan
+	</sql>
+	
+	<!-- campd报表的基础统计sql -->
+	<sql id="countBaseCols">
+		IFNULL( sum(pv) , 0 ) AS pv,
+		IFNULL( sum(uv) , 0 ) AS uv,
+		IFNULL( sum(click) , 0 ) AS click,
+		IFNULL( ( ( sum(click) / sum(pv) ) * 100 ) , 0 ) AS click_rate,
+		IFNULL( ( sum(cost) / 100 ) , 0 ) AS cost_yuan,
+		IFNULL( ( sum(expend) / 100 ) , 0 ) AS expend_yuan,
+		IFNULL( ( ( sum(expend) / 100 ) / ( sum(pv) / 1000 ) ) , 0 ) AS cpm_expend_yuan,
+		IFNULL( ( ( sum(expend) / 100 ) / sum(click) ) , 0 ) AS cpc_expend_yuan,
+		IFNULL( ( ( sum(cost) / 100 ) / ( sum(pv) / 1000 ) ) , 0 ) AS cpm_cost_yuan,
+		IFNULL( ( ( sum(cost) / 100 ) / sum(click) ) , 0 ) AS cpc_cost_yuan
+	</sql>
+	
+	<!-- 活动渠道报表分页-->
+	<select id="listSumByMap" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			<if test="needGroupBy != null">
+			camp_id , channel_id , 
+			</if>
+			<include refid="showBaseCols" />
+		FROM
+		(
+			SELECT
+				<if test="needGroupBy != null">
+				camp_id , channel_id ,
+				</if>
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1 AND (host != '其他' OR host != '未知')
+			<if test='campIds != null and campIds != "ALL" '>
+				and camp_id in (${campIds})
+			</if>
+			<if test="channelId != null">
+				and channel_id = ${channelId}
+			</if>
+			<if test="channelId != null">
+				and channel_id = #{channelId}
+			</if>
+			<if test="host != null">
+				and host LIKE CONCAT('%',#{host},'%')
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum}
+			</if>
+			<if test="needGroupBy != null">
+				GROUP BY camp_id , channel_id
+			</if>
+		) AS a 
+		<if test="needGroupBy != null">
+			<if test="orderBy != null">
+				ORDER BY ${orderBy}
+			</if>
+			<if test="desc != null">
+				${desc}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 活动渠道报表分页-->
+	<select id="getSumMapPageBy" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			camp_id , channel_id , 
+			<include refid="showBaseCols" />
+		FROM
+		(
+			SELECT
+				camp_id , channel_id ,
+				<include refid="countBaseCols" />
+			FROM
+			<include refid="table" />
+			WHERE 1=1 AND (host != '其他' OR host != '未知')
+			<if test='condition.campIds != null and condition.campIds != "ALL"'>
+				and camp_id in (${condition.campIds})
+			</if>
+			<if test="condition.channelId != null">
+				and channel_id = ${condition.channelId}
+			</if>
+			<if test="condition.host != null">
+				and host LIKE CONCAT('%',#{condition.host},'%')
+			</if>
+			<if test="condition.startDateNum != null">
+				 and date &gt;= #{condition.startDateNum}
+			</if>
+			<if test="condition.endDateNum != null">
+				and date &lt;= #{condition.endDateNum}
+			</if>
+			GROUP BY camp_id , channel_id
+		) AS a 
+		<if test="condition.orderBy != null">
+			ORDER BY ${condition.orderBy}
+		</if>
+		<if test="condition.desc != null">
+			${condition.desc}
+		</if>
+	</select>
+	
+	<!-- 活动渠道报表list-->
+	<select id="listByMap" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			*
+		FROM
+			<include refid="table" />
+			WHERE 1=1 AND (host != '其他' OR host != '未知')
+			<if test='campIds != null and campIds != "ALL"'>
+				and camp_id in (${campIds})
+			</if>
+			<if test="channelId != null">
+				and channel_id = #{channelId}
+			</if>
+			<if test="host != null">
+				and host LIKE CONCAT('%',#{host},'%')
+			</if>
+			<if test="startDateNum != null">
+				 and date &gt;= #{startDateNum}
+			</if>
+			<if test="endDateNum != null">
+				and date &lt;= #{endDateNum}
+			</if>
+		<if test="orderBy != null">
+			ORDER BY ${orderBy}
+		</if>
+		<if test="desc != null">
+			${desc}
+		</if>
+	</select>
+	
+	<!-- 活动渠道报表分页-->
+	<select id="getMapPageBy" resultType="java.util.HashMap" parameterType="map">
+		SELECT 
+			*
+		FROM
+			<include refid="table" />
+			WHERE 1=1 AND (host != '其他' OR host != '未知')
+			<if test='condition.campIds != null and condition.campIds != "ALL"'>
+				and camp_id in (${condition.campIds})
+			</if>
+			<if test="condition.channelId != null">
+				and channel_id = ${condition.channelId}
+			</if>
+			<if test="condition.host != null">
+				and host LIKE CONCAT('%',#{condition.host},'%')
+			</if>
+			<if test="condition.startDateNum != null">
+				 and date &gt;= #{condition.startDateNum}
+			</if>
+			<if test="condition.endDateNum != null">
+				and date &lt;= #{condition.endDateNum}
+			</if>
+		<if test="condition.orderBy != null">
+			ORDER BY ${condition.orderBy}
+		</if>
+		<if test="condition.orderBy == null">
+			ORDER BY camp_id,date DESC
+		</if>
+		<if test="condition.desc != null">
+			${condition.desc}
+		</if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.AdPlaceDao">
+
+	<!-- 域名 -->
+	<sql id="table">ad_place</sql>
+
+	<!-- 基本查询字段 -->
+	<sql id="Base_Column_List">
+		id, channel_ad_place_id , channel_ad_place_name , channel_name, preview_url, size, ad_type, web_site , web_site_type, daily_traffics, 
+    	ctr, channel_id, place_type, floor_price_range, screen_type, web_site_type_id , parent_id , create_time , remark
+	</sql>
+	
+	<!-- 输出结果字段集合 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.AdPlace" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="channel_ad_place_id" property="channelAdPlaceName" jdbcType="VARCHAR" />
+    <result column="channel_ad_place_name" property="channelAdPlaceName" jdbcType="VARCHAR" />
+    <result column="channel_name" property="channelName" jdbcType="VARCHAR" />
+    <result column="preview_url" property="previewUrl" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="VARCHAR" />
+    <result column="ad_type" property="adType" jdbcType="INTEGER" />
+    <result column="web_site" property="webSite" jdbcType="VARCHAR" />
+    <result column="web_site_type" property="webSiteType" jdbcType="VARCHAR" />
+    <result column="daily_traffics" property="dailyTraffics" jdbcType="BIGINT" />
+    <result column="ctr" property="ctr" jdbcType="DOUBLE" />
+    <result column="channel_id" property="channelId" jdbcType="BIGINT" />
+    <result column="place_type" property="placeType" jdbcType="INTEGER" />
+    <result column="floor_price_range" property="floorPriceRange" jdbcType="INTEGER" />
+    <result column="screen_type" property="screenType" jdbcType="INTEGER" />
+    <result column="web_site_type_id" property="webSiteTypeId" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+  </resultMap>
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.AdPlace">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		<include refid="table" />
+		where 1=1
+	</select>
+	
+	<!-- 分页 -->
+	<select id="getMapPageBy" resultType="java.util.HashMap" parameterType="map">
+		select
+			ap.id, ap.channel_ad_place_id , ap.channel_ad_place_name , ap.channel_name, ap.preview_url, ap.size, ap.ad_type, ap.web_site , ap.web_site_type, ap.daily_traffics, 
+    		ap.ctr, ap.channel_id, ap.place_type, ap.floor_price_range, ap.screen_type, ap.web_site_type_id , ap.parent_id
+		from
+		<include refid="table" /> AS ap
+		where 1=1
+			<if test="condition.channelId != null">
+				and ap.channel_id = #{condition.channelId,jdbcType=BIGINT}
+			</if>
+			<if test="condition.adType != null">
+				and ap.ad_type = #{condition.adType,jdbcType=INTEGER}
+			</if>
+			<if test="condition.webSiteTypeId != null">
+				and ap.web_site_type_id LIKE CONCAT('%',#{condition.webSiteTypeId},'%')
+			</if>
+			<if test="condition.filterName != null">
+				and (ap.channel_ad_place_name LIKE CONCAT('%',#{condition.filterName},'%') OR ap.web_site LIKE CONCAT('%',#{condition.filterName},'%'))
+			</if>
+	</select>
+
+</mapper>

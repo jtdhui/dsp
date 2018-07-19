@@ -1,0 +1,1 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/><style type=\"text/css\">html, body {margin: 0;padding: 0;} img {width: 100%;height: 100%;}</style></head><body><a href="#CLICK#"  target="_blank"><img src="#ADURL#" border=0/></a></body></html>

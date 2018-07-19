@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.DspSalesProductDao" >
+
+  <sql id="Base_Column_List" >
+    id, name, money, open_money, service_money , create_time, remark , level
+  </sql>
+ 	
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.DspSalesProduct" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="open_money" property="openMoney" jdbcType="INTEGER" />
+    <result column="service_money" property="serviceMoney" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+  </resultMap>
+  
+ <select id="getById" parameterType="long" resultMap="BaseResultMap">
+	SELECT
+	<include refid="Base_Column_List" />
+	FROM dsp_sales_product 
+	WHERE 
+		id = #{id}
+</select>
+  
+</mapper>

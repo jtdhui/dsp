@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="30">
+	<Properties>
+		<Property name="baseLogDir">/data/admin-logs</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5level] %l \: %msg%n" />
+			<!-- <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss} [%-5level] %c(%M) %l \: %msg%n" />-->
+		</Console>
+		<!-- 记录所有日志-->
+		<RollingFile name="allLog" fileName="${baseLogDir}/all.log"
+			filePattern="${baseLogDir}/all.log.%d{yyyy-MM-dd}">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5level] %c(%M) \: %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+		<!-- 只记录错误日志-->
+		<RollingFile name="errorLog" fileName="${baseLogDir}/error.log"
+			filePattern="${baseLogDir}/error.log.%d{yyyy-MM-dd}">
+			<ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5level] %l \: %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+		<!-- 创意审核记录 -->
+		<RollingFile name="creativeAuditFile" fileName="${baseLogDir}/creativeAudit.log"
+			filePattern="${baseLogDir}/creativeAudit.log.%d{yyyy-MM-dd}">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5level] %l \: %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+	<!-- mq发送记录 -->
+		<RollingFile name="mqInfoFile" fileName="${baseLogDir}/mqInfo.log"
+			filePattern="${baseLogDir}/mqInfo.log.%d{yyyy-MM-dd}">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5level] %l \: %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<!--操作日志类路径  additivity="false" 不重复向上级logger记录-->
+		<Logger name="creativeAuditLog" level="error" additivity="false">
+			<AppenderRef ref="creativeAuditFile"/>
+		</Logger>
+		<Logger name="=mqInfoLog" level="error" additivity="false">
+			<AppenderRef ref="mqInfoFile"/>
+		</Logger>
+		
+		<Root level="info">
+<!-- 			<AppenderRef ref="Console" /> -->
+			<AppenderRef ref="allLog" />
+			<AppenderRef ref="errorLog" />
+		</Root>
+	</Loggers>
+</Configuration>

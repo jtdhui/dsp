@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.RetargetPacketDao">
+
+	<sql id="table">
+		retarget_packet
+	</sql>
+
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.RetargetPacket">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="cookie_gid" property="cookieGid" jdbcType="BIGINT" />
+		<result column="owner_partner_id" property="ownerPartnerId" jdbcType="BIGINT" />
+		<result column="packet_name" property="packetName" jdbcType="VARCHAR" />
+		<result column="cookie_num" property="cookieNum" jdbcType="INTEGER" />
+		<result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id, cookie_gid, owner_partner_id, packet_name, cookie_num, delete_status , create_time , remark
+	</sql>
+
+    <select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.RetargetPacket" >
+        select
+        <include refid="Base_Column_List" />
+        from <include refid="table" />
+        where 1=1
+        <if test="id != null">
+            AND id = #{id,jdbcType=BIGINT}
+        </if>
+        <if test="cookieGid != null">
+            AND cookie_gid = #{cookieGid,jdbcType=INTEGER}
+        </if>
+        <if test="ownerPartnerId != null">
+            AND owner_partner_id = #{ownerPartnerId,jdbcType=BIGINT}
+        </if>
+        <if test="remark != null">
+            AND remark = #{remark,jdbcType=BIGINT}
+        </if>
+    </select>
+
+	<select id="listByMap" resultMap="BaseResultMap" parameterType="map">
+		select
+			<include refid="Base_Column_List" />
+		from 
+			<include refid="table" />
+		where 1=1 
+		<if test="id != null">
+			AND id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="cookieGid != null">
+			AND cookie_gid = #{cookieGid,jdbcType=INTEGER}
+		</if>
+		<if test="ownerPartnerId != null">
+			AND owner_partner_id = #{ownerPartnerId,jdbcType=BIGINT}
+		</if>
+		<if test="remark != null">
+			AND remark = #{remark,jdbcType=BIGINT}
+		</if>
+	</select>
+
+	<select id="listMapByMap" resultType="java.util.Map" parameterType="map">
+		select
+			r.*
+		from 
+		<include refid="table" /> AS r
+		JOIN cookie_gid AS c ON r.cookie_gid = c.id
+		where 1=1 
+		<if test="id != null">
+			AND r.id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="cookieGid != null">
+			AND r.cookie_gid = #{cookieGid,jdbcType=INTEGER}
+		</if>
+		<if test="ownerPartnerId != null">
+			AND r.owner_partner_id = #{ownerPartnerId,jdbcType=BIGINT}
+		</if>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from 
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<insert id="insert" parameterType="com.jtd.web.po.RetargetPacket" >
+		insert into 
+		<include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="cookieGid != null">
+				cookie_gid,
+			</if>
+			<if test="ownerPartnerId != null">
+				owner_partner_id,
+			</if>
+			<if test="packetName != null">
+				packet_name,
+			</if>
+			<if test="cookieNum != null">
+				cookie_num,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="cookieGid != null">
+				#{cookieGid,jdbcType=VARCHAR},
+			</if>
+			<if test="ownerPartnerId != null">
+				#{ownerPartnerId,jdbcType=BIGINT},
+			</if>
+			<if test="packetName != null">
+				#{packetName,jdbcType=VARCHAR},
+			</if>
+			<if test="cookieNum != null">
+				#{cookieNum,jdbcType=INTEGER},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

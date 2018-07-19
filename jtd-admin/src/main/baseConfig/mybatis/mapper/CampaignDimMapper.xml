@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CampaignDimDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> campaign_dim </sql>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, campaign_id, dim_name, delete_status,create_time,remark
+	</sql>
+	<sql id="Blob_Column_List">
+		dim_value
+	</sql>
+	
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.CampaignDim">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="campaign_id" property="campaignId" jdbcType="BIGINT" />
+		<result column="dim_name" property="dimName" jdbcType="VARCHAR" />
+		<result column="delete_status" property="deleteStatus"
+			jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="ResultMapWithBLOBs" type="com.jtd.web.po.CampaignDim"
+		extends="BaseResultMap">
+		<result column="dim_value" property="dimValue" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	
+	<select id="listBy" parameterType="com.jtd.web.po.CampaignDim" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from
+		<include refid="table" />
+		where
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="id != null">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="campaignId != null">
+				and campaign_id=#{campaignId,jdbcType=BIGINT}
+			</if>
+			<if test="dimName != null">
+				and dim_name =#{dimName,jdbcType=VARCHAR}
+			</if>
+			<if test="deleteStatus != null">
+				and delete_status=#{deleteStatus,jdbcType=BIGINT}
+			</if>
+		</trim>
+	</select>
+
+
+	<select id="selectByCampAndDimName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from 
+		<include refid="table" />
+		where campaign_id = #{campaignId,jdbcType=BIGINT} 
+			and dim_name = #{dimName,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateByCampAndDimName" parameterType="com.jtd.web.po.CampaignDim">
+		update <include refid="table" />
+		<set>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="dimValue != null">
+				dim_value = #{dimValue,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where campaign_id = #{campaignId,jdbcType=BIGINT} 
+			and dim_name = #{dimName,jdbcType=VARCHAR}
+	</update>
+
+	<delete id="deleteCampaignDim" parameterType="java.lang.Long">
+		delete from campaign_dim
+		where campaign_id = #{campaignId,jdbcType=BIGINT}
+	</delete>
+
+
+	<insert id="insert" parameterType="com.jtd.web.po.CampaignDim"  useGeneratedKeys="true" keyProperty="id">
+		insert into campaign_dim
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="campaignId != null">
+				campaign_id,
+			</if>
+			<if test="dimName != null">
+				dim_name,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="dimValue != null">
+				dim_value,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="campaignId != null">
+				#{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="dimName != null">
+				#{dimName,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="dimValue != null">
+				#{dimValue,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.CampaignDim">
+		update campaign_dim
+		<set>
+			<if test="campaignId != null">
+				campaign_id = #{campaignId,jdbcType=BIGINT},
+			</if>
+			<if test="dimName != null">
+				dim_name = #{dimName,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="dimValue != null">
+				dim_value = #{dimValue,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+</mapper>

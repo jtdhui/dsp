@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation=" 
+	http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-3.1.xsd 
+	http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.1.xsd"> -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+	<!-- 活动状态的验证 -->
+	<bean id="campMatcher" class="com.jtd.engine.ad.matcher.StatusMatcher">
+		<property name="nextMatcher" ref="bidFloorMatcher" />
+		<property name="auditInfoDAO" ref="auditInfoDAO" />
+		<property name="heartBeatDAO" ref="heartBeatDAO" />
+		<property name="campaignDAO" ref="campaignDAO" />
+	</bean>
+	<!-- 底价的匹配 -->
+	<bean id="bidFloorMatcher" class="com.jtd.engine.ad.matcher.BidFloorMatcher">
+		<property name="nextMatcher" ref="cityMatcher" />
+		<property name="campaignDAO" ref="campaignDAO" />
+	</bean>
+	<!-- 地域的匹配 -->
+	<bean id="cityMatcher" class="com.jtd.engine.ad.matcher.CityMatcher">
+		<property name="nextMatcher" ref="displayTypeMatcher" />
+		<property name="iPBUtil" ref="iPBUtil" />
+	</bean>
+	<!-- 广告类型的匹配，就是广告的展示类型，例如：banner -->
+	<bean id="displayTypeMatcher" class="com.jtd.engine.ad.matcher.DisplayTypeMatcher">
+		<property name="nextMatcher" ref="webSiteCatgMatcher" />
+	</bean>
+	<!-- 媒体类型匹配 -->
+	<bean id="webSiteCatgMatcher" class="com.jtd.engine.ad.matcher.WebSiteCatgMatcher">
+		<property name="nextMatcher" ref="networkMatcher" />
+	</bean>
+	<!-- 网络类型匹配 -->
+	<bean id="networkMatcher" class="com.jtd.engine.ad.matcher.NetworkMatcher">
+		<property name="nextMatcher" ref="deviceMatcher" />
+	</bean>
+	<!-- 设备类型匹配 -->
+	<bean id="deviceMatcher" class="com.jtd.engine.ad.matcher.DeviceMatcher">
+		<property name="nextMatcher" ref="appMatcher" />
+	</bean>
+	<!-- app 定向相关的匹配 -->
+	<bean id="appMatcher" class="com.jtd.engine.ad.matcher.AppMatcher">
+		<property name="nextMatcher" ref="pageUrlMatcher" />
+	</bean>
+	<!-- 按照域名匹配 -->
+	<bean id="pageUrlMatcher" class="com.jtd.engine.ad.matcher.PageUrlMatcher">
+		<property name="nextMatcher" ref="freqMatcher" />
+		<property name="blackListDAO" ref="blackListDAO" />
+	</bean>
+	<!-- 频次控制匹配 -->
+	<bean id="freqMatcher" class="com.jtd.engine.ad.matcher.FreqMatcher">
+		<property name="nextMatcher" ref="cookieAndIpMatcher" />
+		<property name="freqDataDAO" ref="freqDataDAO" />
+		<property name="cookieDataService" ref="cookieDataService" />
+	</bean>
+	<!-- 人群定向相关匹配 -->
+	<bean id="cookieAndIpMatcher" class="com.jtd.engine.ad.matcher.CookieAndIpMatcher">
+		<property name="cookieDataService" ref="cookieDataService" />
+	</bean>
+	<!-- 广告类别的匹配，就是这次请求，可以投什么样类别的广告。-->
+	<bean id="adMatcher" class="com.jtd.engine.ad.matcher.AdCatgMatcher">
+		<property name="nextMatcher" ref="adTypeMatcher" />
+		<property name="besSettings" ref="besSettings" />
+	</bean>
+	<!-- 广告类型的匹配，就比如说是图片类型还是flash，视频等等 -->
+	<bean id="adTypeMatcher" class="com.jtd.engine.ad.matcher.AdTypeMatcher">
+		<property name="nextMatcher" ref="landingPageMatcher" />
+		<property name="besSettings" ref="besSettings" />
+	</bean>
+	<!-- landingpage的匹配，就是这次媒体请求的广告的，落地页不能是什么域名的url -->
+	<bean id="landingPageMatcher" class="com.jtd.engine.ad.matcher.LandingPageMatcher">
+		<property name="nextMatcher" ref="adStatusMatcher" />
+		<property name="besSettings" ref="besSettings" />
+	</bean>
+	<!-- 广告状态匹配，广告活动下的N个广告中，每个广告素材都是要通过adx的审核，这里的状态就是这个审核状态 -->
+	<bean id="adStatusMatcher" class="com.jtd.engine.ad.matcher.AdStatusMatcher">
+		<property name="auditInfoDAO" ref="auditInfoDAO" />
+	</bean>
+	<!-- 每天定时加载，百度给的媒体的过滤规则 -->
+	<bean id="besSettings" class="com.jtd.engine.ad.matcher.BesSettings"
+		init-method="init">
+		<property name="timer" ref="timer" />
+		<property name="systemTime" ref="systemTime" />
+		<property name="settingDir" value="${bessetting.dirpath}" />
+	</bean>
+	<!-- 调整出价 -->
+	<bean id="bidder" class="com.jtd.engine.ad.bidder.MatchedWeightBidder" />
+</beans>

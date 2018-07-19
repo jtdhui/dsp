@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="propertyConfig" class="com.jtd.commons.PropertyConfig">
+		<property name="locations">
+			<list>
+				<value>config.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="com.jtd.commons.BeanFactory"/>
+	<context:annotation-config />
+	<context:component-scan base-package="com.jtd.logcollector"/>
+
+	<bean id="iPBUtil" class="com.jtd.logcollector.util.IPBUtil" init-method="init" />
+	<!-- 统计库数据源 -->
+	<bean id="countDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${count.jdbc.url}" />
+		<property name="username" value="${count.jdbc.username}" />
+		<property name="password" value="${count.jdbc.password}" />
+		<property name="initialSize" value="4" />
+		<property name="minIdle" value="4" />
+		<property name="maxActive" value="10" />
+		<property name="maxWait" value="60000" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+	<!-- 业务库数据源 -->
+	<bean id="webDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="url" value="${web.jdbc.url}" />
+		<property name="username" value="${web.jdbc.username}" />
+		<property name="password" value="${web.jdbc.password}" />
+		<property name="initialSize" value="4" />
+		<property name="minIdle" value="4" />
+		<property name="maxActive" value="10" />
+		<property name="maxWait" value="60000" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="1800000" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+
+	<!-- redis客户端连接池配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<property name="maxWait" value="10" />
+		<property name="minIdle" value="0" />
+		<property name="testWhileIdle" value="true" />
+	</bean>
+	<!-- reidsA cookie数据池 -->
+	<bean id="cookieDataPool" class="redis.clients.jedis.DBIndexSelectedShardedJedisPool">
+		<constructor-arg ref="jedisPoolConfig" />
+		<constructor-arg  >
+			<bean class="com.jtd.support.redis.RedisGroupFactory">
+				<constructor-arg value="redisGroup.node"/>
+			</bean>
+		</constructor-arg>
+		<constructor-arg value="15" />
+	</bean>
+	<!-- 处理cookie 数据 -->
+	<bean id="cookieDataDAO" class="com.jtd.logcollector.dao.CookieDataDAOImpl" init-method="init">
+		<property name="pool" ref="cookieDataPool" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	<!-- MQ连接工厂配置 -->
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="${amq.url}" />
+		<property name="userName" value="${amq.username}" />
+		<property name="password" value="${amq.password}" />
+	</bean>
+	<!-- spring mq 配置 -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="amqConnectionFactory" />
+		<property name="clientId" value="${amq.clientId}" />
+		<property name="reconnectOnException" value="true" />
+	</bean>
+	<!-- mq 订阅主题配置 -->
+	<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg>
+			<value>dsptopic</value>
+		</constructor-arg>
+	</bean>
+	<!-- 用于发送MQ的模板对象 -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="topic" />
+		<property name="deliveryPersistent" value="true" />
+	</bean>
+</beans>

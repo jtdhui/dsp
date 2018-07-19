@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.PartnerAccFlowDao" >
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.PartnerAccFlow" >
+	  <id column="id" property="id" jdbcType="BIGINT" />
+	  <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+	  <result column="from_partner_id" property="fromPartnerId" jdbcType="BIGINT" />
+	  <result column="trade_id" property="tradeId" jdbcType="VARCHAR" />
+	  <result column="trade_type" property="tradeType" jdbcType="INTEGER" />
+	  <result column="amount" property="amount" jdbcType="BIGINT" />
+	  <result column="acc_balance_result" property="accBalanceResult" jdbcType="BIGINT" />
+	  <result column="trade_time" property="tradeTime" jdbcType="TIMESTAMP" />
+	  <result column="operator_id" property="operatorId" jdbcType="BIGINT" />
+	  <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+	  <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, partner_id,from_partner_id, trade_id, trade_type, amount, acc_balance_result , trade_time, operator_id, operator_name, create_time
+  </sql>
+  
+  <select id="listByAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from partner_acc_flow
+    order by trade_time desc
+  </select>
+  
+  <select id="listByMap" resultMap="BaseResultMap" parameterType="map" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM partner_acc_flow
+    WHERE 1=1
+    	<if test="partnerId != null">
+    		AND partner_id = #{partnerId,jdbcType=BIGINT}
+    	</if>
+    	<if test="tradeType != null">
+			AND trade_type = #{tradeType}
+		</if>
+		<if test="operatorId != null">
+			AND operator_id = #{operatorId}
+		</if>
+		<if test="startDate != null">
+			AND trade_time &gt;= CONCAT(#{startDate},' 00:00:00')
+		</if>
+		<if test="endDate != null">
+			AND trade_time &lt;= CONCAT(#{endDate},' 23:59:59')
+		</if>
+		<if test="order != null">
+			ORDER BY trade_time ${order}
+		</if>
+		<if test="order == null">
+			ORDER BY trade_time DESC
+		</if>
+  </select>
+  
+  <select id="getLastRecord" resultMap="BaseResultMap" parameterType="map" >
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM partner_acc_flow
+    WHERE 1=1
+    		AND partner_id = #{partnerId,jdbcType=BIGINT}
+			AND trade_type = #{tradeType}
+		<if test="operatorId != null">
+			AND operator_id = #{operatorId}
+		</if>
+		<if test="endDate != null">
+			AND trade_time &lt;= CONCAT(#{endDate},' 23:59:59')
+		</if>
+    ORDER BY trade_time DESC
+  </select>
+  
+  <!-- 分页查询 -->
+	<select id="getPageBy" resultMap="BaseResultMap" parameterType="map">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			partner_acc_flow
+		<where>
+			<trim prefix="">
+				<if test="condition.partnerId != null">
+					AND partner_id = #{condition.partnerId}
+				</if>
+				<if test="condition.tradeType != null">
+					AND trade_type = #{condition.tradeType}
+				</if>
+				<if test="condition.startDate != null">
+					AND trade_time &gt;= CONCAT(#{condition.startDate},' 00:00:00')
+				</if>
+				<if test="condition.endDate != null">
+					AND trade_time &lt;= CONCAT(#{condition.endDate},' 23:59:59')
+				</if>
+			</trim>
+		</where>
+		ORDER BY trade_time ASC
+	</select>
+  
+  <insert id="insert" parameterType="com.jtd.web.po.PartnerAccFlow" keyProperty="id" useGeneratedKeys="true">
+    insert into partner_acc_flow (id, partner_id,from_partner_id, trade_id,
+      trade_type, amount, acc_balance_result , trade_time, 
+      operator_id, operator_name,create_time)
+    values (#{id,jdbcType=BIGINT}, #{partnerId,jdbcType=BIGINT},#{fromPartnerId,jdbcType=BIGINT}, #{tradeId,jdbcType=VARCHAR},
+      #{tradeType,jdbcType=VARCHAR}, #{amount,jdbcType=BIGINT}, #{accBalanceResult,jdbcType=BIGINT}, #{tradeTime,jdbcType=TIMESTAMP}, 
+      #{operatorId,jdbcType=BIGINT}, #{operatorName,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <select id="getAmountSum" resultType="java.util.Map" parameterType="map">
+		SELECT
+			SUM(amount) AS sum
+		FROM
+			partner_acc_flow
+		<where>
+			<trim prefix="">
+				<if test="partnerId != null">
+					AND partner_id = #{partnerId}
+				</if>
+				<if test="tradeType != null">
+					AND trade_type = #{tradeType}
+				</if>
+				<if test="startDate != null">
+					AND trade_time &gt;= CONCAT(#{startDate},' 00:00:00')
+				</if>
+				<if test="endDate != null">
+					AND trade_time &lt;= CONCAT(#{endDate},' 23:59:59')
+				</if>
+			</trim>
+		</where>
+		ORDER BY trade_time ASC
+	</select>
+</mapper>

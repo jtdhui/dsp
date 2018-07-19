@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2009-2012 The MyBatis Team Licensed under the Apache License, 
+	Version 2.0 (the "License"); you may not use this file except in compliance 
+	with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 
+	Unless required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	<!-- 引用系统全局配置文件 -->
+	<properties resource="application-base.properties" />
+	
+	<settings>
+		<!-- 这个配置使全局的映射器启用或禁用 缓存 -->
+		<setting name="cacheEnabled" value="true" />
+		<!-- 全局启用或禁用延迟加载。当禁用时, 所有关联对象都会即时加载 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 允许或不允许多种结果集从一个单独 的语句中返回(需要适合的驱动) -->
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<!-- 使用列标签代替列名。 不同的驱动在这 方便表现不同。 参考驱动文档或充分测 试两种方法来决定所使用的驱动 -->
+		<setting name="useColumnLabel" value="true" />
+		<!-- 允许 JDBC 支持生成的键。 需要适合的 驱动。 如果设置为 true 则这个设置强制 生成的键被使用, 尽管一些驱动拒绝兼 容但仍然有效(比如 
+			Derby) -->
+		<setting name="useGeneratedKeys" value="false" />
+		<!-- 配置默认的执行器。SIMPLE 执行器没 有什么特别之处。REUSE 执行器重用 预处理语句。BATCH 执行器重用语句 和批量更新 -->
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<!-- 设置超时时间, 它决定驱动等待一个数 据库响应的时间 -->
+		<setting name="defaultStatementTimeout" value="100" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+		<!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
+
+	<!-- 类型别名是为 Java类型命名一个短的名字。 它只和 XML配置有关,只用来减少类完全 限定名的多余部分 -->
+	<typeAliases>
+		<typeAlias alias="SysUser" type="com.jtd.web.po.SysUser" />
+	</typeAliases>
+
+	<!-- 在在mappers定义之前 -->
+	<typeHandlers>
+		<typeHandler javaType="Boolean" jdbcType="SMALLINT"  handler="com.jtd.commons.mybatis.BooleanTypeHandler" />
+	</typeHandlers>
+	
+	<!-- 数据库适配器 -->
+	<!-- <plugins>
+		<plugin interceptor="com.jtd.commons.mybatis.interceptor.ExecutorInterceptor">
+			<property name="dialectClass" value="${dialectClass}" />
+		</plugin>
+	</plugins> -->
+	<!-- 业务库加载接口实现 -->
+	<mappers>
+		<mapper resource="mybatis/mapper/SysUserMapper.xml"/>
+		<mapper resource="mybatis/mapper/SysPermissionMapper.xml"/>
+		<mapper resource="mybatis/mapper/SysRoleMapper.xml"/>
+		<mapper resource="mybatis/mapper/SysRolePermissionMapper.xml"/>
+		<mapper resource="mybatis/mapper/SysUserRoleMapper.xml"/>
+		
+		<!-- 广告活动 -->
+		<mapper resource="mybatis/mapper/CampGroupMapper.xml"/>
+		<mapper resource="mybatis/mapper/CampaignMapper.xml"/>
+		<mapper resource="mybatis/mapper/CampaignCategoryMapper.xml"/>
+		<mapper resource="mybatis/mapper/CampaignDimMapper.xml"/>
+		
+		<mapper resource="mybatis/mapper/TopDomainMapper.xml"/>
+		<!-- 客户管理 -->
+		<mapper resource="mybatis/mapper/PartnerMapper.xml"/>
+		<mapper resource="mybatis/mapper/PartnerCategoryMapper.xml"/>
+		<mapper resource="mybatis/mapper/PartnerAccFlowMapper.xml"/>
+		<mapper resource="mybatis/mapper/PartnerPreFlowMapper.xml"/>
+		<mapper resource="mybatis/mapper/PartnerDimMapper.xml"/>
+		
+		<!-- 资质管理 -->
+		<mapper resource="mybatis/mapper/QualiDocMapper.xml"/>
+		<mapper resource="mybatis/mapper/PartnerStatusMapper.xml"/>
+		<mapper resource="mybatis/mapper/PartnerStatusQualiDocMapper.xml"/>
+		
+		
+		<!-- 用户与广告主关联 -->
+		<mapper resource="mybatis/mapper/UserPartnerMapper.xml"/>
+		<mapper resource="mybatis/mapper/UserFavMapper.xml"/>
+		
+		<!-- 渠道管理 -->
+		<mapper resource="mybatis/mapper/ChannelMapper.xml"/>
+		
+		<mapper resource="mybatis/mapper/CookieGidMapper.xml"/>
+		<mapper resource="mybatis/mapper/CookiePacketMapper.xml" />
+		<mapper resource="mybatis/mapper/CreativeSizeFlowMapper.xml"/>
+		<mapper resource="mybatis/mapper/CreativeSizeMapper.xml"/>
+		<!--创意管理-->
+		<mapper resource="mybatis/mapper/AdMapper.xml"/>
+		<mapper resource="mybatis/mapper/AdCategoryMapper.xml"/>
+		<mapper resource="mybatis/mapper/AdAuditStatusMapper.xml"/>
+		<mapper resource="mybatis/mapper/CreativeMapper.xml"/>
+		<mapper resource="mybatis/mapper/CreativeGroupMapper.xml"/>
+		
+		<!-- 资质对渠道的映射 -->
+		<mapper resource="mybatis/mapper/QualiDocCustomerTypeChannelNeedMapper.xml"/>
+		<mapper resource="mybatis/mapper/QualiDocCustomerTypeMapper.xml"/>
+		<mapper resource="mybatis/mapper/QualiDocTypeChannelCodeMapper.xml"/>
+		<mapper resource="mybatis/mapper/QualiDocTypeMapper.xml"/>
+		
+		<!-- cookie mapping 访客找回-->
+		<mapper resource="mybatis/mapper/RetargetPacketMapper.xml"/>
+		
+		<!-- 广告位 -->
+		<mapper resource="mybatis/mapper/AdPlaceMapper.xml"/>
+		
+		<!-- boss系统对接、回调 -->
+		<mapper resource="mybatis/mapper/DspSalesProductMapper.xml"/>
+		<mapper resource="mybatis/mapper/DspSalesProductFlowMapper.xml"/>
+		<mapper resource="mybatis/mapper/BossRequestLogMapper.xml"/>
+		<mapper resource="mybatis/mapper/CeRegionMapper.xml"/>
+		<mapper resource="mybatis/mapper/CeCompanyMapper.xml"/>
+		<mapper resource="mybatis/mapper/CeSalesmanMapper.xml"/>
+
+        <!-- 测试帐户模拟数据 -->
+        <mapper resource="mybatis/mapper/ReportDemoDataSettingMapper.xml"/>
+        <!-- 应用包 -->
+        <mapper resource="mybatis/mapper/AppMapper.xml"/>
+
+        <!-- 日志管理 -->
+        <mapper resource="mybatis/mapper/SysLogMapper.xml" />
+
+        <!-- 财务报表 -->
+        <mapper resource="mybatis/mapper/FinanceMapper.xml" />
+
+        <!-- 日志管理 -->
+        <mapper resource="mybatis/mapper/SysContackMapper.xml" />
+        
+        <!-- 消费总额快照 (账户检查的定时任务每执行一次，就生成一条消费总额快照，然后扣除余额)-->
+		<mapper resource="mybatis/mapper/PartnerExpendDailySnapshotMapper.xml"/>
+
+    </mappers>
+
+</configuration>

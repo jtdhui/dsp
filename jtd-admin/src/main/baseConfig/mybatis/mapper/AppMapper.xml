@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.AppDao" >
+
+    <resultMap id="BaseResultMap" type="com.jtd.web.po.App" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="channel_id" property="channelId" jdbcType="BIGINT" />
+        <result column="pk_name" property="pkName" jdbcType="VARCHAR" />
+        <result column="app_id" property="appId" jdbcType="VARCHAR" />
+        <result column="app_name" property="appName" jdbcType="VARCHAR" />
+        <result column="company" property="company" jdbcType="VARCHAR" />
+        <result column="floor_price" property="floorPrice" jdbcType="BIGINT" />
+        <result column="app_type" property="appType" jdbcType="VARCHAR" />
+        <result column="daily_traffics" property="dailyTraffics" jdbcType="BIGINT" />
+        <result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+        <result column="place_type" property="placeType" jdbcType="INTEGER" />
+        <result column="apptype_id" property="apptypeId" jdbcType="VARCHAR" />
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+        <result column="os_type" property="osType" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, channel_id, pk_name,app_id, app_name,company, floor_price, app_type, daily_traffics, delete_status,
+    place_type, apptype_id, parent_id, os_type, create_time, remark
+  </sql>
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+        select
+        <include refid="Base_Column_List" />
+        from app
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <select id="getPageBy" resultMap="BaseResultMap" parameterType="map" >
+        select
+        <include refid="Base_Column_List" />
+        from app
+        where 1=1
+        <if test="condition.pkName != null" >
+            and pk_name like '%${condition.pkName}%'
+        </if>
+        <if test="condition.channelId != null" >
+            and channel_id = #{condition.channelId}
+        </if>
+        <if test="condition.appName != null" >
+            and app_name like '%${condition.appName}%'
+        </if>
+        <if test="condition.osType != null ">
+            and os_type = #{condition.osType}
+        </if>
+        <if test="condition.dailyTraffics_min != null">
+            and daily_traffics &gt;= #{condition.dailyTraffics_min,jdbcType=BIGINT}
+        </if>
+        <if test="condition.dailyTraffics_max != null">
+            and daily_traffics &lt;= #{condition.dailyTraffics_max,jdbcType=BIGINT}
+        </if>
+        <if test="condition.appType != null">
+            and app_type LIKE CONCAT('',#{condition.appType,jdbcType=VARCHAR},'%')
+        </if>
+        order by id DESC
+    </select>
+
+    <delete id="deleteById" parameterType="java.lang.Long" >
+    delete from app
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.jtd.web.po.App" >
+        insert into app
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="channelId != null" >
+                channel_id,
+            </if>
+            <if test="pkName != null" >
+                pk_name,
+            </if>
+            <if test="appId != null" >
+                app_id,
+            </if>
+            <if test="appName != null" >
+                app_name,
+            </if>
+            <if test="company != null" >
+                company,
+            </if>
+            <if test="floorPrice != null" >
+                floor_price,
+            </if>
+            <if test="appType != null" >
+                app_type,
+            </if>
+            <if test="dailyTraffics != null" >
+                daily_traffics,
+            </if>
+            <if test="deleteStatus != null" >
+                delete_status,
+            </if>
+            <if test="placeType != null" >
+                place_type,
+            </if>
+            <if test="apptypeId != null" >
+                apptype_id,
+            </if>
+            <if test="parentId != null" >
+                parent_id,
+            </if>
+            <if test="osType != null" >
+                os_type,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="channelId != null" >
+                #{channelId,jdbcType=BIGINT},
+            </if>
+            <if test="pkName != null" >
+                #{pkName,jdbcType=VARCHAR},
+            </if>
+            <if test="appId != null" >
+                #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="appName != null" >
+                #{appName,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null" >
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="floorPrice != null" >
+                #{floorPrice,jdbcType=BIGINT},
+            </if>
+            <if test="appType != null" >
+                #{appType,jdbcType=VARCHAR},
+            </if>
+            <if test="dailyTraffics != null" >
+                #{dailyTraffics,jdbcType=BIGINT},
+            </if>
+            <if test="deleteStatus != null" >
+                #{deleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="placeType != null" >
+                #{placeType,jdbcType=INTEGER},
+            </if>
+            <if test="apptypeId != null" >
+                #{apptypeId,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null" >
+                #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="osType != null" >
+                #{osType,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.jtd.web.po.App" >
+        update app
+        <set >
+            <if test="channelId != null" >
+                channel_id = #{channelId,jdbcType=BIGINT},
+            </if>
+            <if test="pkName != null" >
+                pk_name = #{pkName,jdbcType=VARCHAR},
+            </if>
+            <if test="appName != null" >
+                app_name = #{appName,jdbcType=VARCHAR},
+            </if>
+            <if test="appId != null" >
+                app_id = #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null" >
+                company  = #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="floorPrice != null" >
+                floor_price = #{floorPrice,jdbcType=BIGINT},
+            </if>
+            <if test="appType != null" >
+                app_type = #{appType,jdbcType=VARCHAR},
+            </if>
+            <if test="dailyTraffics != null" >
+                daily_traffics = #{dailyTraffics,jdbcType=BIGINT},
+            </if>
+            <if test="deleteStatus != null" >
+                delete_status = #{deleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="placeType != null" >
+                place_type = #{placeType,jdbcType=INTEGER},
+            </if>
+            <if test="apptypeId != null" >
+                apptype_id = #{apptypeId,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null" >
+                parent_id = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="osType != null" >
+                os_type = #{osType,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.SysContackDao">
+
+	<sql id="table"> sys_contack </sql>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		 id, name, mobile, request_url, create_time, remark, p1, p2, p3, p4, p5, p6, p7, p8,p9, p10, p11, p12, p13, p14, p15
+	</sql>
+	<!-- 返回值设置 -->
+    <resultMap id="BaseResultMap" type="com.jtd.web.po.SysContack" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="request_url" property="requestUrl" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="p1" property="p1" jdbcType="VARCHAR" />
+        <result column="p2" property="p2" jdbcType="VARCHAR" />
+        <result column="p3" property="p3" jdbcType="VARCHAR" />
+        <result column="p4" property="p4" jdbcType="VARCHAR" />
+        <result column="p5" property="p5" jdbcType="VARCHAR" />
+        <result column="p6" property="p6" jdbcType="VARCHAR" />
+        <result column="p7" property="p7" jdbcType="VARCHAR" />
+        <result column="p8" property="p8" jdbcType="VARCHAR" />
+        <result column="p9" property="p9" jdbcType="VARCHAR" />
+        <result column="p10" property="p10" jdbcType="VARCHAR" />
+        <result column="p11" property="p11" jdbcType="VARCHAR" />
+        <result column="p12" property="p12" jdbcType="VARCHAR" />
+        <result column="p13" property="p13" jdbcType="VARCHAR" />
+        <result column="p14" property="p14" jdbcType="VARCHAR" />
+        <result column="p15" property="p15" jdbcType="VARCHAR" />
+    </resultMap>
+
+	<!-- 查询所有数据 -->
+	<select id="listByAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+	</select>
+
+	<!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.SysContack" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where
+		<trim prefix="" prefixOverrides="and | or">
+			<if test="name != null">
+				and name = #{name,jdbcType=VARCHAR}
+			</if>
+		</trim>
+	</select>
+
+	<select id="getById" parameterType="com.jtd.web.po.SysContack" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+    <insert id="insert" parameterType="com.jtd.web.po.SysContack" >
+        insert into <include refid="table" />
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="requestUrl != null" >
+                request_url,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="p1 != null" >
+                p1,
+            </if>
+            <if test="p2 != null" >
+                p2,
+            </if>
+            <if test="p3 != null" >
+                p3,
+            </if>
+            <if test="p4 != null" >
+                p4,
+            </if>
+            <if test="p5 != null" >
+                p5,
+            </if>
+            <if test="p6 != null" >
+                p6,
+            </if>
+            <if test="p7 != null" >
+                p7,
+            </if>
+            <if test="p8 != null" >
+                p8,
+            </if>
+            <if test="p9 != null" >
+                p9,
+            </if>
+            <if test="p10 != null" >
+                p10,
+            </if>
+            <if test="p11 != null" >
+                p11,
+            </if>
+            <if test="p12 != null" >
+                p12,
+            </if>
+            <if test="p13 != null" >
+                p13,
+            </if>
+            <if test="p14 != null" >
+                p14,
+            </if>
+            <if test="p15 != null" >
+                p15,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUrl != null" >
+                #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="p1 != null" >
+                #{p1,jdbcType=VARCHAR},
+            </if>
+            <if test="p2 != null" >
+                #{p2,jdbcType=VARCHAR},
+            </if>
+            <if test="p3 != null" >
+                #{p3,jdbcType=VARCHAR},
+            </if>
+            <if test="p4 != null" >
+                #{p4,jdbcType=VARCHAR},
+            </if>
+            <if test="p5 != null" >
+                #{p5,jdbcType=VARCHAR},
+            </if>
+            <if test="p6 != null" >
+                #{p6,jdbcType=VARCHAR},
+            </if>
+            <if test="p7 != null" >
+                #{p7,jdbcType=VARCHAR},
+            </if>
+            <if test="p8 != null" >
+                #{p8,jdbcType=VARCHAR},
+            </if>
+            <if test="p9 != null" >
+                #{p9,jdbcType=VARCHAR},
+            </if>
+            <if test="p10 != null" >
+                #{p10,jdbcType=VARCHAR},
+            </if>
+            <if test="p11 != null" >
+                #{p11,jdbcType=VARCHAR},
+            </if>
+            <if test="p12 != null" >
+                #{p12,jdbcType=VARCHAR},
+            </if>
+            <if test="p13 != null" >
+                #{p13,jdbcType=VARCHAR},
+            </if>
+            <if test="p14 != null" >
+                #{p14,jdbcType=VARCHAR},
+            </if>
+            <if test="p15 != null" >
+                #{p15,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.jtd.web.po.SysContack" >
+        update sys_contack
+        <set >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="requestUrl != null" >
+                request_url = #{requestUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="p1 != null" >
+                p1 = #{p1,jdbcType=VARCHAR},
+            </if>
+            <if test="p2 != null" >
+                p2 = #{p2,jdbcType=VARCHAR},
+            </if>
+            <if test="p3 != null" >
+                p3 = #{p3,jdbcType=VARCHAR},
+            </if>
+            <if test="p4 != null" >
+                p4 = #{p4,jdbcType=VARCHAR},
+            </if>
+            <if test="p5 != null" >
+                p5 = #{p5,jdbcType=VARCHAR},
+            </if>
+            <if test="p6 != null" >
+                p6 = #{p6,jdbcType=VARCHAR},
+            </if>
+            <if test="p7 != null" >
+                p7 = #{p7,jdbcType=VARCHAR},
+            </if>
+            <if test="p8 != null" >
+                p8 = #{p8,jdbcType=VARCHAR},
+            </if>
+            <if test="p9 != null" >
+                p9 = #{p9,jdbcType=VARCHAR},
+            </if>
+            <if test="p10 != null" >
+                p10 = #{p10,jdbcType=VARCHAR},
+            </if>
+            <if test="p11 != null" >
+                p11 = #{p11,jdbcType=VARCHAR},
+            </if>
+            <if test="p12 != null" >
+                p12 = #{p12,jdbcType=VARCHAR},
+            </if>
+            <if test="p13 != null" >
+                p13 = #{p13,jdbcType=VARCHAR},
+            </if>
+            <if test="p14 != null" >
+                p14 = #{p14,jdbcType=VARCHAR},
+            </if>
+            <if test="p15 != null" >
+                p15 = #{p15,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+</mapper>

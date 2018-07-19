@@ -1,0 +1,150 @@
+﻿@import "../common";
+@import "handle-view";
+@import "table";
+@import "btn";
+@import "modal";
+@import "radio";
+.modal-dialog {
+  width: 1280px;
+  height: 773px;
+  margin-left: -640px;
+  top: 10%;
+  .modal-header .modal-title span{
+    float: none;
+  }
+  .modal-title {
+    position: relative;
+    text-align: left;
+    padding-left: 20px;
+    .radio-wrap {
+      height: 40px;
+      line-height: 40px;
+      color: #343843;
+      text-align: left;
+      label {
+        font-size: 20px;
+        color: #343843;
+      }
+    }
+    //  关闭按钮
+    .close-modal {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: url("../../../img/icon-close.png") no-repeat 100% 48%;
+      background-size: 40px;
+      cursor: pointer;
+    }
+  }
+  .modal-body {
+    overflow: hidden;
+    padding: 30px 40px;
+    .form-group {
+      input {
+        float: left;
+        width: 880px;
+        height: 45px;
+        line-height: 45px;
+        border: 1px solid #ea5b1a;
+        border-radius: 20px;
+        padding: 0 0 0 20px;
+        margin-right: 30px;
+      }
+    }
+
+    //--
+    .bustophedon {
+      .table {
+        float: left;
+        height: 434px;
+        overflow: hidden;
+        tbody {
+          position: absolute;
+          left: 0;
+          top: 56px;
+          width: 100%;
+          height: 378px;
+          border: 1px solid #9393FF;
+          overflow-y: scroll;
+          overflow-x: hidden;
+        }
+      }
+      .table-left {
+        position: relative;
+        width: 844px;
+        margin-right: 18px;
+        select {
+          color: #333;
+          width: 88px;
+          height: 36px;
+          line-height: 36px;
+          border-radius: 4px;
+          padding-left: 4px;
+          font-weight: normal;
+          font-size: 16px;
+          option {
+            font-size: 16px;
+          }
+        }
+        tbody {
+          td {
+            //padding: 4px 10px;
+          }
+
+          td:nth-child(1) {
+            //width: 30%
+          }
+          td:nth-child(2) {
+            width: 8%
+          }
+          td:nth-child(3) {
+            width: 23%
+          }
+          td:nth-child(4) {
+            width: 10%
+          }
+          td:nth-child(5) {
+            width: 23%
+          }
+          td:nth-child(6) {
+            width: 6%;
+            text-align: right;
+            cursor: pointer;
+            .fa {
+              font-size: 14px;
+              color: #EA5B1A;
+            }
+          }
+        }
+      }
+      .table-right {
+        position: relative;
+        width: 335px;
+        thead {
+          th {
+            padding: 0 20px;
+            text-align: left !important;
+            .del-all {
+              float: right;
+              font-size: 16px;
+              cursor: pointer;
+            }
+          }
+        }
+        tbody {
+          tr {
+            width: 100%;
+          }
+          td {
+            //width: 340px;
+            text-align: left !important;
+            padding-left: 20px;
+          }
+        }
+      }
+    }
+  }
+}

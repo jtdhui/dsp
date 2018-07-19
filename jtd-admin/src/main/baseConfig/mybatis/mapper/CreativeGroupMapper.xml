@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtd.web.dao.impl.CreativeGroupDao">
+
+	<sql id="table"> creative_group </sql>
+
+	<sql id="Base_Column_List">
+		id, partner_id, group_name, delete_status,create_time,remark
+	</sql>
+	
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.CreativeGroup">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="partner_id" jdbcType="BIGINT" property="partnerId" />
+		<result column="group_name" jdbcType="VARCHAR" property="groupName" />
+		<result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="getByMap" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		<include refid="table" />
+		where 1=1
+			<if test="partnerId != null">
+				and partner_id=#{partnerId,jdbcType=BIGINT}
+			</if>
+			<if test="groupName != null">
+				and group_name= #{groupName,jdbcType=VARCHAR}
+			</if>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from creative_group
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.CreativeGroup" useGeneratedKeys="true" keyProperty="id">
+		insert into creative_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="partnerId != null">
+				partner_id,
+			</if>
+			<if test="groupName != null">
+				group_name,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="partnerId != null">
+				#{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupName != null">
+				#{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.CreativeGroup">
+		update creative_group
+		<set>
+			<if test="partnerId != null">
+				partner_id = #{partnerId,jdbcType=BIGINT},
+			</if>
+			<if test="groupName != null">
+				group_name = #{groupName,jdbcType=VARCHAR},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.CookieGidDao">
+
+	<sql id="table">
+		cookie_gid
+	</sql>
+
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.CookieGid">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="ck_group_name" property="ckGroupName" jdbcType="VARCHAR" />
+		<result column="ck_type" property="ckType" jdbcType="INTEGER" />
+		<result column="ck_property" property="ckProperty" jdbcType="VARCHAR" />
+		<result column="dim_name" property="dimName" jdbcType="VARCHAR" />
+		<result column="cookie_num" property="cookieNum" jdbcType="INTEGER" />
+		<result column="delete_status" property="deleteStatus" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Column_List">
+		id, ck_group_name, ck_type, ck_property, dim_name, cookie_num,
+		delete_status,create_time,remark
+	</sql>
+
+	<select id="listByMap" resultMap="BaseResultMap" parameterType="map">
+		select
+		<include refid="Base_Column_List" />
+		from 
+		<include refid="table" />
+		where 1=1 
+		<if test="id != null">
+			AND id = #{id,jdbcType=BIGINT}
+		</if>
+		<if test="ckType != null">
+			AND ck_type = #{ckType,jdbcType=INTEGER}
+		</if>
+	</select>
+
+	<select id="listCookieGidsByIds" resultMap="BaseResultMap" parameterType="map" >
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where id in
+		<foreach item="item" index="index" collection="cookieIds" open="("  separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from 
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 配上useGeneratedKeys="true" keyProperty="id" 能在事务未提交的时候，也能获得新生成的主键，主键会自动写入作为参数的CookieGid对象中 -->
+	<insert id="insert" parameterType="com.jtd.web.po.CookieGid" useGeneratedKeys="true" keyProperty="id">
+		insert into 
+		<include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="ckGroupName != null">
+				ck_group_name,
+			</if>
+			<if test="ckType != null">
+				ck_type,
+			</if>
+			<if test="ckProperty != null">
+				ck_property,
+			</if>
+			<if test="dimName != null">
+				dim_name,
+			</if>
+			<if test="cookieNum != null">
+				cookie_num,
+			</if>
+			<if test="deleteStatus != null">
+				delete_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="ckGroupName != null">
+				#{ckGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="ckType != null">
+				#{ckType,jdbcType=INTEGER},
+			</if>
+			<if test="ckProperty != null">
+				#{ckProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="dimName != null">
+				#{dimName,jdbcType=VARCHAR},
+			</if>
+			<if test="cookieNum != null">
+				#{cookieNum,jdbcType=INTEGER},
+			</if>
+			<if test="deleteStatus != null">
+				#{deleteStatus,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.CookieGid">
+		update
+		<include refid="table" />
+		<set>
+			<if test="ckGroupName != null">
+				ck_group_name = #{ckGroupName,jdbcType=VARCHAR},
+			</if>
+			<if test="ckType != null">
+				ck_type = #{ckType,jdbcType=INTEGER},
+			</if>
+			<if test="ckProperty != null">
+				ck_property = #{ckProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="dimName != null">
+				dim_name = #{dimName,jdbcType=VARCHAR},
+			</if>
+			<if test="cookieNum != null">
+				cookie_num = #{cookieNum,jdbcType=INTEGER},
+			</if>
+			<if test="deleteStatus != null">
+				delete_status = #{deleteStatus,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+</mapper>

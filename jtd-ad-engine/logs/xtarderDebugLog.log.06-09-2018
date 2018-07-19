@@ -1,0 +1,56 @@
+2018-06-09 10:49:07 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2779>>活动id>>1080
+2018-06-09 10:49:08 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1080
+2018-06-09 10:49:08 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1080
+2018-06-09 10:49:22 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1082
+2018-06-09 10:49:22 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2779>>活动id>>1082
+2018-06-09 10:49:22 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1082
+2018-06-09 10:49:22 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1082
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1081
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2779>>活动id>>1081
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1081
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1081
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1083
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2779>>活动id>>1083
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1083
+2018-06-09 10:50:16 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1083
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1080
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2703>>活动id>>1080
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1080
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1080
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1082
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2703>>活动id>>1082
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1082
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1082
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1081
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2703>>活动id>>1081
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1081
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1081
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1083
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>2703>>活动id>>1083
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1083
+2018-06-09 14:26:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1083
+2018-06-09 14:28:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1080
+2018-06-09 14:28:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>8194>>活动id>>1080
+2018-06-09 14:28:56 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1080
+2018-06-09 14:28:57 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1080
+2018-06-09 14:29:14 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:40) : 46、matched，用户ip是否为空>>xtrader:地域匹配-CityMatcher>>falseip>>活动id:1080
+2018-06-09 14:44:41 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1082
+2018-06-09 14:44:41 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>8194>>活动id>>1082
+2018-06-09 14:44:41 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1082
+2018-06-09 14:44:41 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1082
+2018-06-09 14:44:42 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:40) : 46、matched，用户ip是否为空>>xtrader:地域匹配-CityMatcher>>falseip>>活动id:1082
+2018-06-09 15:04:30 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1080
+2018-06-09 15:04:30 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>347>>活动id>>1080
+2018-06-09 15:04:31 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1080
+2018-06-09 15:04:36 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1080
+2018-06-09 15:04:59 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:40) : 46、matched，用户ip是否为空>>xtrader:地域匹配-CityMatcher>>falseip>>活动id:1080
+2018-06-09 15:13:48 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1080
+2018-06-09 15:13:48 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>7393>>活动id>>1080
+2018-06-09 15:13:48 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1080
+2018-06-09 15:13:48 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1080
+2018-06-09 15:13:56 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:40) : 46、matched，用户ip是否为空>>xtrader:地域匹配-CityMatcher>>falseip>>活动id:1080
+2018-06-09 15:19:28 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:43) : 43、maxBidPrice>>xtrader:BidFloorMatcher>>140>>活动id>>1080
+2018-06-09 15:19:28 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:44) : 44、session.getBidFloor()>>xtrader:BidFloorMatcher>>3291>>活动id>>1080
+2018-06-09 15:19:28 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:45) : 45、maxBidPrice >= session.getBidFloor()>>xtrader:BidFloorMatcher>>false>>活动id>>1080
+2018-06-09 15:19:28 [INFO ] com.jtd.engine.ad.matcher.BidFloorMatcher.doMatch(BidFloorMatcher.java:46) : maxBidPrice >= session.getBidFloor()>>xtrader:false>>活动id>>1080
+2018-06-09 15:19:30 [INFO ] com.jtd.engine.ad.matcher.CityMatcher.doMatch(CityMatcher.java:40) : 46、matched，用户ip是否为空>>xtrader:地域匹配-CityMatcher>>falseip>>活动id:1080

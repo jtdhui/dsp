@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <beans default-lazy-init="false"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans classpath:/org/springframework/beans/factory/xml/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/aop classpath:/org/springframework/aop/config/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/tx classpath:/org/springframework/transaction/config/spring-tx-3.1.xsd"> -->
+        <beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- <bean id="versionMappedCodecFactory" class="com.asme.message.VersionMappedCodecFactory">
+		<property name="codecs">
+			<list>
+				<bean class="com.asme.message.v1.MessageV1Codec" />
+			</list>
+		</property>
+	</bean> -->
+	
+	<!-- 服务器监听的地址 给过滤器-->
+	<bean id="serviceAddresses" class="java.util.ArrayList">
+		<!-- 通过ArrayList的构造函数，将字符串注入 -->
+		<constructor-arg>
+			<list>
+				<value>${adserver.serviceAddress}</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	<!-- mina的通讯适配类，NioSocketAcceptor 用于接受并处理客户端请求的类 -->
+	<bean id="nioSocketAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor">
+		<!-- 处理链接请求的线程数 -->
+		<constructor-arg value="${adserver.processorCount}" />
+		<!-- 底层调用了serverSocket的setResuseAddress(true)方法。 
+		    1、在网络传输中，当ServerSocket关闭时，如果网络上还有发送到这个ServerSocket上得数据，则ServerSocket不会立刻释放本地端口。 
+			2、许多服务程序都是使用固定端口的，当服务关闭后，有可能他的端口还会被占用一段时间，如果此时在同一台服务器上立刻启动同一个服务程序， 由于端口被占用，使服务程序无法绑定端口，服务启动失败， 
+			并抛出BindException：Exception in thread "main" java.net.BindException: Address 
+			already in use: JVM_Bind 3、为了避免在同一个服务器上，重启服务应用程序时出现 BindException异常，需要调用ServerSocket.setResuseAddress(ture)方法。 
+			4、注意:1.reuseAddress 必须在Socket还没有绑定到一个本地端口之前调用，否则reuseAddress=true无效。 2.两个共用同一个端口的服务应用程序，必须同时设置了 
+			reuseAddress为true时，才能到到一个程序关闭了在没有释放端口时，另一个 重新启动服务共用同一个本地端口。 -->
+		<property name="reuseAddress" value="${adserver.reuseAddress}" />
+	</bean>
+
+	<!-- 过滤每一条请求，获取请求的地址，是否为系统监控的地址和端口，如果是则链接空闲时关闭 -->
+	<bean id="httpSessionIdleFilter" class="com.jtd.engine.adserver.filter.HttpSessionIdleFilter">
+		<property name="interceptAddresses" ref="serviceAddresses" />
+	</bean>
+	
+	<!-- http解码器 -->
+	<bean id="httpDecoder" class="com.jtd.engine.adserver.codec.HttpDecoder">
+		<property name="serviceAddresses" ref="serviceAddresses" />
+	</bean>
+	<!-- http编码器 -->
+	<bean id="httpEncoder" class="com.jtd.engine.adserver.codec.HttpEncoder">
+		<property name="serviceAddresses" ref="serviceAddresses" />
+	</bean>
+	
+	<!-- 动态编解码工厂 -->
+	<bean id="dynamicCodecFactory" class="com.jtd.engine.adserver.codec.DynamicCodecFactory">
+		<property name="codecs">
+			<list>
+				<ref bean="httpDecoder" />
+				<ref bean="httpEncoder" />
+			</list>
+		</property>
+	</bean>
+	<!-- mina编解码过滤器 -->
+	<bean id="protocolCodecFilter" class="org.apache.mina.filter.codec.ProtocolCodecFilter">
+		<constructor-arg ref="dynamicCodecFactory" />
+	</bean>
+	
+	
+	<!-- tanx过滤器 -->
+	<bean id="tanxProtoBufFilter" class="com.jtd.engine.adserver.filter.TanxProtoBufFilter">
+		<property name="interceptAddresses" ref="serviceAddresses" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	<!-- 百度对接过滤器 -->
+	<bean id="besProtoBufFilter" class="com.jtd.engine.adserver.filter.BesProtoBufFilter">
+		<property name="interceptAddresses" ref="serviceAddresses" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	<!-- 万流客对接过滤器 -->
+	<bean id="vamProtoBufFilter" class="com.jtd.engine.adserver.filter.VamProtoBufFilter">
+		<property name="interceptAddresses" ref="serviceAddresses" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	<!-- 零集对接过滤器 -->
+	<bean id="xtraderJsonFilter" class="com.jtd.engine.adserver.filter.XtraderJsonFilter">
+		<property name="interceptAddresses" ref="serviceAddresses" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	<!-- 互众对接过滤器 -->
+	<bean id="hzJsonFilter" class="com.jtd.engine.adserver.filter.HzJsonFilter">
+		<property name="interceptAddresses" ref="serviceAddresses" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	<!-- 系统配置 -->
+	<bean id="scfFilter" class="com.jtd.engine.adserver.filter.SystemConfigFilter">
+		<property name="interceptAddresses" ref="serviceAddresses" />
+		<property name="systemTime" ref="systemTime" />
+	</bean>
+	
+	<!-- 业务处理逻辑 -->
+	<bean id="dynamicIOHandler" class="com.jtd.engine.adserver.handler.DynamicIOHandler">
+		<property name="messageHandlerFactory" ref="versionMappedHandlerFactory" />
+	</bean>
+	<!-- Handler工厂，被注入到动态Handler中 -->
+	<bean id="versionMappedHandlerFactory" class="com.jtd.engine.adserver.message.VersionMappedHandlerFactory">
+		<property name="handlers">
+			<list>
+				<bean class="com.jtd.engine.adserver.message.v1.MessageV1Handler">
+					<property name="adService" ref="adService" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<!-- 每个连接，session配置 -->
+	<bean id="defaultSocketSessionConfig" class="org.apache.mina.transport.socket.DefaultSocketSessionConfig">
+		<!-- 会话级别的的reuseAddress设置(作用于某个具体的连接) -->
+		<property name="reuseAddress" value="${adserver.session.reuseAddress}" />
+		<!-- 1、tcp链接默认是基于Negale算法的，tcpNoDelay=ture，表示tcp链接发送和接受数据不需要延迟。 2、Negale，是在处理小数据包时的一种算法，是将要发送的数据放到缓冲区中，当累计到一定数量的数据后 
+			再将缓冲区中的数据发送出去，这样做的好处是减少的封包过程，提高的网络通信的效率；缺点是数据发送 时降低了实时性。 -->
+		<property name="tcpNoDelay" value="${adserver.session.tcpNoDelay}" />
+		<!-- 读取空闲时间，就是程序多久没有从网络io中读取到数据后，会触发Idle方法。 -->
+		<property name="readerIdleTime" value="${adserver.session.readerIdleTime}" />
+		<!-- 写入空闲时间，与readerIdleTime类似 -->
+		<property name="writerIdleTime" value="${adserver.session.writerIdleTime}" />
+	</bean>
+	
+	<!-- 服务器创建服务适配器 -->
+	<bean id="adServerAcceptor" class="com.jtd.engine.adserver.AdServerAcceptor"
+		init-method="init">
+		<property name="acceptor" ref="nioSocketAcceptor" />
+		<property name="filters">
+			<map>
+				<entry key="HttpSessionIdleFilter" value-ref="httpSessionIdleFilter" />
+				<entry key="ProtocolCodecFilter" value-ref="protocolCodecFilter" />
+				<entry key="BesProtoBufFilter" value-ref="besProtoBufFilter" />
+				<!--<entry key="XTraderJsonFilter" value-ref="xtraderJsonFilter" />-->
+
+			</map>
+		</property>
+		<property name="handler" ref="dynamicIOHandler" />
+		<property name="sessionConfig" ref="defaultSocketSessionConfig" />
+		<property name="addresses">
+			<list>
+				<value>${adserver.serviceAddress}</value>
+			</list>
+		</property>
+	</bean>
+	
+</beans>
+
+
+
+
+

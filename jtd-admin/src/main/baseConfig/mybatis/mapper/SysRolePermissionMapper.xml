@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.SysRolePermissionDao" >
+
+	<!-- 对应数据表名-->
+  <sql id="table"> sys_role_permission </sql>
+  
+  <!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, sys_role_id,sys_permission_id,create_time,remark
+	</sql>
+	
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.SysRolePermission" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="sys_role_id" property="sysRoleId" jdbcType="BIGINT" />
+    <result column="sys_permission_id" property="sysPermissionId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <!-- 根据条件查询 -->
+	<select id="listBy" parameterType="com.jtd.web.po.SysRolePermission" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />  
+		from
+			<include refid="table" />
+		where sys_role_id = #{sysRoleId,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where sys_role_id = #{sysRoleId,jdbcType=BIGINT}
+	</delete>
+	
+	<!-- 批量添加数据 -->
+	<insert id="batchInsert" parameterType="com.jtd.web.po.SysRolePermission">
+		insert into
+		<include refid="table" />
+		(  sys_permission_id,sys_role_id )
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.sysPermissionId,jdbcType=BIGINT},
+			#{item.sysRoleId,jdbcType=BIGINT})
+		</foreach>
+	</insert>
+</mapper>

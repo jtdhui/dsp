@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.jtd.web.dao.impl.FinanceDao" >
+
+    <sql id="table">partner_pre_flow</sql>
+
+    <resultMap id="BaseResultMap" type="com.jtd.web.po.PartnerPreFlow" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="partner_id" property="partnerId" jdbcType="BIGINT" />
+        <result column="partner_name" property="partnerName" jdbcType="VARCHAR" />
+        <result column="pre_amount" property="preAmount" jdbcType="BIGINT" />
+        <result column="amount" property="amount" jdbcType="BIGINT" />
+        <result column="pre_gift" property="preGift" jdbcType="BIGINT" />
+        <result column="status" property="status" jdbcType="INTEGER" />
+        <result column="type" property="type" jdbcType="INTEGER" />
+        <result column="pay_type" property="payType" jdbcType="INTEGER" />
+        <result column="pre_operator_id" property="preOperatorId" jdbcType="BIGINT" />
+        <result column="pre_operator_name" property="preOperatorName" jdbcType="VARCHAR" />
+        <result column="operator_id" property="operatorId" jdbcType="BIGINT" />
+        <result column="operator_name" property="operatorName" jdbcType="VARCHAR" />
+        <result column="acc_flow_id" property="accFlowId" jdbcType="BIGINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="invoice" property="invoice" jdbcType="BIGINT" />
+        <result column="is_invoice" property="isInvoice" jdbcType="INTEGER" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+      id, partner_id, partner_name,pre_amount, amount,pre_gift, status,type,pay_type, pre_operator_id, pre_operator_name, operator_id,
+      operator_name,acc_flow_id, create_time, modify_time,invoice,is_invoice, remark
+    </sql>
+
+    <!--财务报表 分页查询-->
+    <select id="listFinanceBy" parameterType="java.util.Map" resultType="java.util.HashMap" >
+		SELECT
+			id ,
+			user_name ,
+			partner_id ,
+			acc_flow_id ,
+			partner_type ,
+			region ,
+			company_name ,
+			boss_partner_code ,
+			acc_balance ,
+			sales_name ,
+			partner_name ,
+			sum(amount) AS amount ,
+			sum(pre_gift) AS pre_gift ,
+			sum(open_amount) AS open_amount ,
+			sum(service_amount) AS service_amount ,
+			trade_time ,
+			acc_balance
+		FROM
+			(
+				SELECT
+					(
+						SELECT
+							u.user_name
+						FROM
+							sys_user u ,
+							sys_user_role ur ,
+							user_partner up
+						WHERE
+							u.id = ur.sys_user_id
+						AND ur.sys_role_id = 2
+						AND u.id = up.user_id
+						AND up.partner_id = p.id
+					) AS user_name ,
+					f.remark ,
+					f.id ,
+					f.acc_flow_id ,
+					p.id AS partner_id ,
+					f.partner_name AS partner_name ,
+					p.partner_type ,
+					'' AS region ,
+					'' AS company_name ,
+					p.acc_balance ,
+					p.sales_name ,
+					p.boss_partner_code ,
+					f.pre_amount AS amount ,
+					f.pre_gift ,
+					0 AS open_amount ,
+					0 AS service_amount ,
+					af.trade_time
+				FROM
+					partner_pre_flow f ,
+					partner p ,
+					partner_acc_flow af
+				WHERE
+					f.partner_id IN(
+						SELECT
+							id
+						FROM
+							partner
+						WHERE
+							(partner_type = 1 OR partner_type = 0)
+						AND(pid = 1 OR pid = 0)
+						AND boss_partner_code IS NULL
+					)
+				AND p.id = f.partner_id
+				AND af.partner_id = p.id
+				AND af.id = f.acc_flow_id
+				AND f.type = 0
+				AND f.`status` = 1
+				UNION
+					SELECT
+						(
+							SELECT
+								u.user_name
+							FROM
+								sys_user u ,
+								sys_user_role ur ,
+								user_partner up
+							WHERE
+								u.id = ur.sys_user_id
+							AND ur.sys_role_id = 2
+							AND u.id = up.user_id
+							AND up.partner_id = p.id
+						) AS user_name ,
+						f.remark ,
+						f.id ,
+						f.acc_flow_id ,
+						p.id AS partner_id ,
+						f.partner_name AS partner_name ,
+						p.partner_type ,
+						cr.`name` AS region ,
+						cc.company_name ,
+						p.acc_balance ,
+						p.sales_name ,
+						p.boss_partner_code ,
+						df.deliver_amount AS amount ,
+						0 AS pre_gift ,
+						df.open_amount ,
+						df.service_amount ,
+						af.trade_time
+					FROM
+						partner_pre_flow f ,
+						partner p ,
+						dsp_sales_product_flow df ,
+						partner_acc_flow af ,
+						ce_company cc ,
+						ce_region cr
+					WHERE
+						f.partner_id IN(
+							SELECT
+								id
+							FROM
+								partner
+							WHERE
+								(partner_type = 1 OR partner_type = 0)
+							AND(pid = 1 OR pid = 0)
+							AND boss_partner_code IS NOT NULL
+						)
+					AND p.id = f.partner_id
+					AND f.acc_flow_id = af.id
+					AND df.partner_acc_flow_id = af.id
+					AND af.partner_id = p.id
+					AND f.type = 0
+					AND f.`status` = 1
+					AND df.region_id = cr.id
+					AND df.company_id = cc.id
+			) t
+        where 1 = 1
+        <if test="partnerName != null">
+            and t.partner_name LIKE CONCAT('%',#{partnerName},'%')
+        </if>
+        <if test="partner_type != null and partner_type != 2">
+            and t.partner_type = #{partner_type} and t.boss_partner_code is null
+        </if>
+        <if test="partner_type != null and partner_type == 2">
+            and t.partner_type = 1 and t.boss_partner_code is not null
+        </if>
+        <if test="startDate != null">
+            and trade_time &gt;= #{startDate,jdbcType=DATE}
+        </if>
+        <if test="endDate != null">
+            and trade_time  &lt;= #{endDate,jdbcType=DATE}
+        </if>
+		GROUP BY
+			partner_id
+		ORDER BY
+			id DESC
+    </select>
+
+	<!-- 充值明细 -->
+    <select id="listFinaceDetailByMap" parameterType="java.util.Map" resultType="java.util.HashMap">
+		select * from 
+			(
+			SELECT f.id,f.acc_flow_id,p.id as partner_id,p.partner_name as partner_name,p.partner_type,p.boss_partner_code,f.pre_amount as amount,f.pre_gift,0 as open_amount,0 as service_amount,af.trade_time
+			from partner_pre_flow f,partner p,partner_acc_flow af 
+			where 
+			f.partner_id in(
+				select id from partner
+				where partner_type=1 and (pid=1 or pid=0) and boss_partner_code is NULL
+				)
+			and p.id = f.partner_id
+			and af.partner_id = p.id
+			and af.id= f.acc_flow_id
+			and  f.type = 0 and f.`status`=1
+			UNION
+			SELECT f.id,f.acc_flow_id,p.id as partner_id,p.partner_name as partner_name,p.partner_type,p.boss_partner_code,df.deliver_amount as amount, 0 as pre_gift,df.open_amount,df.service_amount,af.trade_time 
+			from partner_pre_flow f,partner p , dsp_sales_product_flow df,partner_acc_flow af 
+			where 
+			f.partner_id in(
+				select id from partner
+				where partner_type=1 and (pid=1 or pid=0) and boss_partner_code is not NULL
+				
+				)
+			and p.id = f.partner_id
+			and f.acc_flow_id = af.id
+			and df.partner_acc_flow_id = af.id
+			and af.partner_id = p.id
+			and  f.type = 0 and f.`status`=1
+			) t
+			where 1 = 1
+				<if test="partnerId != null">
+					and t.partner_Id = #{partnerId}
+				</if>
+				<if test=" partnerName != null">
+					AND t.partner_name LIKE CONCAT('%',#{partnerName},'%')
+				</if>
+				<if test="startDate != null">
+					and t.trade_time &gt;= #{startDate}
+				</if>
+				<if test="endDate != null">
+					and t.trade_time &lt;= #{endDate}
+				</if>
+			order by id DESC
+	</select>
+	
+	<!-- 代理充值明细 -->
+	<select id="proxyFinaceDetailList" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT f.id,f.partner_name,f.acc_flow_id,p.id as partner_id,p.partner_type,
+			p.boss_partner_code,f.pre_amount as amount,f.pre_gift,0 as open_amount,0 as service_amount,af.trade_time,f.remark,
+			f.type,af.acc_balance_result
+		 
+			from partner_pre_flow f,partner p,partner_acc_flow af 
+			where 
+			f.partner_id in(
+				select id from partner
+				where (partner_type=0 or partner_type=1) and (pid=1 or pid=0) and boss_partner_code is NULL
+				)
+			and p.id = f.partner_id
+			and af.partner_id = p.id
+			and af.id= f.acc_flow_id
+			and f.`status`=1
+			<if test="partnerId != null">
+				and f.partner_Id = #{partnerId}
+			</if>
+			<if test="startDate != null">
+				and af.trade_time &gt;= #{startDate }
+			</if>
+			<if test="endDate != null">
+				and af.trade_time &lt;= #{endDate }
+			</if>
+			order by id DESC
+		
+	</select>
+
+	<!-- 代理商为下级广告主充值及退款 -->
+	<select id="clawBackAndAmountBack" parameterType="java.util.Map" resultType="java.util.HashMap">
+		SELECT
+			paf.partner_id,
+			paf.from_partner_id,
+			paf.trade_type,
+			paf.amount,
+			paf.acc_balance_result,
+			paf.create_time,
+			p.partner_name,
+			p.partner_type,
+			paf.trade_time,
+			paf.trade_id
+		FROM
+			partner_acc_flow paf,
+			partner p
+		WHERE
+			p.id = paf.partner_id
+		and (p.partner_type = 0 or p.partner_type = 1)
+		<if test="partnerId != null">
+			AND paf.partner_id = #{partnerId}
+		</if>
+		<if test="fromPartnerId != null">
+			and paf.from_partner_id = #{fromPartnerId} 
+		</if>
+		<if test="startDate != null">
+			and paf.create_time &gt;= #{startDate }
+		</if>
+		<if test="endDate != null">
+			and paf.create_time &lt;= #{endDate }
+		</if>
+	</select>
+	
+	<!-- 根据tradeId获取上级代理当前余额 -->
+	<select id="getAccBalanceResult" parameterType="String" resultType="String">
+		select acc_balance_result from partner_acc_flow
+		where from_partner_id = partner_id
+		and trade_id = #{tradeId}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

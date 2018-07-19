@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jtd.web.dao.impl.AdAuditStatusDao">
+
+	<!-- 对应数据表名 -->
+	<sql id="table"> ad_audit_status </sql>
+	<!-- 返回字段集合映射 -->
+	<resultMap id="BaseResultMap" type="com.jtd.web.po.AdAuditStatus">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="ad_id" property="adId" jdbcType="BIGINT" />
+		<result column="channel_id" property="channelId" jdbcType="BIGINT" />
+		<result column="status" property="status" jdbcType="INTEGER" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+		<result column="audit_info" property="auditInfo" jdbcType="VARCHAR" />
+		<result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="audit_mq_success" property="auditMqSuccess" jdbcType="INTEGER" />
+		<result column="internal_audit_mq_success" property="internalAuditMqSuccess" jdbcType="INTEGER" />
+	</resultMap>
+	<!-- 字段列表 -->
+	<sql id="Base_Column_List">
+		id, ad_id, channel_id, status, audit_info , audit_time , create_time , remark , audit_mq_success , internal_audit_mq_success
+	</sql>
+
+	<select id="listByAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+	</select>
+
+	<select id="listBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.AdAuditStatus">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		WHERE 1=1
+		<if test="adId != null">
+			and ad_id = #{adId,jdbcType=BIGINT}
+		</if>
+		<if test="channelId != null">
+			and channel_id = #{channelId,jdbcType=BIGINT}
+		</if>
+	</select>
+
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<select id="selectBy" resultMap="BaseResultMap" parameterType="com.jtd.web.po.AdAuditStatus">
+		select
+		<include refid="Base_Column_List" />
+		from
+		<include refid="table" />
+		where 1=1
+			<if test="id != null">
+				and id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="adId != null">
+				and ad_id = #{adId,jdbcType=BIGINT}
+			</if>
+			<if test="channelId != null">
+				and channel_id = #{channelId,jdbcType=BIGINT}
+			</if>
+	</select>
+
+	<select id="selectByAdId" resultType="java.util.HashMap"  parameterType="java.util.Map">
+	SELECT 
+	    ad.id id,ass.status status, ass.audit_info audit_info, ass.channel_id,
+	    ch.channel_name channel_name, ch.catgserial catgserial,
+	    cam.id campaign_id, cam.campaign_name campaign_name,
+	    cc.catgid catgid
+	FROM ad ad
+		join campaign cam on ad.campaign_id = cam.id
+		join campaign_category cc on cc.campaign_id = cam.id
+		join channel ch on cc.catgserial = ch.catgserial
+	    left join ad_audit_status ass on ch.id = ass.channel_id and ass.ad_id = ad.id
+	where ad.id = #{adId,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from
+		<include refid="table" />
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<delete id="deleteByAdId" parameterType="java.util.Map">
+		delete from
+		<include refid="table" />
+		where ad_id = #{adId,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.jtd.web.po.AdAuditStatus">
+		insert into
+		<include refid="table" />
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="adId != null">
+				ad_id,
+			</if>
+			<if test="channelId != null">
+				channel_id,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="auditInfo != null">
+				audit_info,
+			</if>
+			<if test="auditTime != null">
+				audit_time,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="auditMqSuccess != null">
+				audit_mq_success,
+			</if>
+			<if test="internalAuditMqSuccess != null">
+				internal_audit_mq_success,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="adId != null">
+				#{adId,jdbcType=BIGINT},
+			</if>
+			<if test="channelId != null">
+				#{channelId,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="auditInfo != null">
+				#{auditInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="auditTime != null">
+				#{auditTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="auditMqSuccess != null">
+				#{auditMqSuccess,jdbcType=INTEGER},
+			</if>
+			<if test="internalAuditMqSuccess != null">
+				#{internalAuditMqSuccess,jdbcType=INTEGER},
+			</if>
+			
+		</trim>
+	</insert>
+
+	<!-- 批量添加数据 -->
+	<insert id="batchInsert" parameterType="com.jtd.web.po.AdAuditStatus">
+		insert into
+		<include refid="table" />
+		(
+		<if test="channelId != null">
+			channel_id,
+		</if>
+		<if test="status != null">
+			status,
+		</if>
+		<if test="auditInfo != null">
+			audit_info,
+		</if>
+		<if test="auditTime != null">
+			audit_time,
+		</if>
+		<if test="createTime != null">
+			create_time,
+		</if>
+		<if test="remark != null">
+			remark,
+		</if>
+		<if test="auditMqSuccess != null">
+			audit_mq_success,
+		</if>
+		<if test="internalAuditMqSuccess != null">
+			internal_audit_mq_success,
+		</if>
+		ad_id
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			<if test="channelId != null">
+				#{item.channelId,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				#{item.status,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="auditInfo != null">
+				#{item.auditInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="auditTime != null">
+				#{item.auditTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				#{item.createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{item.remark,jdbcType=VARCHAR},
+			</if>
+			<if test="auditMqSuccess != null">
+				#{item.auditMqSuccess,jdbcType=INTEGER},
+			</if>
+			<if test="internalAuditMqSuccess != null">
+				#{item.internalAuditMqSuccess,jdbcType=INTEGER},
+			</if>
+			#{item.adId,jdbcType=BIGINT}
+			)
+		</foreach>
+	</insert>
+
+	<update id="update" parameterType="com.jtd.web.po.AdAuditStatus">
+		update
+		<include refid="table" />
+		<set>
+			<if test="adId != null">
+				ad_id = #{adId,jdbcType=BIGINT},
+			</if>
+			<if test="channelId != null">
+				channel_id = #{channelId,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler},
+			</if>
+			<if test="auditTime != null">
+				audit_time = #{auditTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="auditMqSuccess != null">
+				audit_mq_success = #{auditMqSuccess,jdbcType=INTEGER},
+			</if>
+			<if test="internalAuditMqSuccess != null">
+				internal_audit_mq_success = #{internalAuditMqSuccess,jdbcType=INTEGER},
+			</if>
+            audit_info = #{auditInfo,jdbcType=VARCHAR}
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	
+	<update id="updateStatusByMap" parameterType="java.util.HashMap" >
+	    update 
+	    	<include refid="table" />
+	    <set>
+	    	<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="auditInfo != null">
+				audit_info = #{auditInfo,jdbcType=VARCHAR},
+			</if>
+			<if test="auditTime != null">
+				audit_time = #{auditTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="auditMqSuccess != null">
+				audit_mq_success = #{auditMqSuccess,jdbcType=INTEGER},
+			</if>
+			<if test="internalAuditMqSuccess != null">
+				internal_audit_mq_success = #{internalAuditMqSuccess,jdbcType=INTEGER},
+			</if>
+	    </set>
+	    where 
+	    	ad_id = #{adId,jdbcType=BIGINT}
+	    	AND channel_id = #{channelId,jdbcType=BIGINT}
+ 	 </update>
+
+</mapper>

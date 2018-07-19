@@ -1,0 +1,411 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+        <artifactId>jtd-ad-parent</artifactId>
+        <groupId>com.jtd</groupId>
+        <version>1.0</version>
+        <relativePath>../jtd-ad-parent/pom.xml</relativePath>
+    </parent>
+	
+	<!-- 系统基本配置 -->
+	<artifactId>jtd-admin</artifactId>
+	<packaging>${project.packaging}</packaging>
+	<version>${jtd-admin.version}</version>
+	<name>jtd-admin Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<!-- 系统默认配置，例如classes目录，默认加载的配置文件 -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.outputDirectory>src/main/webapp/WEB-INF/classes</project.build.outputDirectory>
+		<package.environment>src/main/devConfig</package.environment>
+		<project.packaging>war</project.packaging>
+	</properties>
+
+	<!-- 设置默认加载的配置文件 -->
+	<profiles>
+		<profile>
+			<id>product</id>
+			<properties>
+				<package.environment>src/main/productConfig</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<package.environment>src/main/testConfig</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<package.environment>src/main/devConfig</package.environment>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
+	<!-- 打包时内容 -->
+	<build>
+		<finalName>jtdadmin</finalName>
+		<!-- 构建时使用的资源，resources和baseConfig为必须加载的资源，${package.environment}这个参数则根据打包时 
+			输入的参数来决定最终使用哪个目录下的配置文件 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/baseConfig</directory>
+			</resource>
+			<resource>
+				<directory>${package.environment}</directory>
+			</resource>
+		</resources>
+
+		<!-- 插件管理 -->
+		<pluginManagement>
+			<plugins>
+<!-- 				<plugin> -->
+<!-- 					<artifactId>maven-jar-plugin</artifactId> -->
+<!-- 					<executions> -->
+<!-- 						<execution> -->
+<!-- 							<id>server</id> -->
+<!-- 							<goals> -->
+<!-- 								<goal>jar</goal> -->
+<!-- 							</goals> -->
+<!-- 							<phase>package</phase> -->
+<!-- 							<configuration> -->
+<!-- 								<classifier>server</classifier> -->
+<!-- 								<includes> -->
+<!-- 									<include>**/com/dspx/web/constants/**</include> -->
+<!-- 								</includes> -->
+<!-- 							</configuration> -->
+<!-- 						</execution> -->
+<!-- 						<execution> -->
+<!-- 							<id>user</id> -->
+<!-- 							<goals> -->
+<!-- 								<goal>jar</goal> -->
+<!-- 							</goals> -->
+<!-- 							<phase>package</phase> -->
+<!-- 							<configuration> -->
+<!-- 								<classifier>user</classifier> -->
+<!-- 								<includes> -->
+<!-- 									<include>**/com/dspx/utils/**</include> -->
+<!-- 									<include>**/com/dspx/web/constants/**</include> -->
+<!-- 									<include>**/com/dspx/web/jms/**</include> -->
+<!-- 									<include>**/com/dspx/web/exception/**</include> -->
+<!-- 									<include>**/com/dspx/web/po/**</include> -->
+<!-- 									<include>**/com/dspx/web/vo/**</include> -->
+<!-- 									<include>**/com/dspx/web/model/**</include> -->
+<!-- 									<include>**/com/dspx/web/dao/**</include> -->
+<!-- 									<include>**/com/dspx/web/service/**</include> -->
+<!-- 									<include>**/com/dspx/web/controller/DicController**</include> -->
+<!-- 									<include>**/mybatis/mapper/**</include> -->
+<!-- 								</includes> -->
+<!-- 							</configuration> -->
+<!-- 						</execution> -->
+<!-- 					</executions> -->
+<!-- 				</plugin> -->
+				<!-- 指定jdk编译版本为1.7 -->
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+						<encoding>UTF-8</encoding>
+						<compilerArguments>
+							<verbose />
+							<bootclasspath>${java.home}/lib/rt.jar</bootclasspath>
+						</compilerArguments>
+					</configuration>
+				</plugin>
+				<!-- 指定web目录 -->
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.1</version>
+					<configuration>
+						<webappDirectory>src/main/webapp</webappDirectory>
+						<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+	</build>
+
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		
+		<!-- commons-collections -->
+	  <dependency>
+	   <groupId>commons-collections</groupId>
+	      <artifactId>commons-collections</artifactId>
+	      <version>3.2.1</version>
+	  </dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>cglib</groupId> <artifactId>cglib-nodep</artifactId> 
+			<version>3.1</version> </dependency> -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<!-- 添加了log4j相关包和activemq相关包 -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-1.2-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-web</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<!-- 用于代理slf4j的日志（hiberante） -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		<dependency>
+			<!-- 用于代理commons-logging的日志（spring） -->
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.7.0</version>
+		</dependency>
+		<!-- end -->
+
+		<!-- spring 文件上传 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+
+		<!-- 数据库连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.15</version>
+		</dependency>
+
+		<!-- shiro相关依赖包 -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-quartz</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<!-- eccache -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.5.0</version>
+		</dependency>
+		
+<!-- 
+		<dependency>
+		  <groupId>swfheader</groupId>
+		  <artifactId>swfheader</artifactId>
+		  <version>0.0.1</version>
+		</dependency> 
+
+		
+		<dependency> 
+			<groupId>xuggle</groupId>
+			<artifactId>xuggle</artifactId>
+			<version>5.4</version>
+		</dependency>
+ -->
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+		<!-- jms -->
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>javax.jms-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
+        <!-- commons-httpclient -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<!-- httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.2.5</version>
+		</dependency>
+
+
+		<!-- httpclient -->
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.2.4</version>
+		</dependency>
+		
+		<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-core-asl</artifactId>
+    <version>1.3.2</version>
+</dependency>
+
+	<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.3.2</version>
+</dependency>
+
+
+		<!-- 系统内公共包  -->
+		<!-- 
+		<dependency>
+			<groupId>${jtd.groupId}</groupId> 
+			<artifactId>${jtd-common.name}</artifactId>
+			<version>${jtd-common.version}</version>
+		</dependency>
+ 		-->
+		<dependency>
+			<groupId>com.jtd</groupId>
+    		<artifactId>${jtd-ad-commons.name}</artifactId>
+   	 		<version>${jtd-ad-commons.version}</version>
+    	</dependency>
+    	
+    	
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+</project>

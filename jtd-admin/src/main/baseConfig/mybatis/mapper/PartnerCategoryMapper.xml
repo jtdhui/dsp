@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jtd.web.dao.impl.PartnerCategoryDao">
+
+  <resultMap id="BaseResultMap" type="com.jtd.web.po.PartnerCategory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="partner_id" jdbcType="BIGINT" property="partnerId" />
+    <result column="catgserial" jdbcType="VARCHAR" property="catgserial" />
+    <result column="catgid" jdbcType="VARCHAR" property="catgid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, partner_id, catgserial, catgid, create_time
+  </sql>
+  
+  <select id="selectByPartnerId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from partner_category
+    where partner_id = #{partnerId,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPartnerId" parameterType="java.lang.Long">
+    delete from partner_category
+    where partner_id = #{partnerId,jdbcType=BIGINT}
+  </delete>
+  
+  <insert id="insert" parameterType="com.jtd.web.po.PartnerCategory">
+    insert into partner_category (id, partner_id, catgserial, 
+      catgid, create_time)
+    values (#{id,jdbcType=BIGINT}, #{partnerId,jdbcType=BIGINT}, #{catgserial,jdbcType=VARCHAR}, 
+      #{catgid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+
+</mapper>

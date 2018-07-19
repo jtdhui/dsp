@@ -1,0 +1,68 @@
+﻿/*paging*/
+p {
+  margin: 0;
+}
+.paging {
+  padding: 20px 0;
+  line-height: 22px;
+}
+.paging span {
+  display: inline-block;
+  margin-right: 35px;
+  font-size: 16px;
+}
+.paging .form-control {
+  height: 18px;
+  line-height: 18px;
+  border: 1px solid #000;
+  margin: 0 10px;
+}
+.paging_lt {
+  float: left;
+}
+.paging_rt {
+  float: right;
+}
+.paging_rt span {
+  float: left;
+}
+.paging_rt span a {
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 5px;
+}
+.select-num {
+  width: 77px;
+  height: 26px;
+  line-height: 26px;
+  margin-left: 15px;
+}
+.paging span .input-num {
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  margin: 0 10px;
+}
+.jump_paging {
+  float: right;
+  display: inline-block;
+  width: 54px;
+  height: 26px;
+  line-height: 26px;
+  border-radius: 2px;
+  background-color: #999;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  margin-right: 0;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.yen {
+  font-family: '\5FAE\8F6F\96C5\9ED1', "微软雅黑", arial;
+}
